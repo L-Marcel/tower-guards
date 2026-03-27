@@ -1,0 +1,14 @@
+[gd_scene format=3 uid="uid://bjugbhrcmkthd"]
+
+[ext_resource type="Script" uid="uid://nkawfb64s586" path="res://scenes/spawn/spawn.gd" id="1_pvgwh"]
+
+[node name="Spawn" type="Node2D" unique_id=1376810633]
+script = ExtResource("1_pvgwh")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=559616048]
+monitoring = false
+monitorable = false
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1587418319]
+modulate = Color(0, 1, 0, 1)
+polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)

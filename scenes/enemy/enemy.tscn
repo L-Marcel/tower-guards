@@ -40,7 +40,7 @@ _data = {
 &"walking": SubResource("Animation_tjssy")
 }
 
-[node name="Node2D" type="CharacterBody2D" unique_id=884475862]
+[node name="Enemy" type="CharacterBody2D" unique_id=884475862]
 y_sort_enabled = true
 collision_mask = 0
 motion_mode = 1
@@ -54,14 +54,6 @@ offset = Vector2(0, -18)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355995212]
 position = Vector2(0, -17)
 shape = ExtResource("3_40wdo")
-
-[node name="NavigationAgent2D" type="NavigationAgent2D" parent="." unique_id=939555762]
-path_desired_distance = 10.0
-path_postprocessing = 1
-debug_enabled = true
-debug_use_custom = true
-debug_path_custom_color = Color(1, 0, 0, 1)
-debug_path_custom_line_width = 2.0
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=743093902]
 root_node = NodePath("../Sprite2D")

@@ -1,0 +1,119 @@
+[gd_scene format=4 uid="uid://d15x7q0rgror1"]
+
+[ext_resource type="TileSet" uid="uid://bxq32ef0wobay" path="res://tiles.tres" id="1_m802k"]
+[ext_resource type="Script" uid="uid://ds7jch6pp6pvs" path="res://resources/scripts/paths.gd" id="2_50wog"]
+[ext_resource type="Script" uid="uid://c5x0pba8wqd0h" path="res://resources/scripts/camera_controller.gd" id="2_qdh5e"]
+[ext_resource type="PackedScene" uid="uid://bjugbhrcmkthd" path="res://scenes/spawn/spawn.tscn" id="3_1ey3t"]
+[ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_qdh5e"]
+[ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_uvc87"]
+[ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_qdh5e"]
+
+[sub_resource type="Curve2D" id="Curve2D_i2aat"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -480, -350, 0, 0, 0, 0, 360, 140, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 1080, 280, 0, 0, 0, 0, 840, 420, 0, 0, 0, 0, 1200, 630)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_2djvx"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -480, -350, 0, 0, 0, 0, 1200, 630)
+}
+point_count = 2
+
+[sub_resource type="Curve2D" id="Curve2D_uvc87"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, -480, -350, 0, 0, 0, 0, 360, 140, 0, 0, 0, 0, 120, 280, 0, 0, 0, 0, 600, 560, 0, 0, 0, 0, 840, 420, 0, 0, 0, 0, 1200, 630)
+}
+point_count = 6
+
+[sub_resource type="Curve2D" id="Curve2D_50wog"]
+_data = {
+"points": PackedVector2Array(0, 0, 0, 0, 840, 1330, 0, 0, 0, 0, 1560, 910, 0, 0, 0, 0, 1920, 1120)
+}
+point_count = 3
+
+[sub_resource type="Resource" id="Resource_50wog"]
+script = ExtResource("3_qdh5e")
+
+[node name="Level 01" type="Node2D" unique_id=1719438142]
+
+[node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1116027231]
+y_sort_enabled = true
+position = Vector2(720, 490)
+tile_map_data = PackedByteArray("AAAAAAIAAAACAAEAAAAAAAMAAAAAAAIAAAAAAAQAAAABAAEAAAABAAAAAAACAAEAAAABAAEAAAADAAEAAAABAAIAAAABAAEAAAABAAMAAAABAAAAAAABAAQAAAAAAAAAAAABAAUAAAABAAEAAAACAP//AAAIAAEAAAACAAAAAAABAAEAAAACAAEAAAABAAAAAAACAAIAAAAAAAAAAAACAAMAAAABAAEAAAADAAEAAAABAAEAAAABAAYAAAABAAEAAAACAAQAAAABAAEAAAACAAUAAAABAAAAAAACAAYAAAACAAEAAAACAAcAAAAEAAEAAAADAAIAAAABAAEAAAADAAMAAAABAAAAAAADAAQAAAACAAEAAAADAAUAAAADAAEAAAAEAAMAAAABAAIAAAADAAYAAAABAAEAAAAAAAAAAAABAAEAAAAAAP//AAABAAEAAAD///7/AAABAAEAAAAEAAcAAAABAAEAAAAEAAUAAAABAAAAAAAEAAYAAAABAAAAAAAFAAUAAAABAAAAAAAEAAQAAAAAAAAAAAADAAgAAAABAAAAAAADAAcAAAABAAAAAAACAAgAAAAAAAAAAAADAAkAAAABAAAAAAAAAAEAAAABAAAAAAD//wIAAAABAAAAAAD//wEAAAABAAAAAAD//wAAAAAAAAAAAAABAP3/AAABAAAAAAAAAP7/AAAAAAAAAAABAP7/AAABAAAAAAABAP//AAABAAAAAAABAPz/AAABAAAAAAACAP3/AAABAAAAAAACAP7/AAABAAAAAAADAP//AAABAAAAAAADAAAAAAABAAAAAAAEAAEAAAABAAAAAAAEAAIAAAABAAAAAAAFAAMAAAABAAAAAAAFAAQAAAABAAAAAAD+/wIAAAABAAAAAAD//wMAAAABAAAAAAD//wQAAAABAAAAAAAAAAUAAAABAAAAAAAAAAYAAAABAAAAAAABAAcAAAABAAAAAAABAAgAAAACAAEAAAACAAkAAAABAAAAAAACAAoAAAABAAAAAAD9//7/AAABAAAAAAD9////AAABAAAAAAD9/wAAAAABAAAAAAD+//7/AAABAAAAAAD+////AAABAAAAAAD+/wAAAAABAAAAAAD8//3/AAABAAAAAAD8//7/AAABAAAAAAD9//3/AAABAAAAAAD+//3/AAABAAAAAAD+/wEAAAABAAAAAAD/////AAABAAAAAAAAAPz/AAABAAAAAAAAAP3/AAABAAAAAAABAPv/AAABAAAAAAD///r/AAABAAAAAAD///v/AAABAAAAAAD///z/AAABAAAAAAD///3/AAABAAEAAAAAAPr/AAABAAAAAAAAAPv/AAABAAAAAAD+//z/AAABAAEAAAD+//v/AAABAAEAAAD9//z/AAABAAAAAAD8//z/AAABAAAAAAD9//v/AAABAAAAAAD+//n/AAABAAAAAAD+//r/AAABAAAAAAD+//j/AAABAAAAAAD///j/AAABAAAAAAD///n/AAABAAAAAAD///f/AAABAAAAAAAAAPn/AAABAAAAAAD9//r/AAABAAEAAAAAAPj/AAABAAAAAAABAPf/AAABAAAAAAABAPj/AAABAAAAAAACAPn/AAABAAAAAAACAPr/AAABAAAAAAADAPv/AAABAAAAAAACAPz/AAABAAAAAAADAPz/AAABAAAAAAAEAP3/AAABAAAAAAAEAP7/AAABAAAAAAAFAP//AAABAAAAAAAEAAAAAAABAAAAAAAFAAEAAAABAAAAAAAFAAAAAAABAAAAAAADAP7/AAABAAAAAAADAP3/AAABAAAAAAACAPv/AAABAAAAAAABAPr/AAABAAAAAAABAPn/AAABAAAAAAAAAPf/AAABAAAAAAAEAP//AAABAAAAAAABAAkAAAACAAEAAAAAAAgAAAAAAAAAAAAAAAcAAAABAAAAAAD//wYAAAABAAAAAAD//wUAAAABAAAAAAD+/wQAAAABAAAAAAD+/wMAAAABAAAAAAD9/wIAAAABAAAAAAD9/wEAAAABAAAAAAD8/wAAAAABAAAAAAD8////AAABAAAAAAD8/wEAAAABAAAAAAD8/wIAAAABAAAAAAD9/wMAAAABAAAAAAD9/wQAAAABAAAAAAD9/wUAAAABAAAAAAD9/wYAAAABAAAAAAD+/wcAAAABAAAAAAD+/wgAAAABAAAAAAD//wcAAAABAAAAAAD//wgAAAABAAAAAAD+/wYAAAABAAAAAAD+/wUAAAABAAAAAAAAAAkAAAABAAAAAAD//woAAAABAAAAAAAAAAoAAAACAAEAAAAAAAsAAAACAAEAAAD//wkAAAABAAAAAAD9/wcAAAABAAAAAAD8/wYAAAABAAAAAAD8/wUAAAABAAAAAAD8/wQAAAABAAAAAAD8/wMAAAABAAAAAAD9/wgAAAABAAAAAAD+/wkAAAABAAAAAAD+/woAAAABAAAAAAD//wsAAAABAAAAAAABAAsAAAABAAAAAAABAAoAAAABAAAAAAACAAsAAAABAAAAAAAFAAIAAAABAAAAAAAFAP7/AAABAAAAAAAFAP3/AAABAAAAAAAEAPz/AAABAAAAAAAEAPv/AAABAAAAAAADAPr/AAABAAAAAAADAPn/AAABAAAAAAACAPj/AAABAAAAAAACAPf/AAABAAAAAAADAPf/AAABAAAAAAADAPj/AAABAAAAAAAEAPn/AAABAAAAAAAEAPr/AAABAAAAAAAFAPv/AAABAAAAAAAFAPz/AAABAAAAAAAGAAMAAAABAAAAAAAGAAEAAAABAAAAAAAGAP//AAABAAAAAAAGAP3/AAABAAAAAAAAAPb/AAABAAAAAAABAPb/AAABAAAAAAD7/wIAAAABAAAAAAD7/wAAAAABAAAAAAAGAAAAAAABAAAAAAAAAAwAAAABAAAAAAA=")
+tile_set = ExtResource("1_m802k")
+rendering_quadrant_size = 240
+
+[node name="EntitiesTileMapLayer" type="TileMapLayer" parent="." unique_id=717506250]
+y_sort_enabled = true
+position = Vector2(720, 490)
+tile_map_data = PackedByteArray("AAAEAAYABQACAAAAAAADAAgABQABAAAAAAAEAAgAAQAAAAAAAQD8//7/AAAAAAMAAAD8//3/AAABAAMAAAD8//z/AAAAAAMAAAD9//v/AAABAAMAAAD9//3/AAABAAMAAAD+//j/AAABAAMAAAD///f/AAABAAMAAAD///j/AAABAAMAAAD///n/AAAIAAIAAAABAP//AAAAAAMAAAAAAAEAAAAAAAMAAAAEAAEAAAAAAAMAAAADAAAAAAAAAAMAAAAAAAUAAAAAAAMAAAAAAAYAAAAAAAMAAAD9//z/AAACAAIAAAACAAEAAAACAAIAAAADAAMAAAAEAAIAAAACAAUAAAAFAAIAAAAAAPn/AAAJAAIAAAD9////AAAEAAIAAAABAAMAAAAEAAIAAAD///z/AAAGAAIAAAD+////AAADAAAAAAD//wMAAAAEAAAAAAABAPv/AAAFAAAAAAAFAAQAAAAGAAAAAAACAPn/AAAIAAIAAAD+/wgAAAAIAAIAAAAFAP3/AAAFAAIAAAAFAAAAAAAFAAAAAAD9/wQAAAAFAAAAAAAEAPv/AAAEAAAAAAAAAAkAAAAEAAAAAAD8/wQAAAAAAAMAAAD8/wUAAAAAAAMAAAD8/wMAAAAAAAMAAAAGAP3/AAAAAAMAAAAGAP//AAAAAAMAAAAGAAAAAAAAAAMAAAADAPf/AAAAAAMAAAACAPf/AAAAAAMAAAACAPj/AAAAAAMAAAABAPb/AAABAAMAAAAAAPb/AAABAAMAAAABAPf/AAABAAMAAAAAAPf/AAABAAMAAAD8/wAAAAABAAMAAAD8/wIAAAABAAMAAAD8/wEAAAABAAMAAAD8////AAABAAMAAAD7/wAAAAABAAMAAAD7/wIAAAABAAMAAAAAAAwAAAABAAMAAAABAAsAAAABAAMAAAD//woAAAABAAMAAAD//wsAAAABAAMAAAACAAsAAAABAAMAAAABAAoAAAABAAMAAAAGAAMAAAABAAMAAAAGAAEAAAABAAMAAAAFAP7/AAABAAMAAAA=")
+tile_set = ExtResource("1_m802k")
+
+[node name="Paths" type="Node2D" parent="." unique_id=194333123]
+script = ExtResource("2_50wog")
+
+[node name="Path2D" type="Path2D" parent="Paths" unique_id=197246674]
+modulate = Color(0.5467783, 1, 0.19999999, 1)
+position = Vector2(720, 490)
+curve = SubResource("Curve2D_i2aat")
+
+[node name="Path2D2" type="Path2D" parent="Paths" unique_id=934393318]
+modulate = Color(0.19999999, 1, 0.27903062, 1)
+position = Vector2(720, 490)
+curve = SubResource("Curve2D_2djvx")
+
+[node name="Path2D3" type="Path2D" parent="Paths" unique_id=184449601]
+modulate = Color(1, 0.9270428, 0.19999999, 1)
+position = Vector2(720, 490)
+curve = SubResource("Curve2D_uvc87")
+
+[node name="Path2D4" type="Path2D" parent="Paths" unique_id=940989623]
+modulate = Color(0.471368, 0.19999999, 1, 1)
+curve = SubResource("Curve2D_50wog")
+
+[node name="Spawns" type="Node2D" parent="." unique_id=2077210629]
+
+[node name="Spawn" parent="Spawns" unique_id=1376810633 node_paths=PackedStringArray("paths") instance=ExtResource("3_1ey3t")]
+position = Vector2(240, 140)
+paths = [NodePath("../../Paths/Path2D"), NodePath("../../Paths/Path2D2"), NodePath("../../Paths/Path2D3")]
+
+[node name="Spawn2" parent="Spawns" unique_id=1161365668 node_paths=PackedStringArray("paths") instance=ExtResource("3_1ey3t")]
+position = Vector2(840, 1330)
+paths = [NodePath("../../Paths/Path2D4")]
+
+[node name="Cameras" type="Node2D" parent="." unique_id=1151507344]
+
+[node name="CameraController" type="Node2D" parent="Cameras" unique_id=615749594]
+position = Vector2(600, 280)
+script = ExtResource("2_qdh5e")
+metadata/_custom_type_script = "uid://c5x0pba8wqd0h"
+
+[node name="PhantomCamera2D" type="Node2D" parent="Cameras" unique_id=867110773 node_paths=PackedStringArray("follow_target")]
+top_level = true
+position = Vector2(600, 280)
+script = ExtResource("3_uvc87")
+follow_mode = 2
+follow_target = NodePath("../CameraController")
+zoom = Vector2(0.5, 0.5)
+tween_resource = SubResource("Resource_50wog")
+draw_limits = true
+limit_target = NodePath("../../GroundTileMapLayer")
+limit_margin = Vector4i(-240, 490, -480, 560)
+metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
+
+[node name="Camera2D" type="Camera2D" parent="Cameras" unique_id=1015690238]
+top_level = true
+position = Vector2(600, 280)
+zoom = Vector2(0.5, 0.5)
+limit_left = -720
+limit_top = -420
+limit_right = 2880
+limit_bottom = 1750
+position_smoothing_speed = 10.0
+editor_draw_limits = true
+
+[node name="PhantomCameraHost" type="Node" parent="Cameras/Camera2D" unique_id=869556867]
+process_priority = 300
+process_physics_priority = 300
+script = ExtResource("5_qdh5e")
