@@ -32,8 +32,3 @@ func _update_paths_modulates() -> void:
 	for child in self.get_children():
 		if child is Path2D:
 			child.modulate = Color.from_hsv(randf(), 0.8, 1.0);
-
-func get_paths() -> Array[Path2D]:
-	var paths: Array[Path2D];
-	paths.assign(self.get_children());
-	return paths;

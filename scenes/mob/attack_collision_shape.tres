@@ -1,0 +1,6 @@
+[gd_resource type="CircleShape2D" format=3 uid="uid://8ixpdxi3fdiu"]
+
+[resource]
+resource_local_to_scene = true
+custom_solver_bias = 0.11
+radius = 40.0

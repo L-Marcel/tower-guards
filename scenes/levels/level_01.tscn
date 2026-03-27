@@ -1,38 +1,47 @@
 [gd_scene format=4 uid="uid://d15x7q0rgror1"]
 
-[ext_resource type="TileSet" uid="uid://bxq32ef0wobay" path="res://tiles.tres" id="1_m802k"]
+[ext_resource type="TileSet" uid="uid://bxq32ef0wobay" path="res://resources/tiles/tiles.tres" id="1_m802k"]
 [ext_resource type="Script" uid="uid://ds7jch6pp6pvs" path="res://resources/scripts/paths.gd" id="2_50wog"]
 [ext_resource type="Script" uid="uid://c5x0pba8wqd0h" path="res://resources/scripts/camera_controller.gd" id="2_qdh5e"]
 [ext_resource type="PackedScene" uid="uid://bjugbhrcmkthd" path="res://scenes/spawn/spawn.tscn" id="3_1ey3t"]
 [ext_resource type="Script" uid="uid://8umksf8e80fw" path="res://addons/phantom_camera/scripts/resources/tween_resource.gd" id="3_qdh5e"]
 [ext_resource type="Script" uid="uid://bhexx6mj1xv3q" path="res://addons/phantom_camera/scripts/phantom_camera/phantom_camera_2d.gd" id="3_uvc87"]
+[ext_resource type="Script" uid="uid://dp5cty7rxhyd7" path="res://resources/scripts/spawns.gd" id="4_jmes4"]
+[ext_resource type="PackedScene" uid="uid://drn0h34i53d0l" path="res://scenes/base/base.tscn" id="4_r72dd"]
+[ext_resource type="Script" uid="uid://csym7g1y3a4h5" path="res://resources/waves/wave.gd" id="5_ijn0p"]
+[ext_resource type="Script" uid="uid://c84aquhba3yo1" path="res://resources/scripts/enemies.gd" id="5_kfebt"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_qdh5e"]
+[ext_resource type="Resource" uid="uid://dayggh0trv5df" path="res://resources/waves/level_01/wave_a1.tres" id="6_jmes4"]
 
 [sub_resource type="Curve2D" id="Curve2D_i2aat"]
+bake_interval = 20.0
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -480, -350, 0, 0, 0, 0, 360, 140, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 1080, 280, 0, 0, 0, 0, 840, 420, 0, 0, 0, 0, 1200, 630)
+"points": PackedVector2Array(0, 0, 0, 0, -600, -420, 0, 0, 0, 0, 360, 140, 0, 0, 0, 0, 600, 0, 0, 0, 0, 0, 1080, 280, 0, 0, 0, 0, 840, 420, 0, 0, 0, 0, 1200, 630)
 }
 point_count = 6
 
 [sub_resource type="Curve2D" id="Curve2D_2djvx"]
+bake_interval = 20.0
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -480, -350, 0, 0, 0, 0, 1200, 630)
+"points": PackedVector2Array(0, 0, 0, 0, -600, -420, 0, 0, 0, 0, 1200, 630)
 }
 point_count = 2
 
 [sub_resource type="Curve2D" id="Curve2D_uvc87"]
+bake_interval = 20.0
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, -480, -350, 0, 0, 0, 0, 360, 140, 0, 0, 0, 0, 120, 280, 0, 0, 0, 0, 600, 560, 0, 0, 0, 0, 840, 420, 0, 0, 0, 0, 1200, 630)
+"points": PackedVector2Array(0, 0, 0, 0, -600, -420, 0, 0, 0, 0, 360, 140, 0, 0, 0, 0, 120, 280, 0, 0, 0, 0, 600, 560, 0, 0, 0, 0, 840, 420, 0, 0, 0, 0, 1200, 630)
 }
 point_count = 6
 
 [sub_resource type="Curve2D" id="Curve2D_50wog"]
+bake_interval = 20.0
 _data = {
-"points": PackedVector2Array(0, 0, 0, 0, 840, 1330, 0, 0, 0, 0, 1560, 910, 0, 0, 0, 0, 1920, 1120)
+"points": PackedVector2Array(0, 0, 0, 0, 720, 1400, 0, 0, 0, 0, 1560, 910, 0, 0, 0, 0, 1920, 1120)
 }
 point_count = 3
 
-[sub_resource type="Resource" id="Resource_50wog"]
+[sub_resource type="Resource" id="Resource_jmes4"]
 script = ExtResource("3_qdh5e")
 
 [node name="Level 01" type="Node2D" unique_id=1719438142]
@@ -50,53 +59,66 @@ position = Vector2(720, 490)
 tile_map_data = PackedByteArray("AAAEAAYABQACAAAAAAADAAgABQABAAAAAAAEAAgAAQAAAAAAAQD8//7/AAAAAAMAAAD8//3/AAABAAMAAAD8//z/AAAAAAMAAAD9//v/AAABAAMAAAD9//3/AAABAAMAAAD+//j/AAABAAMAAAD///f/AAABAAMAAAD///j/AAABAAMAAAD///n/AAAIAAIAAAABAP//AAAAAAMAAAAAAAEAAAAAAAMAAAAEAAEAAAAAAAMAAAADAAAAAAAAAAMAAAAAAAUAAAAAAAMAAAAAAAYAAAAAAAMAAAD9//z/AAACAAIAAAACAAEAAAACAAIAAAADAAMAAAAEAAIAAAACAAUAAAAFAAIAAAAAAPn/AAAJAAIAAAD9////AAAEAAIAAAABAAMAAAAEAAIAAAD///z/AAAGAAIAAAD+////AAADAAAAAAD//wMAAAAEAAAAAAABAPv/AAAFAAAAAAAFAAQAAAAGAAAAAAACAPn/AAAIAAIAAAD+/wgAAAAIAAIAAAAFAP3/AAAFAAIAAAAFAAAAAAAFAAAAAAD9/wQAAAAFAAAAAAAEAPv/AAAEAAAAAAAAAAkAAAAEAAAAAAD8/wQAAAAAAAMAAAD8/wUAAAAAAAMAAAD8/wMAAAAAAAMAAAAGAP3/AAAAAAMAAAAGAP//AAAAAAMAAAAGAAAAAAAAAAMAAAADAPf/AAAAAAMAAAACAPf/AAAAAAMAAAACAPj/AAAAAAMAAAABAPb/AAABAAMAAAAAAPb/AAABAAMAAAABAPf/AAABAAMAAAAAAPf/AAABAAMAAAD8/wAAAAABAAMAAAD8/wIAAAABAAMAAAD8/wEAAAABAAMAAAD8////AAABAAMAAAD7/wAAAAABAAMAAAD7/wIAAAABAAMAAAAAAAwAAAABAAMAAAABAAsAAAABAAMAAAD//woAAAABAAMAAAD//wsAAAABAAMAAAACAAsAAAABAAMAAAABAAoAAAABAAMAAAAGAAMAAAABAAMAAAAGAAEAAAABAAMAAAAFAP7/AAABAAMAAAA=")
 tile_set = ExtResource("1_m802k")
 
-[node name="Paths" type="Node2D" parent="." unique_id=194333123]
+[node name="Entities" type="Node2D" parent="." unique_id=227667954]
+y_sort_enabled = true
+
+[node name="Paths" type="Node2D" parent="Entities" unique_id=194333123]
 script = ExtResource("2_50wog")
 
-[node name="Path2D" type="Path2D" parent="Paths" unique_id=197246674]
-modulate = Color(0.5467783, 1, 0.19999999, 1)
+[node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
+modulate = Color(0.2926088, 1, 0.19999999, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_i2aat")
 
-[node name="Path2D2" type="Path2D" parent="Paths" unique_id=934393318]
-modulate = Color(0.19999999, 1, 0.27903062, 1)
+[node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=934393318]
+modulate = Color(1, 0.19999999, 0.7675907, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_2djvx")
 
-[node name="Path2D3" type="Path2D" parent="Paths" unique_id=184449601]
-modulate = Color(1, 0.9270428, 0.19999999, 1)
+[node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=184449601]
+modulate = Color(0.19999999, 0.7579273, 1, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_uvc87")
 
-[node name="Path2D4" type="Path2D" parent="Paths" unique_id=940989623]
-modulate = Color(0.471368, 0.19999999, 1, 1)
+[node name="Path2D4" type="Path2D" parent="Entities/Paths" unique_id=940989623]
+modulate = Color(1, 0.4767478, 0.19999999, 1)
 curve = SubResource("Curve2D_50wog")
 
-[node name="Spawns" type="Node2D" parent="." unique_id=2077210629]
+[node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("4_r72dd")]
+position = Vector2(1920, 1120)
 
-[node name="Spawn" parent="Spawns" unique_id=1376810633 node_paths=PackedStringArray("paths") instance=ExtResource("3_1ey3t")]
-position = Vector2(240, 140)
-paths = [NodePath("../../Paths/Path2D"), NodePath("../../Paths/Path2D2"), NodePath("../../Paths/Path2D3")]
+[node name="Spawns" type="Node2D" parent="Entities" unique_id=2077210629]
+script = ExtResource("4_jmes4")
 
-[node name="Spawn2" parent="Spawns" unique_id=1161365668 node_paths=PackedStringArray("paths") instance=ExtResource("3_1ey3t")]
-position = Vector2(840, 1330)
-paths = [NodePath("../../Paths/Path2D4")]
+[node name="Spawn" parent="Entities/Spawns" unique_id=231200630 node_paths=PackedStringArray("_paths") instance=ExtResource("3_1ey3t")]
+position = Vector2(120, 70)
+_paths = [NodePath("../../Paths/Path2D"), NodePath("../../Paths/Path2D2"), NodePath("../../Paths/Path2D3")]
+_waves = Array[ExtResource("5_ijn0p")]([ExtResource("6_jmes4")])
+
+[node name="Spawn2" parent="Entities/Spawns" unique_id=1161365668 node_paths=PackedStringArray("_paths") instance=ExtResource("3_1ey3t")]
+position = Vector2(720, 1400)
+_paths = [NodePath("../../Paths/Path2D4")]
+
+[node name="Enemies" type="Node2D" parent="Entities" unique_id=1413974022]
+y_sort_enabled = true
+script = ExtResource("5_kfebt")
 
 [node name="Cameras" type="Node2D" parent="." unique_id=1151507344]
 
 [node name="CameraController" type="Node2D" parent="Cameras" unique_id=615749594]
-position = Vector2(600, 280)
+position = Vector2(960, 560)
 script = ExtResource("2_qdh5e")
 metadata/_custom_type_script = "uid://c5x0pba8wqd0h"
 
 [node name="PhantomCamera2D" type="Node2D" parent="Cameras" unique_id=867110773 node_paths=PackedStringArray("follow_target")]
 top_level = true
-position = Vector2(600, 280)
+position = Vector2(960, 560)
 script = ExtResource("3_uvc87")
 follow_mode = 2
 follow_target = NodePath("../CameraController")
 zoom = Vector2(0.5, 0.5)
-tween_resource = SubResource("Resource_50wog")
+tween_resource = SubResource("Resource_jmes4")
+tween_on_load = false
 draw_limits = true
 limit_target = NodePath("../../GroundTileMapLayer")
 limit_margin = Vector4i(-240, 490, -480, 560)
@@ -104,7 +126,7 @@ metadata/_custom_type_script = "uid://bhexx6mj1xv3q"
 
 [node name="Camera2D" type="Camera2D" parent="Cameras" unique_id=1015690238]
 top_level = true
-position = Vector2(600, 280)
+position = Vector2(960, 560)
 zoom = Vector2(0.5, 0.5)
 limit_left = -720
 limit_top = -420

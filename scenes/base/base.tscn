@@ -6,6 +6,9 @@
 script = ExtResource("1_yoymw")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=559616048]
+modulate = Color(0, 1, 0, 1)
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1587418319]
 polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

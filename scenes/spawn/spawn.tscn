@@ -10,5 +10,4 @@ monitoring = false
 monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1587418319]
-modulate = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)

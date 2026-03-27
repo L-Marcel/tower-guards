@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="MobData" format=3 uid="uid://c3gtdg7s6xnjg"]
+
+[ext_resource type="Script" uid="uid://co1cirn4uiw63" path="res://resources/mobs/data.gd" id="1_uitpg"]
+[ext_resource type="Texture2D" uid="uid://cg78ldx8xb38a" path="res://assets/sprites/towers/Barrack/knight_level_1.png" id="2_a6ekh"]
+
+[resource]
+script = ExtResource("1_uitpg")
+texture = ExtResource("2_a6ekh")
+texture_offset = Vector2(0, -18)
+metadata/_custom_type_script = "uid://co1cirn4uiw63"

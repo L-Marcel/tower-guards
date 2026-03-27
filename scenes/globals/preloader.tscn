@@ -1,9 +1,9 @@
 [gd_scene format=3 uid="uid://cvuvtcgi5im3t"]
 
 [ext_resource type="FontFile" uid="uid://dm26jpcrnkua0" path="res://resources/theme/AsepriteFont.ttf" id="1_3kqs7"]
-[ext_resource type="PackedScene" uid="uid://df5gxbmsbqjb1" path="res://scenes/enemy/enemy.tscn" id="1_w26in"]
+[ext_resource type="PackedScene" uid="uid://df5gxbmsbqjb1" path="res://scenes/mob/mob.tscn" id="1_w26in"]
 [ext_resource type="Script" uid="uid://co3jfdomxwob2" path="res://scenes/globals/preloader.gd" id="2_0n5h2"]
 
 [node name="Preloader" type="ResourcePreloader" unique_id=689826370]
-resources = [PackedStringArray("enemy", "font"), [ExtResource("1_w26in"), ExtResource("1_3kqs7")]]
+resources = [PackedStringArray("font", "mob"), [ExtResource("1_3kqs7"), ExtResource("1_w26in")]]
 script = ExtResource("2_0n5h2")

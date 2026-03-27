@@ -1,0 +1,109 @@
+[gd_scene format=3 uid="uid://df5gxbmsbqjb1"]
+
+[ext_resource type="Script" uid="uid://b8syj3vqkwbkx" path="res://scenes/mob/mob.gd" id="1_0a8ii"]
+[ext_resource type="Script" uid="uid://couw105c3bde4" path="res://addons/godot_state_charts/state_chart.gd" id="2_q52e7"]
+[ext_resource type="Script" uid="uid://jk2jm1g6q853" path="res://addons/godot_state_charts/compound_state.gd" id="3_tyl3q"]
+[ext_resource type="Script" uid="uid://cytafq8i1y8qm" path="res://addons/godot_state_charts/atomic_state.gd" id="4_c5yut"]
+[ext_resource type="Script" uid="uid://cf1nsco3w0mf6" path="res://addons/godot_state_charts/transition.gd" id="5_iba42"]
+[ext_resource type="Shape2D" uid="uid://8ixpdxi3fdiu" path="res://scenes/mob/attack_collision_shape.tres" id="6_uqhch"]
+[ext_resource type="Texture2D" uid="uid://cg78ldx8xb38a" path="res://assets/sprites/towers/Barrack/knight_level_1.png" id="7_vpto6"]
+[ext_resource type="Shape2D" uid="uid://bhiuxqx13edkm" path="res://scenes/mob/collision_shape.tres" id="8_7wvav"]
+
+[sub_resource type="Animation" id="Animation_40wdo"]
+length = 0.001
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0)
+}
+
+[sub_resource type="Animation" id="Animation_tjssy"]
+resource_name = "walking"
+length = 0.9
+loop_mode = 1
+tracks/0/type = "bezier"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath(".:rotation")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"handle_modes": PackedInt32Array(0, 1, 1, 1, 0),
+"points": PackedFloat32Array(0, -0.25, 0, 0.25, 0, 0.17453292, -0.16666667, -0.029088821, 0, 0, 0, -0.16666667, 0.029088821, 0, 0, -0.17453292, -0.16666667, 0.029088821, 0, 0, 0, -0.25, 0, 0.25, 0),
+"times": PackedFloat32Array(0, 0.25, 0.5, 0.75, 1)
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_gl05p"]
+_data = {
+&"RESET": SubResource("Animation_40wdo"),
+&"walking": SubResource("Animation_tjssy")
+}
+
+[node name="Mob" type="CharacterBody2D" unique_id=884475862]
+y_sort_enabled = true
+collision_mask = 0
+motion_mode = 1
+script = ExtResource("1_0a8ii")
+
+[node name="StateMachine" type="Node" parent="." unique_id=1331879435]
+script = ExtResource("2_q52e7")
+metadata/_custom_type_script = "uid://couw105c3bde4"
+
+[node name="CompoundState" type="Node" parent="StateMachine" unique_id=1441001153]
+script = ExtResource("3_tyl3q")
+initial_state = NodePath("Walking")
+metadata/_custom_type_script = "uid://jk2jm1g6q853"
+
+[node name="Walking" type="Node" parent="StateMachine/CompoundState" unique_id=2118290628]
+script = ExtResource("4_c5yut")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToAttack" type="Node" parent="StateMachine/CompoundState/Walking" unique_id=434280003]
+script = ExtResource("5_iba42")
+to = NodePath("../../Attacking")
+event = &"to_attack"
+delay_in_seconds = "0.0"
+
+[node name="Attacking" type="Node" parent="StateMachine/CompoundState" unique_id=1337148589]
+script = ExtResource("4_c5yut")
+metadata/_custom_type_script = "uid://cytafq8i1y8qm"
+
+[node name="ToWalk" type="Node" parent="StateMachine/CompoundState/Attacking" unique_id=749602018]
+script = ExtResource("5_iba42")
+to = NodePath("../../Walking")
+event = &"to_walk"
+delay_in_seconds = "0.0"
+
+[node name="AttackArea2D" type="Area2D" parent="." unique_id=2089118584]
+position = Vector2(0, -17)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D" unique_id=753241499]
+shape = ExtResource("6_uqhch")
+debug_color = Color(1, 0, 0, 0.41960785)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=303179972]
+y_sort_enabled = true
+texture = ExtResource("7_vpto6")
+offset = Vector2(0, -18)
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355995212]
+position = Vector2(0, -17)
+shape = ExtResource("8_7wvav")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=743093902]
+root_node = NodePath("../Sprite2D")
+libraries/ = SubResource("AnimationLibrary_gl05p")
+autoplay = &"walking"
+speed_scale = 2.0
+next/walking = &"walking"
+
+[connection signal="state_physics_processing" from="StateMachine/CompoundState/Walking" to="." method="_on_walking_state_physics_processing"]
+[connection signal="state_processing" from="StateMachine/CompoundState/Attacking" to="." method="_on_attacking_state_processing"]
+[connection signal="body_entered" from="AttackArea2D" to="." method="_on_attack_area_2d_body_entered"]
+[connection signal="body_exited" from="AttackArea2D" to="." method="_on_attack_area_2d_body_exited"]
