@@ -1,0 +1,134 @@
+[gd_scene format=3 uid="uid://chfa4d2akiel3"]
+
+[ext_resource type="Texture2D" uid="uid://c3lffd6s55rw8" path="res://assets/sprites/towers/circle.png" id="1_4exwy"]
+[ext_resource type="Texture2D" uid="uid://b8gp6berh4r5u" path="res://assets/sprites/towers/upgrade.png" id="1_6ftqo"]
+[ext_resource type="Script" uid="uid://b8sud362ldppy" path="res://scenes/tower/tower_menu.gd" id="1_6qdej"]
+[ext_resource type="Texture2D" uid="uid://riw87blvcg12" path="res://assets/sprites/towers/Barrack/knight_level_3.png" id="2_wxi4n"]
+[ext_resource type="Texture2D" uid="uid://ba7b3ipm2mdm0" path="res://assets/sprites/towers/Archer/archer.png" id="3_6qdej"]
+[ext_resource type="Texture2D" uid="uid://l16pteaph7ml" path="res://assets/sprites/towers/money.png" id="3_704bk"]
+[ext_resource type="LabelSettings" uid="uid://k5o4xn7o2s3q" path="res://resources/theme/label.tres" id="4_704bk"]
+[ext_resource type="Texture2D" uid="uid://dfbw5knjusnxu" path="res://assets/sprites/towers/Archer/bow_animation(2).png" id="4_glm2p"]
+[ext_resource type="Texture2D" uid="uid://bvlihaq0tgm50" path="res://assets/sprites/towers/Wizard/stick.png" id="5_mhoxn"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_wxi4n"]
+radius = 29.017237
+
+[node name="TowerMenu" type="Node2D" unique_id=2134517744]
+script = ExtResource("1_6qdej")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=528387917]
+texture = ExtResource("1_4exwy")
+
+[node name="BaseMenu" type="Node2D" parent="." unique_id=389877775]
+
+[node name="Mage" type="Node2D" parent="BaseMenu" unique_id=637822866]
+position = Vector2(-115, 0)
+
+[node name="Mage" type="Area2D" parent="BaseMenu/Mage" unique_id=1426506819]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseMenu/Mage/Mage" unique_id=811060361]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D4" type="Sprite2D" parent="BaseMenu/Mage" unique_id=973818482]
+position = Vector2(6, 1)
+texture = ExtResource("3_6qdej")
+
+[node name="Sprite2D5" type="Sprite2D" parent="BaseMenu/Mage" unique_id=1251005585]
+position = Vector2(-13, -1)
+rotation = -0.40142572
+texture = ExtResource("5_mhoxn")
+
+[node name="Soldier" type="Node2D" parent="BaseMenu" unique_id=681375874]
+position = Vector2(-1, -118)
+
+[node name="Soldier" type="Area2D" parent="BaseMenu/Soldier" unique_id=1957107630]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseMenu/Soldier/Soldier" unique_id=1061770131]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D" type="Sprite2D" parent="BaseMenu/Soldier" unique_id=80314501]
+texture = ExtResource("2_wxi4n")
+
+[node name="Archer" type="Node2D" parent="BaseMenu" unique_id=679874694]
+position = Vector2(120, 0)
+
+[node name="Archer" type="Area2D" parent="BaseMenu/Archer" unique_id=296167265]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseMenu/Archer/Archer" unique_id=1593500924]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D3" type="Sprite2D" parent="BaseMenu/Archer" unique_id=1723840687]
+position = Vector2(6, 1)
+texture = ExtResource("3_6qdej")
+
+[node name="Sprite2D2" type="Sprite2D" parent="BaseMenu/Archer" unique_id=1869646109]
+position = Vector2(-17, -7)
+rotation = 0.40142572
+texture = ExtResource("4_glm2p")
+
+[node name="UpgradeMenu" type="Node2D" parent="." unique_id=1469567745]
+visible = false
+
+[node name="Upgrade" type="Node2D" parent="UpgradeMenu" unique_id=1619512399]
+position = Vector2(0, -118)
+
+[node name="Upgrade" type="Area2D" parent="UpgradeMenu/Upgrade" unique_id=541211193]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeMenu/Upgrade/Upgrade" unique_id=1235408529]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D" type="Sprite2D" parent="UpgradeMenu/Upgrade" unique_id=1253198048]
+texture = ExtResource("1_6ftqo")
+
+[node name="Sell" type="Node2D" parent="UpgradeMenu" unique_id=412350608]
+position = Vector2(118, 0)
+
+[node name="Sell" type="Area2D" parent="UpgradeMenu/Sell" unique_id=694360235]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeMenu/Sell/Sell" unique_id=887392095]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D2" type="Sprite2D" parent="UpgradeMenu/Sell" unique_id=2062442704]
+texture = ExtResource("3_704bk")
+
+[node name="EndMenu" type="Node2D" parent="." unique_id=989903587]
+visible = false
+
+[node name="Sell" type="Node2D" parent="EndMenu" unique_id=131464402]
+position = Vector2(118, 0)
+
+[node name="Sell" type="Area2D" parent="EndMenu/Sell" unique_id=1802034032]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndMenu/Sell/Sell" unique_id=296712761]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D2" type="Sprite2D" parent="EndMenu/Sell" unique_id=648708228]
+texture = ExtResource("3_704bk")
+
+[node name="Label" type="Label" parent="." unique_id=1877160069]
+offset_left = -76.0
+offset_right = 74.0
+offset_bottom = 80.0
+text = "$123"
+label_settings = ExtResource("4_704bk")
+horizontal_alignment = 1
+vertical_alignment = 1
+
+[connection signal="input_event" from="BaseMenu/Mage/Mage" to="." method="_on_mage_input_event"]
+[connection signal="mouse_entered" from="BaseMenu/Mage/Mage" to="." method="_on_mage_mouse_entered"]
+[connection signal="mouse_exited" from="BaseMenu/Mage/Mage" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="BaseMenu/Soldier/Soldier" to="." method="_on_soldier_input_event"]
+[connection signal="mouse_entered" from="BaseMenu/Soldier/Soldier" to="." method="_on_soldier_mouse_entered"]
+[connection signal="mouse_exited" from="BaseMenu/Soldier/Soldier" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="BaseMenu/Archer/Archer" to="." method="_on_archer_input_event"]
+[connection signal="mouse_entered" from="BaseMenu/Archer/Archer" to="." method="_on_archer_mouse_entered"]
+[connection signal="mouse_exited" from="BaseMenu/Archer/Archer" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="UpgradeMenu/Upgrade/Upgrade" to="." method="_on_upgrade_input_event"]
+[connection signal="mouse_entered" from="UpgradeMenu/Upgrade/Upgrade" to="." method="_on_upgrade_mouse_entered"]
+[connection signal="mouse_exited" from="UpgradeMenu/Upgrade/Upgrade" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="UpgradeMenu/Sell/Sell" to="." method="_on_sell_input_event"]
+[connection signal="mouse_entered" from="UpgradeMenu/Sell/Sell" to="." method="_on_sell_mouse_entered"]
+[connection signal="mouse_exited" from="UpgradeMenu/Sell/Sell" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="EndMenu/Sell/Sell" to="." method="_on_sell_input_event"]
+[connection signal="mouse_entered" from="EndMenu/Sell/Sell" to="." method="_on_sell_mouse_entered"]
+[connection signal="mouse_exited" from="EndMenu/Sell/Sell" to="." method="_on_option_mouse_exited"]

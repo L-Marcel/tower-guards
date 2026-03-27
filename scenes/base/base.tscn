@@ -5,6 +5,8 @@
 [node name="Base" type="Node2D" unique_id=1376810633]
 script = ExtResource("1_yoymw")
 
+[node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=450550180]
+
 [node name="Area2D" type="Area2D" parent="." unique_id=559616048]
 modulate = Color(0, 1, 0, 1)
 

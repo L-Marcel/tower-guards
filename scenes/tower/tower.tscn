@@ -1,0 +1,27 @@
+[gd_scene format=3 uid="uid://bxh4hhelbhkrb"]
+
+[ext_resource type="Texture2D" uid="uid://uup227vqo0nc" path="res://assets/sprites/towers/Archer/archer_level_1.png" id="1_mg2hd"]
+[ext_resource type="Script" uid="uid://dg1ib2el70q5b" path="res://scenes/tower/tower.gd" id="1_r21n7"]
+[ext_resource type="Shape2D" uid="uid://biwtuqqjoebve" path="res://scenes/tower/collision_shape.tres" id="3_cbwxl"]
+[ext_resource type="PackedScene" uid="uid://chfa4d2akiel3" path="res://scenes/tower/tower_menu.tscn" id="4_nfofi"]
+
+[node name="Tower" type="Node2D" unique_id=266509791]
+script = ExtResource("1_r21n7")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=1774665057]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=943230525]
+position = Vector2(0, -36)
+shape = ExtResource("3_cbwxl")
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1419771394]
+modulate = Color(0, 1, 0, 1)
+polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=241528984]
+y_sort_enabled = true
+texture = ExtResource("1_mg2hd")
+offset = Vector2(0, -36)
+
+[node name="TowerMenu" parent="." unique_id=2134517744 instance=ExtResource("4_nfofi")]
+position = Vector2(0, -36)

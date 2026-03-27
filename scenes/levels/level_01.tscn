@@ -12,6 +12,7 @@
 [ext_resource type="Script" uid="uid://c84aquhba3yo1" path="res://resources/scripts/enemies.gd" id="5_kfebt"]
 [ext_resource type="Script" uid="uid://bd046eokvcnu2" path="res://addons/phantom_camera/scripts/phantom_camera_host/phantom_camera_host.gd" id="5_qdh5e"]
 [ext_resource type="Resource" uid="uid://dayggh0trv5df" path="res://resources/waves/level_01/wave_a1.tres" id="6_jmes4"]
+[ext_resource type="PackedScene" uid="uid://bxh4hhelbhkrb" path="res://scenes/tower/tower.tscn" id="9_tyxjt"]
 
 [sub_resource type="Curve2D" id="Curve2D_i2aat"]
 bake_interval = 20.0
@@ -44,7 +45,7 @@ point_count = 3
 [sub_resource type="Resource" id="Resource_jmes4"]
 script = ExtResource("3_qdh5e")
 
-[node name="Level 01" type="Node2D" unique_id=1719438142]
+[node name="Level01" type="Node2D" unique_id=1719438142]
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1116027231]
 y_sort_enabled = true
@@ -53,7 +54,7 @@ tile_map_data = PackedByteArray("AAAAAAIAAAACAAEAAAAAAAMAAAAAAAIAAAAAAAQAAAABAAE
 tile_set = ExtResource("1_m802k")
 rendering_quadrant_size = 240
 
-[node name="EntitiesTileMapLayer" type="TileMapLayer" parent="." unique_id=717506250]
+[node name="DecorationTileMapLayer" type="TileMapLayer" parent="." unique_id=717506250]
 y_sort_enabled = true
 position = Vector2(720, 490)
 tile_map_data = PackedByteArray("AAAEAAYABQACAAAAAAADAAgABQABAAAAAAAEAAgAAQAAAAAAAQD8//7/AAAAAAMAAAD8//3/AAABAAMAAAD8//z/AAAAAAMAAAD9//v/AAABAAMAAAD9//3/AAABAAMAAAD+//j/AAABAAMAAAD///f/AAABAAMAAAD///j/AAABAAMAAAD///n/AAAIAAIAAAABAP//AAAAAAMAAAAAAAEAAAAAAAMAAAAEAAEAAAAAAAMAAAADAAAAAAAAAAMAAAAAAAUAAAAAAAMAAAAAAAYAAAAAAAMAAAD9//z/AAACAAIAAAACAAEAAAACAAIAAAADAAMAAAAEAAIAAAACAAUAAAAFAAIAAAAAAPn/AAAJAAIAAAD9////AAAEAAIAAAABAAMAAAAEAAIAAAD///z/AAAGAAIAAAD+////AAADAAAAAAD//wMAAAAEAAAAAAABAPv/AAAFAAAAAAAFAAQAAAAGAAAAAAACAPn/AAAIAAIAAAD+/wgAAAAIAAIAAAAFAP3/AAAFAAIAAAAFAAAAAAAFAAAAAAD9/wQAAAAFAAAAAAAEAPv/AAAEAAAAAAAAAAkAAAAEAAAAAAD8/wQAAAAAAAMAAAD8/wUAAAAAAAMAAAD8/wMAAAAAAAMAAAAGAP3/AAAAAAMAAAAGAP//AAAAAAMAAAAGAAAAAAAAAAMAAAADAPf/AAAAAAMAAAACAPf/AAAAAAMAAAACAPj/AAAAAAMAAAABAPb/AAABAAMAAAAAAPb/AAABAAMAAAABAPf/AAABAAMAAAAAAPf/AAABAAMAAAD8/wAAAAABAAMAAAD8/wIAAAABAAMAAAD8/wEAAAABAAMAAAD8////AAABAAMAAAD7/wAAAAABAAMAAAD7/wIAAAABAAMAAAAAAAwAAAABAAMAAAABAAsAAAABAAMAAAD//woAAAABAAMAAAD//wsAAAABAAMAAAACAAsAAAABAAMAAAABAAoAAAABAAMAAAAGAAMAAAABAAMAAAAGAAEAAAABAAMAAAAFAP7/AAABAAMAAAA=")
@@ -66,22 +67,22 @@ y_sort_enabled = true
 script = ExtResource("2_50wog")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(0.2926088, 1, 0.19999999, 1)
+modulate = Color(1, 0.19999999, 0.4630798, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=934393318]
-modulate = Color(1, 0.19999999, 0.7675907, 1)
+modulate = Color(0.19999999, 1, 0.2554279, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_2djvx")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=184449601]
-modulate = Color(0.19999999, 0.7579273, 1, 1)
+modulate = Color(1, 0.19999999, 0.3053028, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_uvc87")
 
 [node name="Path2D4" type="Path2D" parent="Entities/Paths" unique_id=940989623]
-modulate = Color(1, 0.4767478, 0.19999999, 1)
+modulate = Color(1, 0.19999999, 0.6537781, 1)
 curve = SubResource("Curve2D_50wog")
 
 [node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("4_r72dd")]
@@ -102,6 +103,12 @@ _paths = [NodePath("../../Paths/Path2D4")]
 [node name="Enemies" type="Node2D" parent="Entities" unique_id=1413974022]
 y_sort_enabled = true
 script = ExtResource("5_kfebt")
+
+[node name="Towers" type="Node2D" parent="Entities" unique_id=1620640071]
+y_sort_enabled = true
+
+[node name="Tower" parent="Entities/Towers" unique_id=266509791 instance=ExtResource("9_tyxjt")]
+position = Vector2(960, 420)
 
 [node name="Cameras" type="Node2D" parent="." unique_id=1151507344]
 
