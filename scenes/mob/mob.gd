@@ -8,7 +8,7 @@ var attack_type: AttackType = AttackType.MELEE;
 var attack_interval: int = 4;
 var _attack_timer: float = 0.0;
 var speed: int = 50;
-var life: int = 30;
+var health: int = 30;
 var physical_resistance: float = 0.0;
 var magical_resistance: float = 0.0;
 var is_enemy: bool = true;
@@ -24,8 +24,7 @@ var current_point: int = 0;
 var path_points: PackedVector2Array;
 
 enum AttackType {
-	MELEE,
-	RANGED
+	MELEE
 }
 
 enum DamageType {
@@ -33,13 +32,13 @@ enum DamageType {
 	PHYSICAL
 }
 
+#region Definir destino
 func set_path(path: Path2D) -> void:
 	self.current_point = 0;
 	var count: int = path.curve.point_count;
 	self.path_points.resize(count);
 	for i in range(count):
 		self.path_points[i] = path.to_global(path.curve.get_point_position(i));
-
 func set_data(mob: MobData) -> void:
 	self.life_damage = mob.life_damage;
 	self.damage = mob.damage;
@@ -50,7 +49,7 @@ func set_data(mob: MobData) -> void:
 		var circle: CircleShape2D = self.attack_area_collision_shape.shape as CircleShape2D;
 		circle.radius = mob.attack_range;
 	self.speed = mob.speed;
-	self.life = mob.life;
+	self.health = mob.health;
 	self.physical_resistance = mob.physical_resistance;
 	self.magical_resistance = mob.magical_resistance;
 	self.is_enemy = mob.is_enemy;
@@ -58,53 +57,24 @@ func set_data(mob: MobData) -> void:
 	self.sprite.offset = mob.texture_offset;
 	self.sprite.modulate = mob.modulate;
 	self.visible = true;
-
 func move_to_point(global_point: Vector2) -> void:
 	self.path_points.resize(1);
 	self.path_points[0] = global_point;
 	self.current_point = 0;
-
 func move_to_mob(mob: Mob) -> void:
 	self.path_points.resize(1);
 	self.path_points[0] = mob.global_position;
 	self.current_point = 0;
+#endregion
 
-func attack() -> void:
-	# NOTE: Use o self.target para obter os dados do alvo
-	# TODO: Atáque a distância físico
-	# TODO: Atáque adistância mágico
-	# TODO: Atáque ataque corpor a corpo físico
-	# TODO: Atáque ataque corpor a corpo mágico
-	pass;
-
+#region Movimentação
 func _ready() -> void:
 	self.visible = false;
-
 func _process(delta: float) -> void:
 	if self.velocity.is_zero_approx():
 		self.animation_player.stop(true);
 	else:
 		self.animation_player.play("walking");
-
-func _on_attacking_state_processing(delta: float) -> void:
-	if _attack_timer > 0.0: _attack_timer -= delta;
-	var target_is_valid: bool = self.target && is_instance_valid(self.target);
-	if !target_is_valid && self.targets.size() > 0:
-		self.target = null;
-		var nearest: Mob = self.targets[0];
-		var nearest_distance: float = nearest.global_position.distance_to(self.global_position);
-		for target in self.targets.filter(func(candidate: Mob): return is_instance_valid(candidate)):
-			if is_instance_valid(target):
-				var distance: float = target.global_position.distance_to(self.global_position);
-				if distance < nearest_distance:
-					distance = nearest_distance;
-					nearest = target;
-		if is_instance_valid(nearest):
-			self.target = nearest;
-	elif target_is_valid && _attack_timer <= 0.0:
-		self.attack();
-		_attack_timer = attack_interval;
-
 func _on_walking_state_physics_processing(delta: float) -> void:
 	if !self.visible || self.path_points.is_empty() || self.current_point >= self.path_points.size(): 
 		self.velocity = Vector2.ZERO;
@@ -129,15 +99,42 @@ func _on_walking_state_physics_processing(delta: float) -> void:
 		max_speed
 	);
 	self.move_and_slide();
+#endregion
 
+#region Ataque
+func attack() -> void:
+	# NOTE: Use o self.target para obter os dados do alvo
+	# TODO: Atáque ataque corpor a corpo físico, considere resistência
+	# TODO: Atáque ataque corpor a corpo mágico, considere resistência
+	# NOTE: Finalizar essa parte incluí apagar o mob quando ele ficar sem vida
+	# NOTE: Chame os métodos adequados do Sounds quando preciso
+	pass;
+func _on_attacking_state_processing(delta: float) -> void:
+	if _attack_timer > 0.0: _attack_timer -= delta;
+	var target_is_valid: bool = self.target && is_instance_valid(self.target);
+	if !target_is_valid && self.targets.size() > 0:
+		self.target = null;
+		var nearest: Mob = self.targets[0];
+		var nearest_distance: float = nearest.global_position.distance_to(self.global_position);
+		for target in self.targets.filter(func(candidate: Mob): return is_instance_valid(candidate)):
+			if is_instance_valid(target):
+				var distance: float = target.global_position.distance_to(self.global_position);
+				if distance < nearest_distance:
+					distance = nearest_distance;
+					nearest = target;
+		if is_instance_valid(nearest):
+			self.target = nearest;
+	elif target_is_valid && _attack_timer <= 0.0:
+		self.attack();
+		_attack_timer = attack_interval;
 func _on_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body is Mob && (body as Mob).is_enemy != self.is_enemy:
 		var mob: Mob = body as Mob; 
 		self.targets.append(mob);
 		self.state_machine.send_event("to_attack");
-
 func _on_attack_area_2d_body_exited(body: Node2D) -> void:
 	if body is Mob && (body as Mob).is_enemy != self.is_enemy:
 		var mob: Mob = body as Mob;
 		if self.targets.has(mob):
 			self.targets.erase(mob);
+#endregion

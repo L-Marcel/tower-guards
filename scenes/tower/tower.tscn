@@ -1,12 +1,42 @@
 [gd_scene format=3 uid="uid://bxh4hhelbhkrb"]
 
-[ext_resource type="Texture2D" uid="uid://uup227vqo0nc" path="res://assets/sprites/towers/Archer/archer_level_1.png" id="1_mg2hd"]
 [ext_resource type="Script" uid="uid://dg1ib2el70q5b" path="res://scenes/tower/tower.gd" id="1_r21n7"]
+[ext_resource type="Script" uid="uid://dojkq58vqxqwu" path="res://resources/towers/archer/data.gd" id="2_k856q"]
+[ext_resource type="Shape2D" uid="uid://dsvt84yvtwj12" path="res://scenes/tower/attack_collision_shape.tres" id="2_vec08"]
 [ext_resource type="Shape2D" uid="uid://biwtuqqjoebve" path="res://scenes/tower/collision_shape.tres" id="3_cbwxl"]
+[ext_resource type="Resource" uid="uid://claeogv5c6k46" path="res://resources/towers/archer/level_01.tres" id="3_wt1vc"]
+[ext_resource type="Resource" uid="uid://bp1nauwwjyt2a" path="res://resources/towers/archer/level_02.tres" id="4_4kau2"]
 [ext_resource type="PackedScene" uid="uid://chfa4d2akiel3" path="res://scenes/tower/tower_menu.tscn" id="4_nfofi"]
+[ext_resource type="Resource" uid="uid://dun8sonqkiwq3" path="res://resources/towers/archer/level_03.tres" id="5_owowu"]
+[ext_resource type="Script" uid="uid://c8pyi3yfovqme" path="res://resources/towers/wizard/data.gd" id="6_vjuoe"]
+[ext_resource type="Resource" uid="uid://bw04bwsux4kyh" path="res://resources/towers/wizard/level_01.tres" id="7_twqlo"]
+[ext_resource type="Resource" uid="uid://oue5gtyb876" path="res://resources/towers/wizard/level_02.tres" id="8_b6wyt"]
+[ext_resource type="Resource" uid="uid://wvg6k1fxlnnq" path="res://resources/towers/wizard/level_03.tres" id="9_lu5jx"]
+[ext_resource type="Script" uid="uid://c8i0fscxmantb" path="res://resources/towers/barrack/data.gd" id="10_v8eq3"]
+[ext_resource type="Resource" uid="uid://ddsxfvau01s8k" path="res://resources/towers/barrack/level_01.tres" id="11_jy64w"]
+[ext_resource type="Resource" uid="uid://b2siu52fksrfn" path="res://resources/towers/barrack/level_02.tres" id="12_lxniu"]
+[ext_resource type="Resource" uid="uid://rmn75qjoua7t" path="res://resources/towers/barrack/level_03.tres" id="13_ljaws"]
+[ext_resource type="Script" uid="uid://bp0u0ac1njlh0" path="res://scenes/tower/attack_area_2d.gd" id="14_wt1vc"]
 
 [node name="Tower" type="Node2D" unique_id=266509791]
 script = ExtResource("1_r21n7")
+tower_archer_datas = Array[ExtResource("2_k856q")]([ExtResource("3_wt1vc"), ExtResource("4_4kau2"), ExtResource("5_owowu")])
+tower_wizard_datas = Array[ExtResource("6_vjuoe")]([ExtResource("7_twqlo"), ExtResource("8_b6wyt"), ExtResource("9_lu5jx")])
+tower_barrack_datas = Array[ExtResource("10_v8eq3")]([ExtResource("11_jy64w"), ExtResource("12_lxniu"), ExtResource("13_ljaws")])
+
+[node name="TowerAttackArea2D" type="Area2D" parent="." unique_id=900195612]
+z_index = -45
+scale = Vector2(1, 0.5)
+script = ExtResource("14_wt1vc")
+border_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+fill_color = Color(0.3372549, 0.59607846, 0.8235294, 1)
+alternative_color = Color(0.6039216, 0.67058825, 0.69803923, 1)
+is_alternative = true
+border_is_visible = true
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="TowerAttackArea2D" unique_id=1009902340]
+visible = false
+shape = ExtResource("2_vec08")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1774665057]
 
@@ -20,8 +50,8 @@ polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=241528984]
 y_sort_enabled = true
-texture = ExtResource("1_mg2hd")
 offset = Vector2(0, -36)
 
-[node name="TowerMenu" parent="." unique_id=2134517744 instance=ExtResource("4_nfofi")]
+[node name="TowerMenu" parent="." unique_id=2134517744 node_paths=PackedStringArray("tower") instance=ExtResource("4_nfofi")]
 position = Vector2(0, -36)
+tower = NodePath("..")

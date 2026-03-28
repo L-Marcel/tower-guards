@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TowerWizardData" format=3 uid="uid://oue5gtyb876"]
+
+[ext_resource type="Script" uid="uid://c8pyi3yfovqme" path="res://resources/towers/wizard/data.gd" id="1_23xa7"]
+[ext_resource type="Texture2D" uid="uid://bnk6j5sqdk154" path="res://assets/sprites/towers/Wizard/wizard_level_2.png" id="2_e6e4o"]
+
+[resource]
+script = ExtResource("1_23xa7")
+cost = 60
+sell_value = 20
+damage = 30
+attack_range = 275.0
+texture = ExtResource("2_e6e4o")
+metadata/_custom_type_script = "uid://c8pyi3yfovqme"

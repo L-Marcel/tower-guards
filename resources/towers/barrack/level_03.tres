@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="TowerBarrackData" format=3 uid="uid://rmn75qjoua7t"]
+
+[ext_resource type="Script" uid="uid://c8i0fscxmantb" path="res://resources/towers/barrack/data.gd" id="1_ypwne"]
+[ext_resource type="Texture2D" uid="uid://dndidqc821150" path="res://assets/sprites/towers/Barrack/barrack_level_3 (1).png" id="2_xyyi6"]
+
+[resource]
+script = ExtResource("1_ypwne")
+cost = 100
+sell_value = 50
+unit_place_range = 300.0
+unit_respawn_interval = 8
+texture = ExtResource("2_xyyi6")
+metadata/_custom_type_script = "uid://c8i0fscxmantb"

@@ -1,0 +1,15 @@
+[gd_scene format=3 uid="uid://b1xckfxd12uqd"]
+
+[ext_resource type="Script" uid="uid://b12862xsiqlou" path="res://scenes/base/base_alias.gd" id="1_i1g5d"]
+
+[node name="BaseAlias" type="Node2D" unique_id=882469833]
+script = ExtResource("1_i1g5d")
+metadata/_custom_type_script = "uid://b12862xsiqlou"
+
+[node name="Area2D" type="Area2D" parent="." unique_id=559616048]
+modulate = Color(0, 1, 1, 1)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1587418319]
+polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

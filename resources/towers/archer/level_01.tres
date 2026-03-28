@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TowerArcherData" format=3 uid="uid://claeogv5c6k46"]
+
+[ext_resource type="Script" uid="uid://dojkq58vqxqwu" path="res://resources/towers/archer/data.gd" id="1_7j2h1"]
+[ext_resource type="Texture2D" uid="uid://uup227vqo0nc" path="res://assets/sprites/towers/Archer/archer_level_1.png" id="2_xoc75"]
+
+[resource]
+script = ExtResource("1_7j2h1")
+texture = ExtResource("2_xoc75")
+metadata/_custom_type_script = "uid://dojkq58vqxqwu"

@@ -6,7 +6,7 @@
 [ext_resource type="Texture2D" uid="uid://riw87blvcg12" path="res://assets/sprites/towers/Barrack/knight_level_3.png" id="2_wxi4n"]
 [ext_resource type="Texture2D" uid="uid://ba7b3ipm2mdm0" path="res://assets/sprites/towers/Archer/archer.png" id="3_6qdej"]
 [ext_resource type="Texture2D" uid="uid://l16pteaph7ml" path="res://assets/sprites/towers/money.png" id="3_704bk"]
-[ext_resource type="LabelSettings" uid="uid://k5o4xn7o2s3q" path="res://resources/theme/label.tres" id="4_704bk"]
+[ext_resource type="LabelSettings" uid="uid://k5o4xn7o2s3q" path="res://resources/theme/cost.tres" id="4_704bk"]
 [ext_resource type="Texture2D" uid="uid://dfbw5knjusnxu" path="res://assets/sprites/towers/Archer/bow_animation(2).png" id="4_glm2p"]
 [ext_resource type="Texture2D" uid="uid://bvlihaq0tgm50" path="res://assets/sprites/towers/Wizard/stick.png" id="5_mhoxn"]
 
@@ -14,26 +14,29 @@
 radius = 29.017237
 
 [node name="TowerMenu" type="Node2D" unique_id=2134517744]
+z_index = 100
 script = ExtResource("1_6qdej")
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=528387917]
+visible = false
 texture = ExtResource("1_4exwy")
 
 [node name="BaseMenu" type="Node2D" parent="." unique_id=389877775]
+visible = false
 
-[node name="Mage" type="Node2D" parent="BaseMenu" unique_id=637822866]
+[node name="Wizard" type="Node2D" parent="BaseMenu" unique_id=637822866]
 position = Vector2(-115, 0)
 
-[node name="Mage" type="Area2D" parent="BaseMenu/Mage" unique_id=1426506819]
+[node name="Wizard" type="Area2D" parent="BaseMenu/Wizard" unique_id=1426506819]
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseMenu/Mage/Mage" unique_id=811060361]
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseMenu/Wizard/Wizard" unique_id=811060361]
 shape = SubResource("CircleShape2D_wxi4n")
 
-[node name="Sprite2D4" type="Sprite2D" parent="BaseMenu/Mage" unique_id=973818482]
+[node name="Sprite2D4" type="Sprite2D" parent="BaseMenu/Wizard" unique_id=973818482]
 position = Vector2(6, 1)
 texture = ExtResource("3_6qdej")
 
-[node name="Sprite2D5" type="Sprite2D" parent="BaseMenu/Mage" unique_id=1251005585]
+[node name="Sprite2D5" type="Sprite2D" parent="BaseMenu/Wizard" unique_id=1251005585]
 position = Vector2(-13, -1)
 rotation = -0.40142572
 texture = ExtResource("5_mhoxn")
@@ -91,6 +94,17 @@ shape = SubResource("CircleShape2D_wxi4n")
 [node name="Sprite2D2" type="Sprite2D" parent="UpgradeMenu/Sell" unique_id=2062442704]
 texture = ExtResource("3_704bk")
 
+[node name="SpawnPoint" type="Node2D" parent="UpgradeMenu" unique_id=1109462246]
+position = Vector2(0, 118)
+
+[node name="SpawnPoint" type="Area2D" parent="UpgradeMenu/SpawnPoint" unique_id=1622711422]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="UpgradeMenu/SpawnPoint/SpawnPoint" unique_id=702221899]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D" type="Sprite2D" parent="UpgradeMenu/SpawnPoint" unique_id=878643445]
+texture = ExtResource("2_wxi4n")
+
 [node name="EndMenu" type="Node2D" parent="." unique_id=989903587]
 visible = false
 
@@ -105,18 +119,29 @@ shape = SubResource("CircleShape2D_wxi4n")
 [node name="Sprite2D2" type="Sprite2D" parent="EndMenu/Sell" unique_id=648708228]
 texture = ExtResource("3_704bk")
 
+[node name="SpawnPoint" type="Node2D" parent="EndMenu" unique_id=1447874875]
+position = Vector2(0, 118)
+
+[node name="SpawnPoint" type="Area2D" parent="EndMenu/SpawnPoint" unique_id=590738419]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="EndMenu/SpawnPoint/SpawnPoint" unique_id=1354115025]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D" type="Sprite2D" parent="EndMenu/SpawnPoint" unique_id=212789610]
+texture = ExtResource("2_wxi4n")
+
 [node name="Label" type="Label" parent="." unique_id=1877160069]
+visible = false
 offset_left = -76.0
 offset_right = 74.0
 offset_bottom = 80.0
-text = "$123"
 label_settings = ExtResource("4_704bk")
 horizontal_alignment = 1
 vertical_alignment = 1
 
-[connection signal="input_event" from="BaseMenu/Mage/Mage" to="." method="_on_mage_input_event"]
-[connection signal="mouse_entered" from="BaseMenu/Mage/Mage" to="." method="_on_mage_mouse_entered"]
-[connection signal="mouse_exited" from="BaseMenu/Mage/Mage" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="BaseMenu/Wizard/Wizard" to="." method="_on_wizard_input_event"]
+[connection signal="mouse_entered" from="BaseMenu/Wizard/Wizard" to="." method="_on_wizard_mouse_entered"]
+[connection signal="mouse_exited" from="BaseMenu/Wizard/Wizard" to="." method="_on_option_mouse_exited"]
 [connection signal="input_event" from="BaseMenu/Soldier/Soldier" to="." method="_on_soldier_input_event"]
 [connection signal="mouse_entered" from="BaseMenu/Soldier/Soldier" to="." method="_on_soldier_mouse_entered"]
 [connection signal="mouse_exited" from="BaseMenu/Soldier/Soldier" to="." method="_on_option_mouse_exited"]
@@ -129,6 +154,8 @@ vertical_alignment = 1
 [connection signal="input_event" from="UpgradeMenu/Sell/Sell" to="." method="_on_sell_input_event"]
 [connection signal="mouse_entered" from="UpgradeMenu/Sell/Sell" to="." method="_on_sell_mouse_entered"]
 [connection signal="mouse_exited" from="UpgradeMenu/Sell/Sell" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="UpgradeMenu/SpawnPoint/SpawnPoint" to="." method="_on_spawn_point_input_event"]
 [connection signal="input_event" from="EndMenu/Sell/Sell" to="." method="_on_sell_input_event"]
 [connection signal="mouse_entered" from="EndMenu/Sell/Sell" to="." method="_on_sell_mouse_entered"]
 [connection signal="mouse_exited" from="EndMenu/Sell/Sell" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="EndMenu/SpawnPoint/SpawnPoint" to="." method="_on_spawn_point_input_event"]

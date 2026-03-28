@@ -18,11 +18,11 @@ config/icon="res://icon.svg"
 [autoload]
 
 Preloader="*uid://cvuvtcgi5im3t"
-PhantomCameraManager="*uid://duq6jhf6unyis"
+Sounds="*uid://cy1bitluuyl4f"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/godot_state_charts/plugin.cfg", "res://addons/phantom_camera/plugin.cfg")
+enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg")
 
 [file_customization]
 

@@ -1,11 +1,56 @@
 [gd_scene format=3 uid="uid://drn0h34i53d0l"]
 
 [ext_resource type="Script" uid="uid://bewyxkbeno73t" path="res://scenes/base/base.gd" id="1_yoymw"]
+[ext_resource type="LabelSettings" uid="uid://dh41f3llgj6v" path="res://resources/theme/money.tres" id="2_2ket1"]
+[ext_resource type="LabelSettings" uid="uid://cvdoqpoo1u0g3" path="res://resources/theme/waves.tres" id="3_2ket1"]
+[ext_resource type="LabelSettings" uid="uid://dwu4s77doir7" path="res://resources/theme/lifes.tres" id="4_t7shy"]
 
-[node name="Base" type="Node2D" unique_id=1376810633]
+[node name="Base" type="Node2D" unique_id=506069803]
 script = ExtResource("1_yoymw")
+metadata/_custom_type_script = "uid://bewyxkbeno73t"
 
 [node name="CanvasLayer" type="CanvasLayer" parent="." unique_id=450550180]
+
+[node name="Control" type="Control" parent="CanvasLayer" unique_id=289534424]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+mouse_filter = 2
+
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control" unique_id=385420781]
+layout_mode = 1
+anchors_preset = -1
+anchor_right = 1.0
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 18
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 18
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer" unique_id=503782326]
+layout_mode = 2
+
+[node name="Money" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1974593216]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "$TODO"
+label_settings = ExtResource("2_2ket1")
+
+[node name="Waves" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1469341795]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "TODO/0"
+label_settings = ExtResource("3_2ket1")
+horizontal_alignment = 1
+
+[node name="Lifes" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=808773100]
+layout_mode = 2
+size_flags_horizontal = 3
+text = "VIDAS: TODO"
+label_settings = ExtResource("4_t7shy")
+horizontal_alignment = 2
 
 [node name="Area2D" type="Area2D" parent="." unique_id=559616048]
 modulate = Color(0, 1, 0, 1)

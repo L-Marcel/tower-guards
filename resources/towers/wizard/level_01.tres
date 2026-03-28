@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TowerWizardData" format=3 uid="uid://bw04bwsux4kyh"]
+
+[ext_resource type="Script" uid="uid://c8pyi3yfovqme" path="res://resources/towers/wizard/data.gd" id="1_e8d50"]
+[ext_resource type="Texture2D" uid="uid://xne8qvudcap1" path="res://assets/sprites/towers/Wizard/wizard_level_1.png" id="2_g0hqc"]
+
+[resource]
+script = ExtResource("1_e8d50")
+texture = ExtResource("2_g0hqc")
+metadata/_custom_type_script = "uid://c8pyi3yfovqme"

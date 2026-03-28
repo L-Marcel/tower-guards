@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="TowerBarrackData" format=3 uid="uid://ddsxfvau01s8k"]
+
+[ext_resource type="Script" uid="uid://c8i0fscxmantb" path="res://resources/towers/barrack/data.gd" id="1_h8lle"]
+[ext_resource type="Texture2D" uid="uid://dxsswdkibjabm" path="res://assets/sprites/towers/Barrack/barrack_level_1 (1).png" id="2_6kpjo"]
+
+[resource]
+script = ExtResource("1_h8lle")
+texture = ExtResource("2_6kpjo")
+metadata/_custom_type_script = "uid://c8i0fscxmantb"

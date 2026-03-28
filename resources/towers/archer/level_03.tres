@@ -1,0 +1,14 @@
+[gd_resource type="Resource" script_class="TowerArcherData" format=3 uid="uid://dun8sonqkiwq3"]
+
+[ext_resource type="Script" uid="uid://dojkq58vqxqwu" path="res://resources/towers/archer/data.gd" id="1_15id7"]
+[ext_resource type="Texture2D" uid="uid://bef7dlhjg4kwx" path="res://assets/sprites/towers/Archer/archer_level_3.png" id="2_b2yvd"]
+
+[resource]
+script = ExtResource("1_15id7")
+cost = 100
+sell_value = 50
+damage = 30
+attack_interval = 0.5
+attack_range = 350.0
+texture = ExtResource("2_b2yvd")
+metadata/_custom_type_script = "uid://dojkq58vqxqwu"
