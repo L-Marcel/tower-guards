@@ -38,3 +38,5 @@ extends Resource
 @export_range(1, 300, 1) var health: int = 30;
 @export_range(0.0, 1.0, 0.25) var physical_resistance: float = 0.0;
 @export_range(0.0, 1.0, 0.25) var magical_resistance: float = 0.0;
+const RESISTANCE_MED: float = 0.33
+const RESISTANCE_HIGH: float = 0.66

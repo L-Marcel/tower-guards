@@ -103,6 +103,9 @@ func _on_walking_state_physics_processing(delta: float) -> void:
 
 #region Ataque
 func attack() -> void:
+	match attack_type:
+		AttackType.MELEE:
+			self.target.hurt(damage,damage_type)
 	# NOTE: Use o self.target para obter os dados do alvo
 	# TODO: Atáque ataque corpor a corpo físico, considere resistência
 	# TODO: Atáque ataque corpor a corpo mágico, considere resistência
@@ -138,3 +141,14 @@ func _on_attack_area_2d_body_exited(body: Node2D) -> void:
 		if self.targets.has(mob):
 			self.targets.erase(mob);
 #endregion
+
+#region Damage
+func hurt(hit_damage: int, type: DamageType):
+	match type:
+		DamageType.PHYSICAL:
+			health -= hit_damage*(1-physical_resistance)
+		DamageType.MAGICAL:
+			health -= hit_damage*(1-magical_resistance)
+	if (health <= 0):
+		queue_free()
+#endregion Damage
