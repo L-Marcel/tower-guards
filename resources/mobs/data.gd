@@ -38,3 +38,4 @@ extends Resource
 @export_range(1, 300, 1) var health: int = 30;
 @export_range(0.0, 1.0, 0.25) var physical_resistance: float = 0.0;
 @export_range(0.0, 1.0, 0.25) var magical_resistance: float = 0.0;
+#importante lembrar que nas funções de dano isso tá sendo tratado como dano*(1-resistance)
