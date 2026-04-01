@@ -150,5 +150,8 @@ func hurt(hit_damage: int, type: DamageType):
 		DamageType.MAGICAL:
 			health -= hit_damage*(1-magical_resistance)
 	if (health <= 0):
-		queue_free()
+		die()
+		
+func die():
+	queue_free()
 #endregion Damage

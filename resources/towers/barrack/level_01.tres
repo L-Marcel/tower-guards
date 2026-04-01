@@ -2,8 +2,10 @@
 
 [ext_resource type="Script" uid="uid://c8i0fscxmantb" path="res://resources/towers/barrack/data.gd" id="1_h8lle"]
 [ext_resource type="Texture2D" uid="uid://dxsswdkibjabm" path="res://assets/sprites/towers/Barrack/barrack_level_1 (1).png" id="2_6kpjo"]
+[ext_resource type="Resource" uid="uid://rmq7x2w2iq1t" path="res://resources/mobs/player_basic_soldier.tres" id="3_74lra"]
 
 [resource]
 script = ExtResource("1_h8lle")
+unit_data = ExtResource("3_74lra")
 texture = ExtResource("2_6kpjo")
 metadata/_custom_type_script = "uid://c8i0fscxmantb"

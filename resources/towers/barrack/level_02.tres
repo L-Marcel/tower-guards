@@ -2,6 +2,7 @@
 
 [ext_resource type="Script" uid="uid://c8i0fscxmantb" path="res://resources/towers/barrack/data.gd" id="1_fh8co"]
 [ext_resource type="Texture2D" uid="uid://f1t2mnrxqgjy" path="res://assets/sprites/towers/Barrack/barrack_level_2 (1).png" id="2_hnicf"]
+[ext_resource type="Resource" uid="uid://bv8ng36t34c31" path="res://resources/mobs/player_medium_soldier.tres" id="3_j6n4y"]
 
 [resource]
 script = ExtResource("1_fh8co")
@@ -9,5 +10,6 @@ cost = 60
 sell_value = 20
 unit_place_range = 275.0
 unit_respawn_interval = 10
+unit_data = ExtResource("3_j6n4y")
 texture = ExtResource("2_hnicf")
 metadata/_custom_type_script = "uid://c8i0fscxmantb"
