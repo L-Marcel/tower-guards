@@ -1,0 +1,60 @@
+[gd_scene format=3 uid="uid://cq0rfc3xshq06"]
+
+[ext_resource type="Script" uid="uid://boy256ijladk8" path="res://scenes/hud/menu/menu.gd" id="1_8ps6x"]
+[ext_resource type="Theme" uid="uid://cxnsggv0670gq" path="res://resources/theme/menu_theme.tres" id="1_27s2c"]
+
+[node name="menu" type="Control" unique_id=1555300479]
+layout_mode = 3
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+script = ExtResource("1_8ps6x")
+
+[node name="PanelContainer" type="PanelContainer" parent="." unique_id=1879776151]
+layout_mode = 1
+anchors_preset = 15
+anchor_right = 1.0
+anchor_bottom = 1.0
+grow_horizontal = 2
+grow_vertical = 2
+
+[node name="gameover" type="Label" parent="PanelContainer" unique_id=2097617397]
+visible = false
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_font_sizes/font_size = 96
+text = "GAME OVER!"
+horizontal_alignment = 1
+
+[node name="buttoncontainer" type="VBoxContainer" parent="PanelContainer" unique_id=723750216]
+layout_mode = 2
+size_flags_horizontal = 4
+size_flags_vertical = 4
+theme_override_constants/separation = 16
+
+[node name="nextlevel" type="Button" parent="PanelContainer/buttoncontainer" unique_id=1731551368]
+layout_mode = 2
+theme = ExtResource("1_27s2c")
+text = "PROXIMO NIVEL"
+
+[node name="restart" type="Button" parent="PanelContainer/buttoncontainer" unique_id=1602920198]
+layout_mode = 2
+theme = ExtResource("1_27s2c")
+text = "REINICIAR NIVEL"
+
+[node name="menu" type="Button" parent="PanelContainer/buttoncontainer" unique_id=994913086]
+layout_mode = 2
+theme = ExtResource("1_27s2c")
+text = "PARA O MENU"
+
+[node name="quit" type="Button" parent="PanelContainer/buttoncontainer" unique_id=1755384480]
+layout_mode = 2
+theme = ExtResource("1_27s2c")
+text = "SAIR"
+
+[connection signal="pressed" from="PanelContainer/buttoncontainer/nextlevel" to="." method="_on_nextlevel_pressed"]
+[connection signal="pressed" from="PanelContainer/buttoncontainer/restart" to="." method="_on_restart_pressed"]
+[connection signal="pressed" from="PanelContainer/buttoncontainer/menu" to="." method="_on_menu_pressed"]
+[connection signal="pressed" from="PanelContainer/buttoncontainer/quit" to="." method="_on_quit_pressed"]
