@@ -20,7 +20,7 @@ anchor_bottom = 1.0
 grow_horizontal = 2
 grow_vertical = 2
 
-[node name="gameover" type="Label" parent="PanelContainer" unique_id=2097617397]
+[node name="textlabel" type="Label" parent="PanelContainer" unique_id=2097617397]
 visible = false
 layout_mode = 2
 size_flags_vertical = 0
@@ -54,7 +54,7 @@ layout_mode = 2
 theme = ExtResource("1_27s2c")
 text = "SAIR"
 
-[connection signal="pressed" from="PanelContainer/buttoncontainer/nextlevel" to="." method="_on_nextlevel_pressed"]
-[connection signal="pressed" from="PanelContainer/buttoncontainer/restart" to="." method="_on_restart_pressed"]
-[connection signal="pressed" from="PanelContainer/buttoncontainer/menu" to="." method="_on_menu_pressed"]
-[connection signal="pressed" from="PanelContainer/buttoncontainer/quit" to="." method="_on_quit_pressed"]
+[connection signal="pressed" from="PanelContainer/buttoncontainer/nextlevel" to="." method="handle_menu" binds= ["next"]]
+[connection signal="pressed" from="PanelContainer/buttoncontainer/restart" to="." method="handle_menu" binds= ["restart"]]
+[connection signal="pressed" from="PanelContainer/buttoncontainer/menu" to="." method="handle_menu" binds= ["mainmenu"]]
+[connection signal="pressed" from="PanelContainer/buttoncontainer/quit" to="." method="handle_menu" binds= ["quit"]]
