@@ -4,6 +4,10 @@ extends Node2D
 @onready var label_money = get_node("CanvasLayer/Control/MarginContainer/HBoxContainer/Money")
 @onready var label_life = get_node("CanvasLayer/Control/MarginContainer/HBoxContainer/Lifes")
 
+# TODO: Só para não esquecer... Quando não restar mais tarefas, 
+# o último a cantar, é quem fecha a porta.
+# POR FAVOR, LEMBRAR DE DEFINIR O MONEY NAS CENAS DOS NÍVEIS
+# AO FECHAR A PORTA POIS EU DEIXEI COM 3000 PARA FINS DE TESTE
 
 var _money: int = 30
 var _lifes: int = 3
@@ -43,8 +47,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		mob.queue_free()
 		lifes -= mob.life_damage
 
-# TODO
 func update_waves() -> void:
+	# TODO: Atualizar visualização das ondas
 	pass
 
 func update_lifes() -> void:
@@ -56,5 +60,6 @@ func update_money() -> void:
 		label_money.text = "$%d" % _money
 
 func game_over() -> void:
-	# TODO: Tela de game over
+	# TODO: Fazer a tela de game over e com botão 
+	# de reiniciar o nível
 	pass

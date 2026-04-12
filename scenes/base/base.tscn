@@ -5,6 +5,7 @@
 [ext_resource type="FontFile" uid="uid://b15r6wdkpym3b" path="res://resources/theme/RocknRollOne-Regular.ttf" id="2_t7shy"]
 [ext_resource type="LabelSettings" uid="uid://cvdoqpoo1u0g3" path="res://resources/theme/waves.tres" id="3_2ket1"]
 [ext_resource type="LabelSettings" uid="uid://dwu4s77doir7" path="res://resources/theme/lifes.tres" id="4_t7shy"]
+[ext_resource type="Texture2D" uid="uid://bdq0vnw80vbmr" path="res://assets/sprites/hud/coracao.png" id="5_e5se4"]
 
 [node name="Base" type="Node2D" unique_id=506069803]
 script = ExtResource("1_yoymw")
@@ -37,7 +38,7 @@ layout_mode = 2
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_t7shy")
-text = "$TODO"
+text = "$money"
 label_settings = ExtResource("2_2ket1")
 
 [node name="Waves" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1469341795]
@@ -46,13 +47,20 @@ size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_t7shy")
 text = "TODO/0"
 label_settings = ExtResource("3_2ket1")
-horizontal_alignment = 1
 
-[node name="Lifes" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=808773100]
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1498467008]
+layout_mode = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=190991099]
+layout_mode = 2
+texture = ExtResource("5_e5se4")
+expand_mode = 3
+
+[node name="Lifes" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=808773100]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_fonts/font = ExtResource("2_t7shy")
-text = "VIDAS: TODO"
+text = "3"
 label_settings = ExtResource("4_t7shy")
 horizontal_alignment = 2
 
