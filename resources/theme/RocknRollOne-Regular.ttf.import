@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://1b6d0oy3c6gx"
-path="res://.godot/imported/AsepriteFont.ttf-e1c5580125f3149208b83344c252b331.fontdata"
+uid="uid://b15r6wdkpym3b"
+path="res://.godot/imported/RocknRollOne-Regular.ttf-a21d73a32f4b4e34caff1c6770973fa9.fontdata"
 
 [deps]
 
-source_file="res://resources/theme/AsepriteFont.ttf"
-dest_files=["res://.godot/imported/AsepriteFont.ttf-e1c5580125f3149208b83344c252b331.fontdata"]
+source_file="res://resources/theme/RocknRollOne-Regular.ttf"
+dest_files=["res://.godot/imported/RocknRollOne-Regular.ttf-a21d73a32f4b4e34caff1c6770973fa9.fontdata"]
 
 [params]
 
