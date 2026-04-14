@@ -2,7 +2,7 @@ class_name Base
 extends Node2D
 
 @onready var label_money = get_node("CanvasLayer/Control/MarginContainer/HBoxContainer/Money")
-@onready var label_life = get_node("CanvasLayer/Control/MarginContainer/HBoxContainer/Lifes")
+@onready var label_life = get_node("CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer/Lifes")
 
 # TODO: Só para não esquecer... Quando não restar mais tarefas, 
 # o último a cantar, é quem fecha a porta.
@@ -53,7 +53,7 @@ func update_waves() -> void:
 
 func update_lifes() -> void:
 	if label_life:
-		label_life.text = "VIDAS: %d" % _lifes
+		label_life.text = "%d" % _lifes
 
 func update_money() -> void:
 	if label_money:
