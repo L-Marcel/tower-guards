@@ -33,6 +33,8 @@ extends Resource
 @export var damage_type: Mob.DamageType = Mob.DamageType.PHYSICAL;
 @export var attack_type: Mob.AttackType = Mob.AttackType.MELEE;
 @export var attack_range: float = 40.0;
+@export var agro_range: float = 125.0;
+
 @export_range(2, 10, 1) var value_in_money: int = 2;
 @export_range(0, 300, 1) var speed: int = 50;
 @export_range(1, 300, 1) var health: int = 30;

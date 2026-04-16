@@ -19,12 +19,16 @@ var is_enemy: bool = true;
 @onready var animation_player: AnimationPlayer = $AnimationPlayer;
 
 var targets: Array[Mob] = [];
+var targets_in_attack_range: Array[Mob] = [];
+
 var target: Mob;
 var current_point: int = 0;
 var path_points: PackedVector2Array;
+var movement_is_priority: bool = false;
 
 enum AttackType {
-	MELEE
+	MELEE,
+	RANGED
 }
 
 enum DamageType {
@@ -57,14 +61,17 @@ func set_data(mob: MobData) -> void:
 	self.sprite.offset = mob.texture_offset;
 	self.sprite.modulate = mob.modulate;
 	self.visible = true;
+	self.movement_is_priority = false;
 func move_to_point(global_point: Vector2) -> void:
 	self.path_points.resize(1);
 	self.path_points[0] = global_point;
 	self.current_point = 0;
+	self.movement_is_priority = true;
 func move_to_mob(mob: Mob) -> void:
 	self.path_points.resize(1);
 	self.path_points[0] = mob.global_position;
 	self.current_point = 0;
+	self.movement_is_priority = false;
 #endregion
 
 #region Movimentação
@@ -76,10 +83,14 @@ func _process(delta: float) -> void:
 	else:
 		self.animation_player.play("walking");
 func _on_walking_state_physics_processing(delta: float) -> void:
+	if self._attack_timer > 0.0: self._attack_timer -= delta;
 	if !self.visible || self.path_points.is_empty() || self.current_point >= self.path_points.size(): 
 		self.velocity = Vector2.ZERO;
+		self.check_agro();
 		self.move_and_slide();
 		return;
+	elif !self.movement_is_priority:
+		self.check_agro();
 	
 	var destiny: Vector2 = self.path_points[self.current_point];
 	var distance: float = self.global_position.distance_to(destiny);
@@ -103,18 +114,34 @@ func _on_walking_state_physics_processing(delta: float) -> void:
 
 #region Ataque
 func attack() -> void:
-	match attack_type:
+	match self.attack_type:
 		AttackType.MELEE:
-			self.target.hurt(damage,damage_type)
-	# NOTE: Use o self.target para obter os dados do alvo
-	# TODO: Atáque ataque corpor a corpo físico, considere resistência
-	# TODO: Atáque ataque corpor a corpo mágico, considere resistência
-	# NOTE: Finalizar essa parte incluí apagar o mob quando ele ficar sem vida
-	# NOTE: Chame os métodos adequados do Sounds quando preciso
+			self.target.hurt(damage, damage_type);
+			Sounds.play_swords_collision_sound();
+		AttackType.RANGED:
+			pass;
 	pass;
+func check_agro(force: bool = false) -> void:
+	var has_target_in_agro_range: bool = false;
+	for target in self.targets:
+		if is_instance_valid(target):
+			has_target_in_agro_range = true;
+			break;
+	if !has_target_in_agro_range && self.targets.size() > 0:
+		self.targets.clear();
+	var has_target_in_attack_range: bool = false;
+	for target in self.targets_in_attack_range:
+		if is_instance_valid(target):
+			has_target_in_attack_range = true;
+			break;
+	if !has_target_in_attack_range && self.targets_in_attack_range.size() > 0:
+		self.targets_in_attack_range.clear();
+	elif has_target_in_agro_range || has_target_in_attack_range:
+		self.state_machine.send_event("to_attack");
 func _on_attacking_state_processing(delta: float) -> void:
-	if _attack_timer > 0.0: _attack_timer -= delta;
+	if self._attack_timer > 0.0: self._attack_timer -= delta;
 	var target_is_valid: bool = self.target && is_instance_valid(self.target);
+	var target_is_in_attack_range: bool = target_is_valid && self.targets_in_attack_range.has(self.target);
 	if !target_is_valid && self.targets.size() > 0:
 		self.target = null;
 		var nearest: Mob = self.targets[0];
@@ -124,34 +151,47 @@ func _on_attacking_state_processing(delta: float) -> void:
 				var distance: float = target.global_position.distance_to(self.global_position);
 				if distance < nearest_distance:
 					distance = nearest_distance;
-					nearest = target;
+					nearest = self.target;
 		if is_instance_valid(nearest):
 			self.target = nearest;
-	elif target_is_valid && _attack_timer <= 0.0:
+	elif !target_is_valid || self.movement_is_priority:
+		self.state_machine.send_event("to_walk");
+	elif target_is_in_attack_range && self._attack_timer <= 0.0:
 		self.attack();
-		_attack_timer = attack_interval;
-func _on_attack_area_2d_body_entered(body: Node2D) -> void:
+		self._attack_timer = self.attack_interval;
+	elif !target_is_in_attack_range:
+		self.move_to_mob(self.target);
+func _on_agro_area_2d_body_entered(body: Node2D) -> void:
 	if body is Mob && (body as Mob).is_enemy != self.is_enemy:
 		var mob: Mob = body as Mob; 
-		self.targets.append(mob);
-		self.state_machine.send_event("to_attack");
-func _on_attack_area_2d_body_exited(body: Node2D) -> void:
+		if !self.targets.has(mob):
+			self.targets.append(mob);
+func _on_agro_area_2d_body_exited(body: Node2D) -> void:
 	if body is Mob && (body as Mob).is_enemy != self.is_enemy:
 		var mob: Mob = body as Mob;
 		if self.targets.has(mob):
 			self.targets.erase(mob);
+func _on_attack_area_2d_body_entered(body: Node2D) -> void:
+	if body is Mob && (body as Mob).is_enemy != self.is_enemy:
+		var mob: Mob = body as Mob;
+		if !self.targets_in_attack_range.has(mob):
+			self.targets_in_attack_range.append(mob);
+func _on_attack_area_2d_body_exited(body: Node2D) -> void:
+	if body is Mob && (body as Mob).is_enemy != self.is_enemy:
+		var mob: Mob = body as Mob;
+		if self.targets_in_attack_range.has(mob):
+			self.targets_in_attack_range.append(mob);
 #endregion
 
 #region Damage
 func hurt(hit_damage: int, type: DamageType):
 	match type:
 		DamageType.PHYSICAL:
-			health -= hit_damage*(1-physical_resistance)
+			self.health -= hit_damage * (1.0 - self.physical_resistance);
 		DamageType.MAGICAL:
-			health -= hit_damage*(1-magical_resistance)
-	if (health <= 0):
-		die()
-		
+			self.health -= hit_damage * (1.0 - self.magical_resistance);
+	if (self.health <= 0):
+		self.die();
 func die():
-	queue_free()
+	self.queue_free();
 #endregion Damage
