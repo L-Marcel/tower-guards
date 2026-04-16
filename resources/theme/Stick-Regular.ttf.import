@@ -2,13 +2,13 @@
 
 importer="font_data_dynamic"
 type="FontFile"
-uid="uid://1b6d0oy3c6gx"
-path="res://.godot/imported/AsepriteFont.ttf-e1c5580125f3149208b83344c252b331.fontdata"
+uid="uid://dkf2vggrg5dp2"
+path="res://.godot/imported/Stick-Regular.ttf-36f888240d078153c03c6bf10547730b.fontdata"
 
 [deps]
 
-source_file="res://resources/theme/AsepriteFont.ttf"
-dest_files=["res://.godot/imported/AsepriteFont.ttf-e1c5580125f3149208b83344c252b331.fontdata"]
+source_file="res://resources/theme/Stick-Regular.ttf"
+dest_files=["res://.godot/imported/Stick-Regular.ttf-36f888240d078153c03c6bf10547730b.fontdata"]
 
 [params]
 
