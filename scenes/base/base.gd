@@ -60,6 +60,7 @@ func update_money() -> void:
 		label_money.text = "$%d" % _money
 
 func game_over() -> void:
+	Menu.get_instance().end(false)
 	# TODO: Fazer a tela de game over e com botão 
 	# de reiniciar o nível
 	pass

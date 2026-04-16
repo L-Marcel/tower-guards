@@ -55,3 +55,8 @@ offset = Vector2(0, -36)
 [node name="TowerMenu" parent="." unique_id=2134517744 node_paths=PackedStringArray("tower") instance=ExtResource("4_nfofi")]
 position = Vector2(0, -36)
 tower = NodePath("..")
+
+[node name="Timer" type="Timer" parent="." unique_id=272448228]
+one_shot = true
+
+[node name="Units" type="Node2D" parent="." unique_id=474928591]
