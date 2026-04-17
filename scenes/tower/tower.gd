@@ -5,8 +5,9 @@ extends Node2D
 @onready var attack_area: TowerAttackArea2D = $TowerAttackArea2D;
 @onready var menu: TowerMenu = $TowerMenu;
 @onready var sprite: Sprite2D = $Sprite2D;
-@onready var timer: Timer = $Timer
-@onready var units: Node2D = $Units
+@onready var timer: Timer = $Timer;
+@onready var units: Node2D = $Units;
+
 var level: int = 0;
 var type: TowerType = TowerType.NONE;
 
@@ -29,7 +30,16 @@ var current_tower_wizard_data: TowerWizardData;
 @export_group("Barrack")
 @export var tower_barrack_datas: Array[TowerBarrackData] = [];
 var current_tower_barrack_data: TowerBarrackData;
-var tower_barrack_spawn_point: Vector2;
+var tower_barrack_spawn_point: Vector2 :
+	set(value):
+		tower_barrack_spawn_point = value;
+		if self.units.is_node_ready():
+			var count: int = 0;
+			for child in self.units.get_children():
+				if child is Mob:
+					child.move_to_point(value, count);
+					count += 1;
+
 var changing_spawn_point: bool = false;
 #endregion
 
@@ -62,24 +72,24 @@ func _process(delta: float) -> void:
 			# NOTE: Chame os métodos adequados do Sounds quando preciso
 			pass;
 		TowerType.BARRACK:
-			if(timer.is_stopped()):
-				timer.start()
-				var m: Mob = Mob.new(current_tower_barrack_data.unit_data,tower_barrack_spawn_point)
-				units.add_child(m)
-				Sounds.play_spawn_sound()
+			if(self.timer.is_stopped()):
+				self.timer.start();
+				var scene: PackedScene = Preloader.get_resource("mob");
+				var mob: Mob = scene.instantiate();
+				mob.position = Vector2.ZERO;
+				mob.set_data.call_deferred(self.current_tower_barrack_data.unit_data);
+				mob.move_to_point(self.tower_barrack_spawn_point, self.units.get_child_count());
+				self.units.add_child(mob);
+				Sounds.play_spawn_sound();
+				# TODO: Limite de 3 soldados
 			# TODO: Lógica de recriar soldados
 			# use os dados de current_tower_barack_data
-			# NOTE: A cena mob vale tanto para aliado como para inimigos
-			# Ela já tem método para forçar os mobs a caminharem para 
-			# um ponto especifico, ele se chamada move_to_point. 
-			# Mas também tem o move_to_mob, para fazer o mob ir na 
-			# direção de um outro mob
 			# NOTE: Experimente usar o global preloader
 			# NOTE: Chame os métodos adequados do Sounds quando preciso
 			pass;
 func calculate_initial_spawn_point(radius: float) -> void:
-	#vou deixar como metade do raio na direção direita-baixo por enquanto
-	tower_barrack_spawn_point = Vector2(radius/2,radius/2)
+	# Vou deixar como metade do raio na direção direita-baixo por enquanto
+	self.tower_barrack_spawn_point = to_global(Vector2(radius/2, radius/2));
 	# TODO: Calcula o tower_barrack_spawn_point inicial usando o 
 	# raio disponível
 	pass;
@@ -206,8 +216,8 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			var hit_attack_area: bool = result.any(func(hit: Dictionary): return hit["collider"] == self.attack_area);
 			if hit_attack_area:
-				get_viewport().set_input_as_handled();
-				self.tower_barrack_spawn_point = get_global_mouse_position();
+				self.get_viewport().set_input_as_handled();
+				self.tower_barrack_spawn_point = self.get_global_mouse_position();
 			self.changing_spawn_point = false;
 			self.attack_area.border_is_visible = false;
 			self.attack_area.is_alternative = false;

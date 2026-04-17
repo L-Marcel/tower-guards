@@ -36,10 +36,6 @@ enum DamageType {
 	PHYSICAL
 }
 
-func _init(data: MobData, pos: Vector2) -> void:
-	set_data(data)
-	position = pos
-
 #region Definir destino
 func set_path(path: Path2D) -> void:
 	self.current_point = 0;
@@ -66,7 +62,8 @@ func set_data(mob: MobData) -> void:
 	self.sprite.modulate = mob.modulate;
 	self.visible = true;
 	self.movement_is_priority = false;
-func move_to_point(global_point: Vector2) -> void:
+func move_to_point(global_point: Vector2, triangle: int = -1) -> void:
+	# TODO: Fazer os mobs ficarem em triangulo
 	self.path_points.resize(1);
 	self.path_points[0] = global_point;
 	self.current_point = 0;

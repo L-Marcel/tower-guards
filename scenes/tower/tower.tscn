@@ -60,3 +60,4 @@ tower = NodePath("..")
 one_shot = true
 
 [node name="Units" type="Node2D" parent="." unique_id=474928591]
+y_sort_enabled = true
