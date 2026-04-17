@@ -7,4 +7,5 @@
 script = ExtResource("1_uitpg")
 texture = ExtResource("2_a6ekh")
 texture_offset = Vector2(0, -18)
+modulate = Color(0.7137255, 0.31764707, 0.25882354, 1)
 metadata/_custom_type_script = "uid://co1cirn4uiw63"

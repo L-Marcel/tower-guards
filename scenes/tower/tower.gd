@@ -40,8 +40,12 @@ var tower_barrack_spawn_point: Vector2 :
 					child.move_to_point(value, count);
 					count += 1;
 
-var changing_spawn_point: bool = false;
+var is_changing_spawn_point: bool = false;
+static var is_any_changing_spawn_point: bool = false;
 #endregion
+
+func _ready() -> void:
+	self.add_to_group("towers");
 
 #region Lógicas de ataque
 func _process(delta: float) -> void:
@@ -75,6 +79,14 @@ func _process(delta: float) -> void:
 			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
 				self.timer.start();
 				self.spawn_unit();
+func set_timer():
+	match self.type:
+		TowerType.BARRACK:
+			self.timer.set_wait_time(self.current_tower_barrack_data.unit_respawn_interval);
+		TowerType.ARCHER:
+			self.timer.set_wait_time(self.current_tower_archer_data.attack_interval);
+		TowerType.WIZARD:
+			self.timer.set_wait_time(self.current_tower_wizard_data.attack_interval);
 func clear_units() -> void:
 	for child in self.units.get_children():
 		if child is Mob:
@@ -82,6 +94,7 @@ func clear_units() -> void:
 func spawn_unit(index: int = self.units.get_child_count()) -> void:
 	var scene: PackedScene = Preloader.get_resource("mob");
 	var mob: Mob = scene.instantiate();
+	mob.tower = self;
 	mob.position = Vector2.ZERO;
 	mob.initial_data = self.current_tower_barrack_data.unit_data;
 	mob.move_to_point(self.tower_barrack_spawn_point, index);
@@ -171,23 +184,21 @@ func sell() -> void:
 		self.attack_area.queue_redraw();
 	self.tower_barrack_spawn_point = self.global_position;
 	self.clear_units();
-	
-func set_timer():
-	match type:
-		TowerType.BARRACK:
-			timer.set_wait_time(current_tower_barrack_data.unit_respawn_interval);
-		TowerType.ARCHER:
-			timer.set_wait_time(current_tower_archer_data.attack_interval);
-		TowerType.WIZARD:
-			timer.set_wait_time(current_tower_wizard_data.attack_interval);
 #endregion
 
 #region Detecção de clicks
 func start_change_spawn_point_mode() -> void:
-	self.changing_spawn_point = true;
+	self.is_changing_spawn_point = true;
+	Tower.is_any_changing_spawn_point = true;
 	self.attack_area.border_is_visible = true;
 	self.attack_area.is_alternative = true;
 	self.menu.close_menu();
+func close_other_menus(active_tower: Tower) -> void:
+	if self != active_tower:
+		self.menu.close_menu();
+		self.attack_area.border_is_visible = false;
+		self.attack_area.is_alternative = false;
+		self.is_changing_spawn_point = false;
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new();
@@ -203,10 +214,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			self.attack_area.is_alternative = false;
 			return;
 		
-		if !self.changing_spawn_point:
+		if !self.is_changing_spawn_point && !Tower.is_any_changing_spawn_point:
 			var hit_self: bool = result.any(func(hit: Dictionary): return hit["collider"] == self.area);
 			if hit_self:
-				get_viewport().set_input_as_handled();
+				self.get_viewport().set_input_as_handled();
+				self.get_tree().call_group("towers", "close_other_menus", self);
 				match self.level:
 					0: self.menu.open_base_menu();
 					1, 2: self.menu.open_upgrade_menu();
@@ -217,12 +229,16 @@ func _unhandled_input(event: InputEvent) -> void:
 				self.attack_area.border_is_visible = false;
 				self.attack_area.is_alternative = false;
 				self.menu.close_menu();
-		else:
+		elif self.is_changing_spawn_point:
 			var hit_attack_area: bool = result.any(func(hit: Dictionary): return hit["collider"] == self.attack_area);
 			if hit_attack_area:
 				self.get_viewport().set_input_as_handled();
 				self.tower_barrack_spawn_point = self.get_global_mouse_position();
-			self.changing_spawn_point = false;
+			self.is_changing_spawn_point = false;
+			Tower.is_any_changing_spawn_point = false;
+			self.attack_area.border_is_visible = false;
+			self.attack_area.is_alternative = false;
+		else:
 			self.attack_area.border_is_visible = false;
 			self.attack_area.is_alternative = false;
 #endregion

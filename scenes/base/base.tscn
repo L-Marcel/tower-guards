@@ -50,11 +50,7 @@ label_settings = ExtResource("3_2ket1")
 
 [node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1498467008]
 layout_mode = 2
-
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=190991099]
-layout_mode = 2
-texture = ExtResource("5_e5se4")
-expand_mode = 3
+theme_override_constants/separation = 10
 
 [node name="Lifes" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=808773100]
 layout_mode = 2
@@ -63,6 +59,11 @@ theme_override_fonts/font = ExtResource("2_t7shy")
 text = "3"
 label_settings = ExtResource("4_t7shy")
 horizontal_alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=190991099]
+layout_mode = 2
+texture = ExtResource("5_e5se4")
+expand_mode = 3
 
 [node name="Area2D" type="Area2D" parent="." unique_id=559616048]
 modulate = Color(0, 1, 0, 1)
