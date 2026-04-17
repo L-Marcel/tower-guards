@@ -31,3 +31,6 @@ func play_throw_magic_ball_sound() -> void:
 
 func play_magic_ball_collision_sound() -> void:
 	pass;
+	
+func play_spawn_sound() -> void:
+	pass;

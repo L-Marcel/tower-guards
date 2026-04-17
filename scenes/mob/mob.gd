@@ -36,6 +36,10 @@ enum DamageType {
 	PHYSICAL
 }
 
+func _init(data: MobData, pos: Vector2) -> void:
+	set_data(data)
+	position = pos
+
 #region Definir destino
 func set_path(path: Path2D) -> void:
 	self.current_point = 0;

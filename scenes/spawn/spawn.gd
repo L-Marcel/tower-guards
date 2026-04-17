@@ -15,8 +15,7 @@ static func _go_next_wave() -> void:
 		for spawn in Spawn._spawns:
 			spawn._start_next_wave(Spawn._wave);
 	else:
-		# TODO: Ir para o próximo nível ou tela de parabens
-		# qualquer coisa, pedir ajuda
+		Menu.get_instance().end(true)
 		pass;
 static func _check_current_waves() -> void:
 	for spawn in Spawn._spawns:

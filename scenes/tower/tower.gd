@@ -5,7 +5,8 @@ extends Node2D
 @onready var attack_area: TowerAttackArea2D = $TowerAttackArea2D;
 @onready var menu: TowerMenu = $TowerMenu;
 @onready var sprite: Sprite2D = $Sprite2D;
-
+@onready var timer: Timer = $Timer
+@onready var units: Node2D = $Units
 var level: int = 0;
 var type: TowerType = TowerType.NONE;
 
@@ -61,24 +62,24 @@ func _process(delta: float) -> void:
 			# NOTE: Chame os métodos adequados do Sounds quando preciso
 			pass;
 		TowerType.BARRACK:
+			if(timer.is_stopped()):
+				timer.start()
+				var m: Mob = Mob.new(current_tower_barrack_data.unit_data,tower_barrack_spawn_point)
+				units.add_child(m)
+				Sounds.play_spawn_sound()
 			# TODO: Lógica de recriar soldados
 			# use os dados de current_tower_barack_data
-			# NOTE: Se você verificar em resources/towers/barrack verá que todas as variantes das 
-			# barracas estão incompletas, você precisará definir os soldados aliados primeiro na 
-			# tarefa correspondente
 			# NOTE: A cena mob vale tanto para aliado como para inimigos
 			# Ela já tem método para forçar os mobs a caminharem para 
 			# um ponto especifico, ele se chamada move_to_point. 
 			# Mas também tem o move_to_mob, para fazer o mob ir na 
 			# direção de um outro mob
-			# NOTE: Você vai precisar calcular o tower_barrack_spawn_point inicial, 
-			# no método calculate_initial_spawn_point. Mas ele já muda sozinho 
-			# quando o usuário clicar no botão de mudar da barraca e 
-			# clicar no ponto dentro da área
 			# NOTE: Experimente usar o global preloader
 			# NOTE: Chame os métodos adequados do Sounds quando preciso
 			pass;
 func calculate_initial_spawn_point(radius: float) -> void:
+	#vou deixar como metade do raio na direção direita-baixo por enquanto
+	tower_barrack_spawn_point = Vector2(radius/2,radius/2)
 	# TODO: Calcula o tower_barrack_spawn_point inicial usando o 
 	# raio disponível
 	pass;
@@ -100,6 +101,7 @@ func buy_wizard() -> void:
 			circle.radius = data.attack_range;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
+		setTimer()
 func buy_archer() -> void:
 	if self.level > 2: return;
 	var data: TowerArcherData = self.tower_archer_datas[self.level];
@@ -115,6 +117,7 @@ func buy_archer() -> void:
 			circle.radius = data.attack_range;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
+		setTimer()
 func buy_barrack() -> void:
 	if self.level > 2: return;
 	var data: TowerBarrackData = self.tower_barrack_datas[self.level];
@@ -131,6 +134,7 @@ func buy_barrack() -> void:
 			self.attack_area.queue_redraw();
 		if self.level == 1:
 			self.calculate_initial_spawn_point(data.unit_place_range);
+		setTimer()
 func sell() -> void:
 	if self.level < 1: return;
 	var sell_value: int = 0;
@@ -153,6 +157,15 @@ func sell() -> void:
 		circle.radius = 0;
 		self.attack_area.queue_redraw();
 	self.tower_barrack_spawn_point = self.global_position;
+	
+func setTimer():
+	match type:
+		TowerType.BARRACK:
+			timer.set_wait_time(current_tower_barrack_data.unit_respawn_interval)
+		TowerType.ARCHER:
+			timer.set_wait_time(current_tower_archer_data.attack_interval)
+		TowerType.WIZARD:
+			timer.set_wait_time(current_tower_wizard_data.attack_interval)
 #endregion
 
 #region Detecção de clicks

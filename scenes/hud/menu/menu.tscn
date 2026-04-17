@@ -34,6 +34,11 @@ size_flags_horizontal = 4
 size_flags_vertical = 4
 theme_override_constants/separation = 16
 
+[node name="resume" type="Button" parent="PanelContainer/buttoncontainer" unique_id=1825416354]
+layout_mode = 2
+theme = ExtResource("1_27s2c")
+text = "CONTINUAR"
+
 [node name="nextlevel" type="Button" parent="PanelContainer/buttoncontainer" unique_id=1731551368]
 layout_mode = 2
 theme = ExtResource("1_27s2c")
@@ -54,6 +59,7 @@ layout_mode = 2
 theme = ExtResource("1_27s2c")
 text = "SAIR"
 
+[connection signal="pressed" from="PanelContainer/buttoncontainer/resume" to="." method="handle_menu" binds= ["next"]]
 [connection signal="pressed" from="PanelContainer/buttoncontainer/nextlevel" to="." method="handle_menu" binds= ["next"]]
 [connection signal="pressed" from="PanelContainer/buttoncontainer/restart" to="." method="handle_menu" binds= ["restart"]]
 [connection signal="pressed" from="PanelContainer/buttoncontainer/menu" to="." method="handle_menu" binds= ["mainmenu"]]
