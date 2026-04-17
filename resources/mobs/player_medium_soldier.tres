@@ -1,13 +1,13 @@
 [gd_resource type="Resource" script_class="MobData" format=3 uid="uid://bv8ng36t34c31"]
 
 [ext_resource type="Script" uid="uid://co1cirn4uiw63" path="res://resources/mobs/data.gd" id="1_71fcm"]
-[ext_resource type="Texture2D" uid="uid://cg78ldx8xb38a" path="res://assets/sprites/towers/Barrack/knight_level_1.png" id="2_q5aiw"]
+[ext_resource type="Texture2D" uid="uid://kyiv1nb70we3" path="res://assets/sprites/towers/Barrack/knight_level_2.png" id="2_71fcm"]
 
 [resource]
 script = ExtResource("1_71fcm")
 is_enemy = false
-texture = ExtResource("2_q5aiw")
-texture_offset = Vector2(0, -18)
+texture = ExtResource("2_71fcm")
+texture_offset = Vector2(-11, -18)
 damage = 8
 attack_interval = 3
 value_in_money = 3

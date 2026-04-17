@@ -72,21 +72,21 @@ func _process(delta: float) -> void:
 			# NOTE: Chame os métodos adequados do Sounds quando preciso
 			pass;
 		TowerType.BARRACK:
-			if(self.timer.is_stopped()):
+			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
 				self.timer.start();
-				var scene: PackedScene = Preloader.get_resource("mob");
-				var mob: Mob = scene.instantiate();
-				mob.position = Vector2.ZERO;
-				mob.set_data.call_deferred(self.current_tower_barrack_data.unit_data);
-				mob.move_to_point(self.tower_barrack_spawn_point, self.units.get_child_count());
-				self.units.add_child(mob);
-				Sounds.play_spawn_sound();
-				# TODO: Limite de 3 soldados
-			# TODO: Lógica de recriar soldados
-			# use os dados de current_tower_barack_data
-			# NOTE: Experimente usar o global preloader
-			# NOTE: Chame os métodos adequados do Sounds quando preciso
-			pass;
+				self.spawn_unit();
+func clear_units() -> void:
+	for child in self.units.get_children():
+		if child is Mob:
+			child.die();
+func spawn_unit(index: int = self.units.get_child_count()) -> void:
+	var scene: PackedScene = Preloader.get_resource("mob");
+	var mob: Mob = scene.instantiate();
+	mob.position = Vector2.ZERO;
+	mob.initial_data = self.current_tower_barrack_data.unit_data;
+	mob.move_to_point(self.tower_barrack_spawn_point, index);
+	self.units.add_child(mob);
+	Sounds.play_spawn_sound();
 func calculate_initial_spawn_point(radius: float) -> void:
 	# Vou deixar como metade do raio na direção direita-baixo por enquanto
 	self.tower_barrack_spawn_point = to_global(Vector2(radius/2, radius/2));
@@ -111,7 +111,7 @@ func buy_wizard() -> void:
 			circle.radius = data.attack_range;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
-		setTimer()
+		self.set_timer()
 func buy_archer() -> void:
 	if self.level > 2: return;
 	var data: TowerArcherData = self.tower_archer_datas[self.level];
@@ -127,7 +127,7 @@ func buy_archer() -> void:
 			circle.radius = data.attack_range;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
-		setTimer()
+		self.set_timer();
 func buy_barrack() -> void:
 	if self.level > 2: return;
 	var data: TowerBarrackData = self.tower_barrack_datas[self.level];
@@ -144,7 +144,10 @@ func buy_barrack() -> void:
 			self.attack_area.queue_redraw();
 		if self.level == 1:
 			self.calculate_initial_spawn_point(data.unit_place_range);
-		setTimer()
+		self.clear_units();
+		for i in range(data.inital_units):
+			self.spawn_unit(i);
+		self.set_timer();
 func sell() -> void:
 	if self.level < 1: return;
 	var sell_value: int = 0;
@@ -167,15 +170,16 @@ func sell() -> void:
 		circle.radius = 0;
 		self.attack_area.queue_redraw();
 	self.tower_barrack_spawn_point = self.global_position;
+	self.clear_units();
 	
-func setTimer():
+func set_timer():
 	match type:
 		TowerType.BARRACK:
-			timer.set_wait_time(current_tower_barrack_data.unit_respawn_interval)
+			timer.set_wait_time(current_tower_barrack_data.unit_respawn_interval);
 		TowerType.ARCHER:
-			timer.set_wait_time(current_tower_archer_data.attack_interval)
+			timer.set_wait_time(current_tower_archer_data.attack_interval);
 		TowerType.WIZARD:
-			timer.set_wait_time(current_tower_wizard_data.attack_interval)
+			timer.set_wait_time(current_tower_wizard_data.attack_interval);
 #endregion
 
 #region Detecção de clicks
