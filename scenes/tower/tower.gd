@@ -45,6 +45,7 @@ static var is_any_changing_spawn_point: bool = false;
 #endregion
 
 func _ready() -> void:
+	self.is_any_changing_spawn_point = false;
 	self.add_to_group("towers");
 
 #region Lógicas de ataque
@@ -77,8 +78,9 @@ func _process(delta: float) -> void:
 			pass;
 		TowerType.BARRACK:
 			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
-				self.timer.start();
 				self.spawn_unit();
+				if self.units.get_child_count() < self.current_tower_barrack_data.max_units:
+					self.timer.start();
 func set_timer():
 	match self.type:
 		TowerType.BARRACK:

@@ -59,27 +59,27 @@ func close_menu() -> void:
 	self.upgrade_menu_spawn_point_option.visible = false;
 	self.end_menu_spawn_point_option.visible = false;
 
-func _on_spawn_point_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_spawn_point_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.start_change_spawn_point_mode();
 		self.close_menu();
 
-func _on_wizard_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_wizard_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.buy_wizard();
 		self.close_menu();
 
-func _on_soldier_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_soldier_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.buy_barrack();
 		self.close_menu();
 
-func _on_archer_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_archer_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.buy_archer();
 		self.close_menu();
 
-func _on_upgrade_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_upgrade_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		match self.tower.type:
 			Tower.TowerType.ARCHER: self.tower.buy_archer();
@@ -87,7 +87,7 @@ func _on_upgrade_input_event(viewport: Node, event: InputEvent, shape_idx: int) 
 			_: self.tower.buy_barrack();
 		self.close_menu();
 
-func _on_sell_input_event(viewport: Node, event: InputEvent, shape_idx: int) -> void:
+func _on_sell_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.sell();
 		self.close_menu();

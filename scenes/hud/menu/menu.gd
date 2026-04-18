@@ -1,48 +1,47 @@
 class_name Menu
 extends Control
-
-static var _instance: Menu;
-static func get_instance() -> Menu:
-	return Menu._instance;
 	
-@onready var textlabel: Label = $PanelContainer/textlabel
-@onready var buttoncontainer: VBoxContainer = $PanelContainer/buttoncontainer
-@onready var resume: Button = $PanelContainer/buttoncontainer/resume
-@onready var nextlevelbutton: Button = $PanelContainer/buttoncontainer/nextlevel
-@onready var restartbutton: Button = $PanelContainer/buttoncontainer/restart
-@onready var menubutton: Button = $PanelContainer/buttoncontainer/menu
-@onready var quitbutton: Button = $PanelContainer/buttoncontainer/quit
-const gameover: String = "GAME OVER!"
-const congratulation: String = "CONGRATULATIONS!"
+@onready var text_label: Label = $PanelContainer/VBoxContainer/CenterContainer/TextLabel;
+@onready var button_container: VBoxContainer = $PanelContainer/VBoxContainer/ButtonContainer;
+@onready var resume_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/Resume;
+@onready var next_level_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/NextLevel;
+@onready var restart_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/Restart;
+@onready var quit_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/Quit;
+var ended: bool = false;
 
+func _ready() -> void:
+	self.visible = false;
+func _process(_delta: float) -> void:
+	if Input.is_action_just_pressed("pause") && !self.ended:
+		if self.get_tree().paused: self.resume();
+		else: self.pause();
 func handle_menu(option: String) -> void:
 	match option:
-		"next": next()
-		"restart": restart()
-		"mainmenu": mainmenu()
-		"quit": quit()
-
-func setgameovertext() -> void:
-	textlabel.text = gameover
-
-func setwintext() -> void:
-	textlabel.text = congratulation
-
+		"resume": self.resume();
+		"next": self.next();
+		"restart": self.restart();
+		"quit": self.quit();
 func end(win: bool):
-	match win:
-		true:
-			setwintext()
-		false:
-			setgameovertext()
-	self.resumebutton.visible = false
-	textlabel.visible = true
-	self.visible = true
-	
-func next():
-	pass
-func restart():
-	get_tree().reload_current_scene()
-func mainmenu():
-	pass
-func quit():
-	get_tree().quit()
+	if !self.ended:
+		self.pause();
+		self.ended = true;
+		if win: self.text_label.text = "PARABÉNS!";
+		else: self.text_label.text = "FIM DE JOGO!";
+		self.resume_button.visible = false;
+		self.text_label.visible = true;
+		self.visible = true;
+func pause() -> void:
+	self.get_tree().paused = true;
+	self.visible = true;
+func resume() -> void:
+	self.visible = false;
+	self.get_tree().paused = false;
+func next() -> void:
+	self.resume();
+	pass;
+func restart() -> void:
+	self.resume();
+	self.get_tree().reload_current_scene();
+	Spawn.reset_waves();
+func quit() -> void:
+	self.get_tree().quit();

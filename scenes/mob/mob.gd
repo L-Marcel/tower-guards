@@ -25,9 +25,9 @@ var value_in_money: int = 0;
 var targets: Array[Mob] = [];
 var targets_in_attack_range: Array[Mob] = [];
 var tower: Tower;
-
 var initial_data: MobData;
 var target: Mob;
+var focused_by: Mob;
 var current_point: int = 0;
 var path_points: PackedVector2Array;
 var movement_is_priority: bool = false;
@@ -113,6 +113,8 @@ func _process(delta: float) -> void:
 		self.animation_player.play("walking");
 	if !is_zero_approx(self.velocity.x):
 		self.directionals.scale.x = -1.0 if self.velocity.x > 0 else 1.0;
+	elif self.target && is_instance_valid(self.target):
+		self.directionals.scale.x = -1.0 if self.global_position.x < self.target.global_position.x else 1.0;
 func _follow_path(delta: float) -> void:
 	if !self.visible || self.path_points.is_empty() || self.current_point >= self.path_points.size(): 
 		self.velocity = Vector2.ZERO;
@@ -140,8 +142,7 @@ func _follow_path(delta: float) -> void:
 func _on_walking_state_physics_processing(delta: float) -> void:
 	if !self.visible || self.path_points.is_empty() || self.current_point >= self.path_points.size(): 
 		self.velocity = Vector2.ZERO;
-		self.move_back();
-		self.check_agro();
+		if !self.check_agro(): self.move_back();
 		self.move_and_slide();
 		return;
 	elif !self.movement_is_priority:
@@ -152,18 +153,16 @@ func _on_attacking_state_physics_processing(delta: float) -> void:
 	var target_is_in_attack_range: bool = target_is_valid && self.targets_in_attack_range.has(self.target);
 	if target_is_valid && !target_is_in_attack_range: 
 		if self.is_enemy: 
-			self._follow_path(delta);
-		elif !self.is_out_of_agro_range(self.target):
+			self.velocity = Vector2.ZERO;
+			self.move_and_slide();
+		else:
 			var distance: float = self.global_position.distance_to(self.target.global_position);
-			if distance > 2.0:
-				var max_speed: float = distance / delta;
-				self.velocity = self.global_position.direction_to(self.target.global_position) * min(
-					self.speed, 
-					max_speed
-				);
-				self.move_and_slide();
-			else:
-				self.velocity = Vector2.ZERO;
+			var max_speed: float = distance / delta;
+			self.velocity = self.global_position.direction_to(self.target.global_position) * min(
+				self.speed, 
+				max_speed
+			);
+			self.move_and_slide();
 	elif target_is_in_attack_range:
 		self.velocity = Vector2.ZERO;
 		self.move_and_slide();
@@ -179,47 +178,38 @@ func attack() -> void:
 			Sounds.play_swords_collision_sound();
 		AttackType.RANGED:
 			pass;
-func is_out_of_agro_range(mob: Mob) -> bool:
-	var out_of_range: bool = false;
-	if self.agro_area_collision_shape.shape is CircleShape2D:
-		var circle: CircleShape2D = self.agro_area_collision_shape.shape as CircleShape2D;
-		out_of_range = (
-			self.tower && is_instance_valid(self.tower) && 
-			self.tower.type == Tower.TowerType.BARRACK &&
-			self.tower.tower_barrack_spawn_point.distance_to(mob.global_position) >
-			(self.tower.current_tower_barrack_data.unit_place_range + circle.radius)
-		);
-	return out_of_range;
-func check_agro(force: bool = false) -> void:
+func check_agro() -> bool:
 	var has_target_in_agro_range: bool = false;
-	for target in self.targets:
-		if target && is_instance_valid(target) && (!self.is_out_of_agro_range(target) || self.is_enemy):
+	for _target in self.targets:
+		if self.is_valid_target(_target):
 			has_target_in_agro_range = true;
 			break;
 	var has_target_in_attack_range: bool = false;
-	for target in self.targets_in_attack_range:
-		if target && is_instance_valid(target) && (!self.is_out_of_agro_range(target) || self.is_enemy):
+	for _target in self.targets_in_attack_range:
+		if self.is_valid_target(_target):
 			has_target_in_attack_range = true;
 			break;
-	if has_target_in_agro_range || has_target_in_attack_range:
+	if (!self.is_enemy && has_target_in_agro_range) || has_target_in_attack_range:
 		self.state_machine.send_event("to_attack");
-func _on_attacking_state_processing(delta: float) -> void:
+		return true;
+	return false;
+func _on_attacking_state_processing(_delta: float) -> void:
 	var target_is_valid: bool = self.target && is_instance_valid(self.target);
 	var target_is_in_attack_range: bool = target_is_valid && self.targets_in_attack_range.has(self.target);
 	if !target_is_valid && self.targets.size() > 0:
+		self.clear_target();
 		self.target = null;
 		var nearest: Mob = self.targets[0];
 		var nearest_distance: float = nearest.global_position.distance_to(self.global_position);
-		for target in self.targets:
-			if target && is_instance_valid(target):
-				var distance: float = target.global_position.distance_to(self.global_position);
+		for _target in self.targets:
+			if self.is_valid_target(_target):
+				var distance: float = _target.global_position.distance_to(self.global_position);
 				if distance < nearest_distance:
 					nearest_distance = distance;
-					nearest = target;
-		if nearest && is_instance_valid(nearest) && (!self.is_out_of_agro_range(nearest) || self.is_enemy):
-			self.target = nearest;
-		target_is_valid = self.target && is_instance_valid(self.target);
-	if !target_is_valid || self.movement_is_priority || (!self.is_enemy && self.is_out_of_agro_range(self.target)):
+					nearest = _target;
+		self.try_set_target(nearest);
+		target_is_valid = self.is_valid_target(self.target);
+	if !target_is_valid || self.movement_is_priority:
 		self.state_machine.send_event("to_walk");
 	elif target_is_in_attack_range && self._attack_timer <= 0.0:
 		self.attack();
@@ -249,15 +239,35 @@ func _on_attack_area_2d_body_exited(body: Node2D) -> void:
 #endregion
 
 #region Damage
+func try_set_target(mob: Mob) -> void:
+	if self.is_valid_target(mob):
+		self.target = mob;
+		mob.focused_by = self;
+		self.focused_by = mob;
+		mob.target = self;
+func is_valid_target(mob: Mob) -> bool:
+	if !mob || !is_instance_valid(mob): return false;
+	var not_focused_by_other: bool = (mob.focused_by == null || mob.focused_by == self);
+	var not_targeting_other: bool = (mob.target == null || mob.target == self);
+	return not_focused_by_other && not_targeting_other;
+func clear_target() -> void:
+	if self.target && is_instance_valid(self.target):
+		if self.target.focused_by == self:
+			self.target.focused_by = null;
+		if self.target.target == self:
+			self.target.target = null;
+	self.target = null;
+	self.focused_by = null;
 func hurt(hit_damage: int, type: DamageType,):
 	match type:
 		DamageType.PHYSICAL:
-			self.health -= hit_damage * (1.0 - self.physical_resistance);
+			self.health -= round(hit_damage * (1.0 - self.physical_resistance));
 		DamageType.MAGICAL:
-			self.health -= hit_damage * (1.0 - self.magical_resistance);
-	if (self.health <= 0):
+			self.health -= round(hit_damage * (1.0 - self.magical_resistance));
+	if self.health <= 0:
 		self.die();
 func die():
+	self.clear_target();
 	if self.is_enemy:
 		Base.get_instance().money += self.value_in_money;
 	self.queue_free();

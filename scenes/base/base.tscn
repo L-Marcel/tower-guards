@@ -2,10 +2,10 @@
 
 [ext_resource type="Script" uid="uid://bewyxkbeno73t" path="res://scenes/base/base.gd" id="1_yoymw"]
 [ext_resource type="LabelSettings" uid="uid://dh41f3llgj6v" path="res://resources/theme/money.tres" id="2_2ket1"]
-[ext_resource type="FontFile" uid="uid://b15r6wdkpym3b" path="res://resources/theme/RocknRollOne-Regular.ttf" id="2_t7shy"]
 [ext_resource type="LabelSettings" uid="uid://cvdoqpoo1u0g3" path="res://resources/theme/waves.tres" id="3_2ket1"]
 [ext_resource type="LabelSettings" uid="uid://dwu4s77doir7" path="res://resources/theme/lifes.tres" id="4_t7shy"]
 [ext_resource type="Texture2D" uid="uid://bdq0vnw80vbmr" path="res://assets/sprites/hud/coracao.png" id="5_e5se4"]
+[ext_resource type="PackedScene" uid="uid://cq0rfc3xshq06" path="res://scenes/hud/menu/menu.tscn" id="7_5yfd3"]
 
 [node name="Base" type="Node2D" unique_id=506069803]
 script = ExtResource("1_yoymw")
@@ -37,14 +37,12 @@ layout_mode = 2
 [node name="Money" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1974593216]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_t7shy")
 text = "$money"
 label_settings = ExtResource("2_2ket1")
 
 [node name="Waves" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1469341795]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_t7shy")
 text = "TODO/0"
 label_settings = ExtResource("3_2ket1")
 
@@ -55,7 +53,6 @@ theme_override_constants/separation = 10
 [node name="Lifes" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=808773100]
 layout_mode = 2
 size_flags_horizontal = 3
-theme_override_fonts/font = ExtResource("2_t7shy")
 text = "3"
 label_settings = ExtResource("4_t7shy")
 horizontal_alignment = 2
@@ -64,6 +61,8 @@ horizontal_alignment = 2
 layout_mode = 2
 texture = ExtResource("5_e5se4")
 expand_mode = 3
+
+[node name="Menu" parent="CanvasLayer" unique_id=1555300479 instance=ExtResource("7_5yfd3")]
 
 [node name="Area2D" type="Area2D" parent="." unique_id=559616048]
 modulate = Color(0, 1, 0, 1)

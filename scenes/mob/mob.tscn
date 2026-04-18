@@ -153,6 +153,7 @@ shape = ExtResource("6_uqhch")
 debug_color = Color(1, 0, 0, 0.41960785)
 
 [node name="Directionals" type="Node2D" parent="." unique_id=1825693635]
+y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Directionals" unique_id=303179972]
 y_sort_enabled = true

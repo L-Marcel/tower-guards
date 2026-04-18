@@ -1,7 +1,4 @@
 [gd_resource type="Theme" format=3 uid="uid://cxnsggv0670gq"]
 
-[ext_resource type="FontFile" uid="uid://dm26jpcrnkua0" path="res://resources/theme/AsepriteFont.ttf" id="1_aidiu"]
-
 [resource]
-default_font = ExtResource("1_aidiu")
-default_font_size = 32
+default_font_size = 24
