@@ -39,6 +39,7 @@ visible = false
 shape = ExtResource("2_vec08")
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1774665057]
+position = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=943230525]
 position = Vector2(0, -36)
@@ -55,3 +56,6 @@ offset = Vector2(0, -36)
 [node name="TowerMenu" parent="." unique_id=2134517744 node_paths=PackedStringArray("tower") instance=ExtResource("4_nfofi")]
 position = Vector2(0, -36)
 tower = NodePath("..")
+
+[connection signal="body_entered" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_entered"]
+[connection signal="body_exited" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_exited"]

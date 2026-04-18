@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://cdf2drlt0hr6s"]
+
+[ext_resource type="Shape2D" uid="uid://bfp2v7p16y8ix" path="res://scenes/arrow/arrow_shape_2d.tres" id="1_8e2im"]
+[ext_resource type="Script" uid="uid://dqbhm24dl3m1b" path="res://scenes/arrow/arrow.gd" id="1_hp5o0"]
+[ext_resource type="Texture2D" uid="uid://dr0w6ideh7y4n" path="res://assets/sprites/towers/Archer/arrow.png" id="2_hp5o0"]
+
+[node name="Arrow" type="Area2D" unique_id=995946894]
+script = ExtResource("1_hp5o0")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1184995058]
+shape = ExtResource("1_8e2im")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=192008208]
+texture = ExtResource("2_hp5o0")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]

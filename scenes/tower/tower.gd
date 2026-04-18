@@ -5,6 +5,9 @@ extends Node2D
 @onready var attack_area: TowerAttackArea2D = $TowerAttackArea2D;
 @onready var menu: TowerMenu = $TowerMenu;
 @onready var sprite: Sprite2D = $Sprite2D;
+@onready var enemies_in_range: Array = [];
+var ArrowScene = preload("res://scenes/arrow/arrow.tscn")
+var attack_cooldown: float = 0.0
 
 var level: int = 0;
 var type: TowerType = TowerType.NONE;
@@ -34,9 +37,22 @@ var changing_spawn_point: bool = false;
 
 #region Lógicas de ataque
 func _process(delta: float) -> void:
+	attack_cooldown -= delta
 	match self.type:
-		TowerType.NONE: pass;
-		TowerType.ARCHER: 
+		TowerType.NONE:
+			pass
+		TowerType.ARCHER:
+			if attack_cooldown <= 0:
+				var target = get_target()
+				# print("target:", target)
+				if target != null:
+					var arrow = ArrowScene.instantiate()
+					
+					get_tree().current_scene.add_child(arrow)
+					arrow.setup(global_position, target)
+					
+					arrow.damage = current_tower_archer_data.damage
+					attack_cooldown = current_tower_archer_data.attack_interval
 			# TODO: Atáque a distância físico
 			# use os dados de current_tower_archer_data
 			# TODO: Criar cena das flechas, use area 2D nelas de alguma forma 
@@ -48,7 +64,7 @@ func _process(delta: float) -> void:
 			# se a flecha seguir o caminho inteiro. Manter ela rápida pode resolver
 			# NOTE: Experimente usar o global preloader
 			# NOTE: Chame os métodos adequados do Sounds quando preciso
-			pass;
+
 		TowerType.WIZARD: 
 			# TODO: Atáque a distância mágico
 			# use os dados de current_tower_wizard_data
@@ -199,3 +215,23 @@ func _unhandled_input(event: InputEvent) -> void:
 			self.attack_area.border_is_visible = false;
 			self.attack_area.is_alternative = false;
 #endregion
+
+func get_target():
+	enemies_in_range = enemies_in_range.filter(func(e):
+		return is_instance_valid(e)
+	)
+	
+	if enemies_in_range.is_empty():
+		return null
+	
+	return enemies_in_range[0]
+
+func _on_tower_attack_area_2d_body_entered(body: Node2D) -> void:
+	if body.is_enemy:
+		enemies_in_range.append(body)
+		# print("ENTROU:", body)
+
+
+func _on_tower_attack_area_2d_body_exited(body: Node2D) -> void:
+	enemies_in_range.erase(body)
+	# print("SAIU:", body)
