@@ -7,6 +7,7 @@ extends Node2D
 @onready var sprite: Sprite2D = $Sprite2D;
 var enemies_in_range: Array = [];
 var ArrowScene = preload("res://scenes/arrow/arrow.tscn")
+var BulletScene = preload("res://scenes/bullet/bullet.tscn")
 var attack_cooldown: float = 0.0
 
 var level: int = 0;
@@ -52,20 +53,24 @@ func _process(delta: float) -> void:
 					
 					arrow.damage = current_tower_archer_data.damage
 					attack_cooldown = current_tower_archer_data.attack_interval
-					#TODO: Global preload
-					#TODO: Sons
-					#TODO: Sistema de dano
+			#TODO: Global preload
+			#TODO: Sons
+			#TODO: Dano
 		TowerType.WIZARD: 
-			# TODO: Atáque a distância mágico
-			# use os dados de current_tower_wizard_data
-			# TODO: Criar cena das bolas mágicas, use area 2D nelas de alguma forma 
-			# para detectar os inimigos e não se esqueça que um mob 
-			# pode ser inimigo ou aliado, tem que verificar com o is_enemy
-			# NOTE: Considere que o inimigo pode ser destruído antes do 
-			# projétil chegar nele
-			# NOTE: Experimente usar o global preloader
-			# NOTE: Chame os métodos adequados do Sounds quando preciso
-			pass;
+			if attack_cooldown <= 0:
+				var target = get_target()
+		
+				if target != null:
+					var bullet = BulletScene.instantiate()
+					get_tree().current_scene.add_child(bullet)
+			
+					bullet.setup(global_position, target)
+					bullet.damage = current_tower_wizard_data.damage
+			
+					attack_cooldown = current_tower_wizard_data.attack_interval
+			#TODO: Global preload
+			#TODO: Sons
+			#TODO: Dano
 		TowerType.BARRACK:
 			# TODO: Lógica de recriar soldados
 			# use os dados de current_tower_barack_data
@@ -84,6 +89,7 @@ func _process(delta: float) -> void:
 			# NOTE: Experimente usar o global preloader
 			# NOTE: Chame os métodos adequados do Sounds quando preciso
 			pass;
+@warning_ignore("unused_parameter")
 func calculate_initial_spawn_point(radius: float) -> void:
 	# TODO: Calcula o tower_barrack_spawn_point inicial usando o 
 	# raio disponível
@@ -219,9 +225,7 @@ func get_target():
 func _on_tower_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body.is_enemy:
 		enemies_in_range.append(body)
-		# print("ENTROU:", body)
 
 
 func _on_tower_attack_area_2d_body_exited(body: Node2D) -> void:
 	enemies_in_range.erase(body)
-	# print("SAIU:", body)
