@@ -5,7 +5,7 @@ extends Node2D
 @onready var attack_area: TowerAttackArea2D = $TowerAttackArea2D;
 @onready var menu: TowerMenu = $TowerMenu;
 @onready var sprite: Sprite2D = $Sprite2D;
-@onready var enemies_in_range: Array = [];
+var enemies_in_range: Array = [];
 var ArrowScene = preload("res://scenes/arrow/arrow.tscn")
 var attack_cooldown: float = 0.0
 
@@ -44,7 +44,6 @@ func _process(delta: float) -> void:
 		TowerType.ARCHER:
 			if attack_cooldown <= 0:
 				var target = get_target()
-				# print("target:", target)
 				if target != null:
 					var arrow = ArrowScene.instantiate()
 					
@@ -53,18 +52,9 @@ func _process(delta: float) -> void:
 					
 					arrow.damage = current_tower_archer_data.damage
 					attack_cooldown = current_tower_archer_data.attack_interval
-			# TODO: Atáque a distância físico
-			# use os dados de current_tower_archer_data
-			# TODO: Criar cena das flechas, use area 2D nelas de alguma forma 
-			# para detectar os inimigos e não se esqueça que um mob 
-			# pode ser inimigo ou aliado, tem que verificar com o is_enemy
-			# NOTE: Considere que o inimigo pode ser destruído antes do 
-			# projétil chegar nele
-			# NOTE: Ao contrário do projétil mágico, pode não ser interessante 
-			# se a flecha seguir o caminho inteiro. Manter ela rápida pode resolver
-			# NOTE: Experimente usar o global preloader
-			# NOTE: Chame os métodos adequados do Sounds quando preciso
-
+					#TODO: Global preload
+					#TODO: Sons
+					#TODO: Sistema de dano
 		TowerType.WIZARD: 
 			# TODO: Atáque a distância mágico
 			# use os dados de current_tower_wizard_data
