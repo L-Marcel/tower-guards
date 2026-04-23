@@ -50,7 +50,9 @@ modulate = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=241528984]
+visible = false
 y_sort_enabled = true
+position = Vector2(-2, 0)
 offset = Vector2(0, -36)
 
 [node name="TowerMenu" parent="." unique_id=2134517744 node_paths=PackedStringArray("tower") instance=ExtResource("4_nfofi")]

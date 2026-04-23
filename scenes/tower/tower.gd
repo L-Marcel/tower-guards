@@ -102,34 +102,38 @@ func spawn_unit(index: int = self.units.get_child_count()) -> void:
 	mob.move_to_point(self.tower_barrack_spawn_point, index);
 	self.units.add_child(mob);
 	Sounds.play_spawn_sound();
-	
 func sort_closest_point(array: Array[Vector2], point: Vector2):
-	array.sort_custom(func (a,b): return a.distance_squared_to(point)<b.distance_squared_to(point))
+	array.sort_custom(func(a: Vector2, b: Vector2) -> bool: 
+		return a.distance_squared_to(point) < b.distance_squared_to(point);
+	);
+func calculate_initial_spawn_point() -> void:
+	var paths: Paths = Paths.get_instance();
+	var closest_points: Array[Vector2] = [];
 	
-func calculate_initial_spawn_point(radius: float) -> void:
-	var size: Vector2 = Vector2(sprite.get_rect().size)
-	var paths: Paths = Paths.get_instance()
-	var closestPoints: Array[Vector2]
-	var midpoints: Array[Vector2] = [Vector2(size.x/2,0),Vector2(0,size.y/2),
-	Vector2(size.x,size.y/2),Vector2(size.x/2,size.y)]
-	for point in midpoints:
-		point += position
+	var midpoints: Array[Vector2] = [
+		Vector2(120, 70),
+		Vector2(120, -70),
+		Vector2(-120, -70),
+		Vector2(-120, 70)
+	];
+	
+	for i in midpoints.size():
+		var point: Vector2 = midpoints[i];
+		midpoints[i] = self.to_global(point);
+	
 	for path in paths.get_children():
 		if(path is Path2D):
-			closestPoints.push_back(path.curve.get_closest_point(position))
-	sort_closest_point(closestPoints,position)
-	sort_closest_point(midpoints,closestPoints.front())
+			closest_points.push_back(
+				path.to_global(
+					path.curve.get_closest_point(
+						path.to_local(self.global_position)
+					)
+				)
+			);
 	
-	
-	
-	
-	# Vou deixar como metade do raio na direção direita-baixo por enquanto
-	self.tower_barrack_spawn_point = midpoints.front()
-	return
-	self.tower_barrack_spawn_point = to_global(Vector2(radius/2, radius/2));
-	# TODO: Calcula o tower_barrack_spawn_point inicial usando o 
-	# raio disponível
-	pass;
+	self.sort_closest_point(closest_points, self.global_position);
+	self.sort_closest_point(midpoints, closest_points.front());
+	self.tower_barrack_spawn_point = midpoints.front();
 #endregion
 
 #region Compra e venda
@@ -180,7 +184,7 @@ func buy_barrack() -> void:
 			circle.radius = data.unit_place_range;
 			self.attack_area.queue_redraw();
 		if self.level == 1:
-			self.calculate_initial_spawn_point(data.unit_place_range);
+			self.calculate_initial_spawn_point();
 		self.clear_units();
 		for i in range(data.inital_units):
 			self.spawn_unit(i);
