@@ -7,11 +7,10 @@ extends Node2D
 @onready var sprite: Sprite2D = $Sprite2D;
 @onready var timer: Timer = $Timer;
 @onready var units: Node2D = $Units;
-var enemies_in_range: Array = [];
+@onready var projectiles: Node2D = $Projectiles;
 
-var ArrowScene = preload("res://scenes/arrow/arrow.tscn")
-var BulletScene = preload("res://scenes/bullet/bullet.tscn")
-var attack_cooldown: float = 0.0
+var enemies_in_range: Array[Mob] = [];
+var attack_cooldown: float = 0.0;
 
 var level: int = 0;
 var type: TowerType = TowerType.NONE;
@@ -55,39 +54,30 @@ func _ready() -> void:
 
 #region Lógicas de ataque
 func _process(delta: float) -> void:
-	attack_cooldown -= delta
+	self.attack_cooldown -= delta;
 	match self.type:
-		TowerType.NONE:
-			pass
 		TowerType.ARCHER:
 			if attack_cooldown <= 0:
-				var target = get_target()
+				var target: Mob = self.get_target();
 				if target != null:
-					var arrow = ArrowScene.instantiate()
-					
-					get_tree().current_scene.add_child(arrow)
-					arrow.setup(global_position, target)
-					
-					arrow.damage = current_tower_archer_data.damage
-					attack_cooldown = current_tower_archer_data.attack_interval
-			#TODO: Global preload
-			#TODO: Sons
-			#TODO: Dano
+					var scene: PackedScene = Preloader.get_resource("arrow");
+					var arrow: Arrow = scene.instantiate();
+					arrow.setup(self.global_position, target);
+					arrow.damage = self.current_tower_archer_data.damage;
+					self.projectiles.add_child(arrow);
+					self.attack_cooldown = self.current_tower_archer_data.attack_interval;
+					Sounds.play_throw_arrow_sound();
 		TowerType.WIZARD: 
 			if attack_cooldown <= 0:
-				var target = get_target()
-		
+				var target: Mob = self.get_target();
 				if target != null:
-					var bullet = BulletScene.instantiate()
-					get_tree().current_scene.add_child(bullet)
-			
-					bullet.setup(global_position, target)
-					bullet.damage = current_tower_wizard_data.damage
-			
-					attack_cooldown = current_tower_wizard_data.attack_interval
-			#TODO: Global preload
-			#TODO: Sons
-			#TODO: Dano
+					var scene: PackedScene = Preloader.get_resource("bullet");
+					var bullet: Bullet = scene.instantiate();
+					bullet.setup(self.global_position, target);
+					bullet.damage = self.current_tower_wizard_data.damage;
+					self.projectiles.add_child(bullet);
+					self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
+					Sounds.play_throw_magic_ball_sound();
 		TowerType.BARRACK:
 			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
 				self.spawn_unit();
@@ -283,20 +273,18 @@ func _unhandled_input(event: InputEvent) -> void:
 			self.attack_area.is_alternative = false;
 #endregion
 
-func get_target():
-	enemies_in_range = enemies_in_range.filter(func(e):
-		return is_instance_valid(e)
-	)
+#region Target
+func get_target() -> Mob:
+	self.enemies_in_range = self.enemies_in_range.filter(func(enemy: Mob) -> bool:
+		return is_instance_valid(enemy);
+	);
 	
-	if enemies_in_range.is_empty():
-		return null
-	
-	return enemies_in_range[0]
-
+	if self.enemies_in_range.is_empty(): return null;
+	return self.enemies_in_range[0];
 func _on_tower_attack_area_2d_body_entered(body: Node2D) -> void:
-	if body.is_enemy:
-		enemies_in_range.append(body)
-
-
+	if body is Mob && (body as Mob).is_enemy:
+		self.enemies_in_range.append(body as Mob);
 func _on_tower_attack_area_2d_body_exited(body: Node2D) -> void:
-	enemies_in_range.erase(body)
+	if body is Mob && (body as Mob).is_enemy && self.enemies_in_range.has(body as Mob):
+		self.enemies_in_range.erase(body as Mob);
+#endregion

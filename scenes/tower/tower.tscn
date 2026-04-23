@@ -51,7 +51,6 @@ modulate = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=241528984]
-visible = false
 y_sort_enabled = true
 position = Vector2(-2, 0)
 offset = Vector2(0, -36)
@@ -60,10 +59,14 @@ offset = Vector2(0, -36)
 position = Vector2(0, -36)
 tower = NodePath("..")
 
-[connection signal="body_entered" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_entered"]
-[connection signal="body_exited" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_exited"]
 [node name="Units" type="Node2D" parent="." unique_id=474928591]
+y_sort_enabled = true
+
+[node name="Projectiles" type="Node2D" parent="." unique_id=1552365795]
 y_sort_enabled = true
 
 [node name="Timer" type="Timer" parent="." unique_id=272448228]
 one_shot = true
+
+[connection signal="body_entered" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_entered"]
+[connection signal="body_exited" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_exited"]

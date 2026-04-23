@@ -1,47 +1,46 @@
+class_name Arrow
 extends Area2D
 
-var start_position: Vector2
-var target = null
-var t := 0.0
-var duration : float = 0.5
-var damage : int
+var start_position: Vector2 = Vector2.ZERO;
+var target: Mob = null;
+var progress: float = 0.0;
+var duration: float = 0.5
+var damage: int = 0;
+var finished: bool = false;
 
-func setup(start, t_target):
-	start_position = start
-	target = t_target
-	global_position = start_position
-
-func _ready() -> void:
-	pass
+func setup(start: Vector2, target: Mob) -> void:
+	self.start_position = start;
+	self.target = target;
+	self.global_position = self.start_position;
 
 func _process(delta: float) -> void:
-	if target == null or !is_instance_valid(target):
-		queue_free()
-		return	
-	# Curva de Bézier
-	t += delta / duration
+	if self.target == null || !is_instance_valid(self.target):
+		self.queue_free();
+		return;
 	
-	var end_position = target.global_position
+	self.progress += delta / self.duration;
+	var end_position: Vector2 = self.target.global_position;
 	
-	var mid = (start_position + end_position) / 2
-	mid.y -= 100
+	var mid: Vector2 = (self.start_position + end_position) / 2.0;
+	mid.y -= 100.0;
 	
-	var position = (1 - t) * (1 - t) * start_position \
-		+ 2 * (1 - t) * t * mid \
-		+ t * t * end_position
+	var new_position: Vector2 = (
+		(1 - progress) * (1 - progress) * self.start_position
+	) + (2 * (1 - progress) * progress * mid) + (
+		progress * progress * end_position
+	);
+	
+	self.global_position = new_position;
+	var direction: Vector2 = self.target.global_position - self.global_position;
+	self.rotation = direction.angle() + PI/2;
+	if self.progress >= 1.0 && !self.finished:
+		self.finished = true;
+		await self.get_tree().create_timer(1).timeout;
+		self.queue_free();
 
-	
-	global_position = position
-
-	var direction = target.global_position - global_position
-	rotation = direction.angle() + PI/2
-	
-	if t >= 1.0:
-		queue_free()
-
-# POR ENQUANTO, quando o mob é atingido pela fecha ele some imediatamente
-# Fiz isso pq estou morrendo de sono e preciso muito dormir
 func _on_body_entered(body: Node2D) -> void:
-	if body.is_enemy:
-		body.queue_free()
-		queue_free()
+	if body is Mob && (body as Mob).is_enemy:
+		var mob: Mob = body as Mob;
+		if self.target == mob:
+			mob.hurt(self.damage, Mob.DamageType.PHYSICAL);
+			self.queue_free();

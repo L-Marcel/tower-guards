@@ -1,8 +1,10 @@
 [gd_scene format=3 uid="uid://cvuvtcgi5im3t"]
 
+[ext_resource type="PackedScene" uid="uid://cdf2drlt0hr6s" path="res://scenes/arrow/arrow.tscn" id="1_q0uds"]
 [ext_resource type="PackedScene" uid="uid://df5gxbmsbqjb1" path="res://scenes/mob/mob.tscn" id="1_w26in"]
 [ext_resource type="Script" uid="uid://co3jfdomxwob2" path="res://scenes/globals/preloader.gd" id="2_0n5h2"]
+[ext_resource type="PackedScene" uid="uid://bloa7ostuymkh" path="res://scenes/bullet/bullet.tscn" id="2_ulrgl"]
 
 [node name="Preloader" type="ResourcePreloader" unique_id=689826370]
-resources = [PackedStringArray("mob"), [ExtResource("1_w26in")]]
+resources = [PackedStringArray("arrow", "bullet", "mob"), [ExtResource("1_q0uds"), ExtResource("2_ulrgl"), ExtResource("1_w26in")]]
 script = ExtResource("2_0n5h2")
