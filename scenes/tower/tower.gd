@@ -102,8 +102,30 @@ func spawn_unit(index: int = self.units.get_child_count()) -> void:
 	mob.move_to_point(self.tower_barrack_spawn_point, index);
 	self.units.add_child(mob);
 	Sounds.play_spawn_sound();
+	
+func sort_closest_point(array: Array[Vector2], point: Vector2):
+	array.sort_custom(func (a,b): return a.distance_squared_to(point)<b.distance_squared_to(point))
+	
 func calculate_initial_spawn_point(radius: float) -> void:
+	var size: Vector2 = Vector2(sprite.get_rect().size)
+	var paths: Paths = Paths.get_instance()
+	var closestPoints: Array[Vector2]
+	var midpoints: Array[Vector2] = [Vector2(size.x/2,0),Vector2(0,size.y/2),
+	Vector2(size.x,size.y/2),Vector2(size.x/2,size.y)]
+	for point in midpoints:
+		point += position
+	for path in paths.get_children():
+		if(path is Path2D):
+			closestPoints.push_back(path.curve.get_closest_point(position))
+	sort_closest_point(closestPoints,position)
+	sort_closest_point(midpoints,closestPoints.front())
+	
+	
+	
+	
 	# Vou deixar como metade do raio na direção direita-baixo por enquanto
+	self.tower_barrack_spawn_point = midpoints.front()
+	return
 	self.tower_barrack_spawn_point = to_global(Vector2(radius/2, radius/2));
 	# TODO: Calcula o tower_barrack_spawn_point inicial usando o 
 	# raio disponível
