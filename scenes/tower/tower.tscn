@@ -19,6 +19,7 @@
 [ext_resource type="Script" uid="uid://bp0u0ac1njlh0" path="res://scenes/tower/attack_area_2d.gd" id="14_wt1vc"]
 
 [node name="Tower" type="Node2D" unique_id=266509791]
+y_sort_enabled = true
 script = ExtResource("1_r21n7")
 tower_archer_datas = Array[ExtResource("2_k856q")]([ExtResource("3_wt1vc"), ExtResource("4_4kau2"), ExtResource("5_owowu")])
 tower_wizard_datas = Array[ExtResource("6_vjuoe")]([ExtResource("7_twqlo"), ExtResource("8_b6wyt"), ExtResource("9_lu5jx")])
@@ -50,7 +51,9 @@ modulate = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=241528984]
+visible = false
 y_sort_enabled = true
+position = Vector2(-2, 0)
 offset = Vector2(0, -36)
 
 [node name="TowerMenu" parent="." unique_id=2134517744 node_paths=PackedStringArray("tower") instance=ExtResource("4_nfofi")]
@@ -59,3 +62,8 @@ tower = NodePath("..")
 
 [connection signal="body_entered" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_entered"]
 [connection signal="body_exited" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_exited"]
+[node name="Units" type="Node2D" parent="." unique_id=474928591]
+y_sort_enabled = true
+
+[node name="Timer" type="Timer" parent="." unique_id=272448228]
+one_shot = true

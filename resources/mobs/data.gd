@@ -29,12 +29,15 @@ extends Resource
 @export_group("Attributes")
 @export_range(1, 3, 1) var life_damage: int = 3;
 @export_range(0, 75, 1) var damage: int = 5;
-@export_custom(PROPERTY_HINT_NONE, "suffix:s") var attack_interval: int = 4;
+@export_custom(PROPERTY_HINT_NONE, "suffix:s") var attack_interval: int = 4; #certeza que é pra isso ser int?
 @export var damage_type: Mob.DamageType = Mob.DamageType.PHYSICAL;
 @export var attack_type: Mob.AttackType = Mob.AttackType.MELEE;
 @export var attack_range: float = 40.0;
+@export var agro_range: float = 125.0;
+
 @export_range(2, 10, 1) var value_in_money: int = 2;
 @export_range(0, 300, 1) var speed: int = 50;
 @export_range(1, 300, 1) var health: int = 30;
 @export_range(0.0, 1.0, 0.25) var physical_resistance: float = 0.0;
 @export_range(0.0, 1.0, 0.25) var magical_resistance: float = 0.0;
+#importante lembrar que nas funções de dano isso tá sendo tratado como dano*(1-resistance)

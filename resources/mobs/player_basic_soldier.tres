@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="MobData" format=3 uid="uid://rmq7x2w2iq1t"]
+
+[ext_resource type="Script" uid="uid://co1cirn4uiw63" path="res://resources/mobs/data.gd" id="1_gs0io"]
+[ext_resource type="Texture2D" uid="uid://cg78ldx8xb38a" path="res://assets/sprites/towers/Barrack/knight_level_1.png" id="2_yn308"]
+
+[resource]
+script = ExtResource("1_gs0io")
+is_enemy = false
+texture = ExtResource("2_yn308")
+texture_offset = Vector2(0, -18)
+health = 35
+metadata/_custom_type_script = "uid://co1cirn4uiw63"

@@ -5,7 +5,10 @@ extends Node2D
 @onready var attack_area: TowerAttackArea2D = $TowerAttackArea2D;
 @onready var menu: TowerMenu = $TowerMenu;
 @onready var sprite: Sprite2D = $Sprite2D;
+@onready var timer: Timer = $Timer;
+@onready var units: Node2D = $Units;
 var enemies_in_range: Array = [];
+
 var ArrowScene = preload("res://scenes/arrow/arrow.tscn")
 var BulletScene = preload("res://scenes/bullet/bullet.tscn")
 var attack_cooldown: float = 0.0
@@ -32,9 +35,23 @@ var current_tower_wizard_data: TowerWizardData;
 @export_group("Barrack")
 @export var tower_barrack_datas: Array[TowerBarrackData] = [];
 var current_tower_barrack_data: TowerBarrackData;
-var tower_barrack_spawn_point: Vector2;
-var changing_spawn_point: bool = false;
+var tower_barrack_spawn_point: Vector2 :
+	set(value):
+		tower_barrack_spawn_point = value;
+		if self.units.is_node_ready():
+			var count: int = 0;
+			for child in self.units.get_children():
+				if child is Mob:
+					child.move_to_point(value, count);
+					count += 1;
+
+var is_changing_spawn_point: bool = false;
+static var is_any_changing_spawn_point: bool = false;
 #endregion
+
+func _ready() -> void:
+	self.is_any_changing_spawn_point = false;
+	self.add_to_group("towers");
 
 #region Lógicas de ataque
 func _process(delta: float) -> void:
@@ -72,28 +89,63 @@ func _process(delta: float) -> void:
 			#TODO: Sons
 			#TODO: Dano
 		TowerType.BARRACK:
-			# TODO: Lógica de recriar soldados
-			# use os dados de current_tower_barack_data
-			# NOTE: Se você verificar em resources/towers/barrack verá que todas as variantes das 
-			# barracas estão incompletas, você precisará definir os soldados aliados primeiro na 
-			# tarefa correspondente
-			# NOTE: A cena mob vale tanto para aliado como para inimigos
-			# Ela já tem método para forçar os mobs a caminharem para 
-			# um ponto especifico, ele se chamada move_to_point. 
-			# Mas também tem o move_to_mob, para fazer o mob ir na 
-			# direção de um outro mob
-			# NOTE: Você vai precisar calcular o tower_barrack_spawn_point inicial, 
-			# no método calculate_initial_spawn_point. Mas ele já muda sozinho 
-			# quando o usuário clicar no botão de mudar da barraca e 
-			# clicar no ponto dentro da área
-			# NOTE: Experimente usar o global preloader
-			# NOTE: Chame os métodos adequados do Sounds quando preciso
-			pass;
-@warning_ignore("unused_parameter")
-func calculate_initial_spawn_point(radius: float) -> void:
-	# TODO: Calcula o tower_barrack_spawn_point inicial usando o 
-	# raio disponível
-	pass;
+			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
+				self.spawn_unit();
+				if self.units.get_child_count() < self.current_tower_barrack_data.max_units:
+					self.timer.start();
+func set_timer():
+	match self.type:
+		TowerType.BARRACK:
+			self.timer.set_wait_time(self.current_tower_barrack_data.unit_respawn_interval);
+		TowerType.ARCHER:
+			self.timer.set_wait_time(self.current_tower_archer_data.attack_interval);
+		TowerType.WIZARD:
+			self.timer.set_wait_time(self.current_tower_wizard_data.attack_interval);
+func clear_units() -> void:
+	for child in self.units.get_children():
+		if child is Mob:
+			child.die();
+func spawn_unit(index: int = self.units.get_child_count()) -> void:
+	var scene: PackedScene = Preloader.get_resource("mob");
+	var mob: Mob = scene.instantiate();
+	mob.tower = self;
+	mob.position = Vector2.ZERO;
+	mob.initial_data = self.current_tower_barrack_data.unit_data;
+	mob.move_to_point(self.tower_barrack_spawn_point, index);
+	self.units.add_child(mob);
+	Sounds.play_spawn_sound();
+func sort_closest_point(array: Array[Vector2], point: Vector2):
+	array.sort_custom(func(a: Vector2, b: Vector2) -> bool: 
+		return a.distance_squared_to(point) < b.distance_squared_to(point);
+	);
+func calculate_initial_spawn_point() -> void:
+	var paths: Paths = Paths.get_instance();
+	var closest_points: Array[Vector2] = [];
+	
+	var midpoints: Array[Vector2] = [
+		Vector2(120, 70),
+		Vector2(120, -70),
+		Vector2(-120, -70),
+		Vector2(-120, 70)
+	];
+	
+	for i in midpoints.size():
+		var point: Vector2 = midpoints[i];
+		midpoints[i] = self.to_global(point);
+	
+	for path in paths.get_children():
+		if(path is Path2D):
+			closest_points.push_back(
+				path.to_global(
+					path.curve.get_closest_point(
+						path.to_local(self.global_position)
+					)
+				)
+			);
+	
+	self.sort_closest_point(closest_points, self.global_position);
+	self.sort_closest_point(midpoints, closest_points.front());
+	self.tower_barrack_spawn_point = midpoints.front();
 #endregion
 
 #region Compra e venda
@@ -112,6 +164,7 @@ func buy_wizard() -> void:
 			circle.radius = data.attack_range;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
+		self.set_timer()
 func buy_archer() -> void:
 	if self.level > 2: return;
 	var data: TowerArcherData = self.tower_archer_datas[self.level];
@@ -127,6 +180,7 @@ func buy_archer() -> void:
 			circle.radius = data.attack_range;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
+		self.set_timer();
 func buy_barrack() -> void:
 	if self.level > 2: return;
 	var data: TowerBarrackData = self.tower_barrack_datas[self.level];
@@ -142,7 +196,11 @@ func buy_barrack() -> void:
 			circle.radius = data.unit_place_range;
 			self.attack_area.queue_redraw();
 		if self.level == 1:
-			self.calculate_initial_spawn_point(data.unit_place_range);
+			self.calculate_initial_spawn_point();
+		self.clear_units();
+		for i in range(data.inital_units):
+			self.spawn_unit(i);
+		self.set_timer();
 func sell() -> void:
 	if self.level < 1: return;
 	var sell_value: int = 0;
@@ -165,14 +223,22 @@ func sell() -> void:
 		circle.radius = 0;
 		self.attack_area.queue_redraw();
 	self.tower_barrack_spawn_point = self.global_position;
+	self.clear_units();
 #endregion
 
 #region Detecção de clicks
 func start_change_spawn_point_mode() -> void:
-	self.changing_spawn_point = true;
+	self.is_changing_spawn_point = true;
+	Tower.is_any_changing_spawn_point = true;
 	self.attack_area.border_is_visible = true;
 	self.attack_area.is_alternative = true;
 	self.menu.close_menu();
+func close_other_menus(active_tower: Tower) -> void:
+	if self != active_tower:
+		self.menu.close_menu();
+		self.attack_area.border_is_visible = false;
+		self.attack_area.is_alternative = false;
+		self.is_changing_spawn_point = false;
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new();
@@ -188,10 +254,11 @@ func _unhandled_input(event: InputEvent) -> void:
 			self.attack_area.is_alternative = false;
 			return;
 		
-		if !self.changing_spawn_point:
+		if !self.is_changing_spawn_point && !Tower.is_any_changing_spawn_point:
 			var hit_self: bool = result.any(func(hit: Dictionary): return hit["collider"] == self.area);
 			if hit_self:
-				get_viewport().set_input_as_handled();
+				self.get_viewport().set_input_as_handled();
+				self.get_tree().call_group("towers", "close_other_menus", self);
 				match self.level:
 					0: self.menu.open_base_menu();
 					1, 2: self.menu.open_upgrade_menu();
@@ -202,12 +269,16 @@ func _unhandled_input(event: InputEvent) -> void:
 				self.attack_area.border_is_visible = false;
 				self.attack_area.is_alternative = false;
 				self.menu.close_menu();
-		else:
+		elif self.is_changing_spawn_point:
 			var hit_attack_area: bool = result.any(func(hit: Dictionary): return hit["collider"] == self.attack_area);
 			if hit_attack_area:
-				get_viewport().set_input_as_handled();
-				self.tower_barrack_spawn_point = get_global_mouse_position();
-			self.changing_spawn_point = false;
+				self.get_viewport().set_input_as_handled();
+				self.tower_barrack_spawn_point = self.get_global_mouse_position();
+			self.is_changing_spawn_point = false;
+			Tower.is_any_changing_spawn_point = false;
+			self.attack_area.border_is_visible = false;
+			self.attack_area.is_alternative = false;
+		else:
 			self.attack_area.border_is_visible = false;
 			self.attack_area.is_alternative = false;
 #endregion

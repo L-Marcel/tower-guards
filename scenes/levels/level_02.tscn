@@ -29,6 +29,7 @@ _data = {
 point_count = 5
 
 [node name="Level02" type="Node2D" unique_id=1719438142]
+y_sort_enabled = true
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1116027231]
 z_index = -50
@@ -51,17 +52,17 @@ y_sort_enabled = true
 script = ExtResource("2_n536o")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(0.32193643, 0.19999999, 1, 1)
+modulate = Color(0.7076578, 1, 0.19999999, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=2048301416]
-modulate = Color(0.19999999, 0.22120553, 1, 1)
+modulate = Color(0.19999999, 1, 0.2978382, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_o4ql5")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=1258221372]
-modulate = Color(0.55770177, 1, 0.19999999, 1)
+modulate = Color(1, 0.19999999, 0.49243277, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_4hx2o")
 
@@ -70,6 +71,7 @@ position = Vector2(3600, 2660)
 money = 3000
 
 [node name="Spawns" type="Node2D" parent="Entities" unique_id=2077210629]
+y_sort_enabled = true
 script = ExtResource("4_q6ljp")
 
 [node name="Spawn" parent="Entities/Spawns" unique_id=231200630 node_paths=PackedStringArray("_paths") instance=ExtResource("5_4dr30")]

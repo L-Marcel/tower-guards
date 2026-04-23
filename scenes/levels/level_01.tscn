@@ -40,6 +40,7 @@ _data = {
 point_count = 3
 
 [node name="Level01" type="Node2D" unique_id=1719438142]
+y_sort_enabled = true
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1116027231]
 z_index = -50
@@ -62,22 +63,22 @@ y_sort_enabled = true
 script = ExtResource("2_50wog")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(1, 0.19999999, 0.7049824, 1)
+modulate = Color(0.19999999, 1, 0.52417815, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=934393318]
-modulate = Color(0.31174833, 1, 0.19999999, 1)
+modulate = Color(0.19999999, 0.27542835, 1, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_2djvx")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=184449601]
-modulate = Color(1, 0.19999999, 0.87857133, 1)
+modulate = Color(0.56871843, 1, 0.19999999, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_uvc87")
 
 [node name="Path2D4" type="Path2D" parent="Entities/Paths" unique_id=940989623]
-modulate = Color(0.8421278, 1, 0.19999999, 1)
+modulate = Color(1, 0.19999999, 0.3369797, 1)
 curve = SubResource("Curve2D_50wog")
 
 [node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("4_r72dd")]
