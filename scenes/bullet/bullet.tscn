@@ -1,0 +1,16 @@
+[gd_scene format=3 uid="uid://bloa7ostuymkh"]
+
+[ext_resource type="Shape2D" uid="uid://cjecg8fn0wbop" path="res://scenes/bullet/bullet_shape_2d.tres" id="1_83itf"]
+[ext_resource type="Script" uid="uid://i3eemto2gppk" path="res://scenes/bullet/bullet.gd" id="1_c6pnf"]
+[ext_resource type="Texture2D" uid="uid://dw1643l83llps" path="res://assets/sprites/towers/Wizard/wizard_bullet.png" id="2_c6pnf"]
+
+[node name="Bullet" type="Area2D" unique_id=1003183746]
+script = ExtResource("1_c6pnf")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=600105958]
+shape = ExtResource("1_83itf")
+
+[node name="Sprite2D" type="Sprite2D" parent="." unique_id=1954914297]
+texture = ExtResource("2_c6pnf")
+
+[connection signal="body_entered" from="." to="." method="_on_body_entered"]
