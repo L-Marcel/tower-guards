@@ -17,6 +17,8 @@
 [ext_resource type="Resource" uid="uid://b2siu52fksrfn" path="res://resources/towers/barrack/level_02.tres" id="12_lxniu"]
 [ext_resource type="Resource" uid="uid://rmn75qjoua7t" path="res://resources/towers/barrack/level_03.tres" id="13_ljaws"]
 [ext_resource type="Script" uid="uid://bp0u0ac1njlh0" path="res://scenes/tower/attack_area_2d.gd" id="14_wt1vc"]
+[ext_resource type="SpriteFrames" uid="uid://d2a4ro4m0nrsj" path="res://scenes/tower/bow_sprite_frames.tres" id="17_4kau2"]
+[ext_resource type="Texture2D" uid="uid://uup227vqo0nc" path="res://assets/sprites/towers/Archer/archer_level_1.png" id="18_4kau2"]
 
 [node name="Tower" type="Node2D" unique_id=266509791]
 y_sort_enabled = true
@@ -50,14 +52,27 @@ shape = ExtResource("3_cbwxl")
 modulate = Color(0, 1, 0, 1)
 polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
 
+[node name="Bow" type="Node2D" parent="." unique_id=220178746]
+position = Vector2(-4, -72)
+
+[node name="Sprite2D" type="AnimatedSprite2D" parent="Bow" unique_id=1633518963]
+z_index = 1
+position = Vector2(-24, 0)
+sprite_frames = ExtResource("17_4kau2")
+animation = &"with_arrow"
+
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=241528984]
 y_sort_enabled = true
 position = Vector2(-2, 0)
+texture = ExtResource("18_4kau2")
 offset = Vector2(0, -36)
 
 [node name="TowerMenu" parent="." unique_id=2134517744 node_paths=PackedStringArray("tower") instance=ExtResource("4_nfofi")]
 position = Vector2(0, -36)
 tower = NodePath("..")
+
+[node name="Marker2D" type="Marker2D" parent="." unique_id=771345435]
+position = Vector2(-18.5, -79)
 
 [node name="Units" type="Node2D" parent="." unique_id=474928591]
 y_sort_enabled = true

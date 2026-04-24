@@ -8,3 +8,4 @@ extends Resource
 @export var attack_range: float = 250.0;
 @export var texture: Texture;
 @export var projectile_texture: Texture;
+@export var origin: Vector2;

@@ -8,6 +8,8 @@ extends Node2D
 @onready var timer: Timer = $Timer;
 @onready var units: Node2D = $Units;
 @onready var projectiles: Node2D = $Projectiles;
+@onready var bow: Node2D = $Bow;
+@onready var bow_sprite: AnimatedSprite2D = $Bow/Sprite2D;
 
 var enemies_in_range: Array[Mob] = [];
 var attack_cooldown: float = 0.0;
@@ -57,32 +59,57 @@ func _process(delta: float) -> void:
 	self.attack_cooldown -= delta;
 	match self.type:
 		TowerType.ARCHER:
+			var target: Mob = self.get_target();
+			if target != null:
+				var direction: Vector2 = target.global_position - self.global_position;
+				var target_angle: float = direction.angle();
+				self.bow.rotation = lerp_angle(self.bow.rotation, target_angle, delta * 5.0);
 			if attack_cooldown <= 0:
-				var target: Mob = self.get_target();
 				if target != null:
-					var scene: PackedScene = Preloader.get_resource("arrow");
-					var arrow: Arrow = scene.instantiate();
-					arrow.setup(self.global_position, target);
-					arrow.damage = self.current_tower_archer_data.damage;
-					self.projectiles.add_child(arrow);
-					self.attack_cooldown = self.current_tower_archer_data.attack_interval;
-					Sounds.play_throw_arrow_sound();
+					self.bow_sprite.play("shotting");
+					var origin: Vector2 = self.bow_sprite.global_position;
+					self.bow_sprite.animation_finished.connect(
+						self.shoot_arrow.bind(target, self.to_local(origin)),
+						CONNECT_ONE_SHOT
+					);
+				elif !self.bow_sprite.is_playing():
+					self.bow_sprite.play("with_arrow");
+			elif !self.bow_sprite.is_playing():
+				self.bow_sprite.play("no_arrow");
 		TowerType.WIZARD: 
 			if attack_cooldown <= 0:
 				var target: Mob = self.get_target();
 				if target != null:
-					var scene: PackedScene = Preloader.get_resource("bullet");
-					var bullet: Bullet = scene.instantiate();
-					bullet.setup(self.global_position, target);
-					bullet.damage = self.current_tower_wizard_data.damage;
-					self.projectiles.add_child(bullet);
-					self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
-					Sounds.play_throw_magic_ball_sound();
+					self.shoot_bullet(target);
 		TowerType.BARRACK:
 			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
 				self.spawn_unit();
 				if self.units.get_child_count() < self.current_tower_barrack_data.max_units:
 					self.timer.start();
+func shoot_arrow(target: Mob, origin: Vector2) -> void:
+	var scene: PackedScene = Preloader.get_resource("arrow");
+	var arrow: Arrow = scene.instantiate();
+	arrow.setup(
+		self.global_position, 
+		target,
+		self.current_tower_archer_data.damage,
+		origin
+	);
+	self.projectiles.add_child(arrow);
+	self.attack_cooldown = self.current_tower_archer_data.attack_interval;
+	Sounds.play_throw_arrow_sound();
+func shoot_bullet(target: Mob) -> void:
+	var scene: PackedScene = Preloader.get_resource("bullet");
+	var bullet: Bullet = scene.instantiate();
+	bullet.setup(
+		self.global_position, 
+		target,
+		self.current_tower_wizard_data.damage,
+		self.current_tower_wizard_data.origin
+	);
+	self.projectiles.add_child(bullet);
+	self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
+	Sounds.play_throw_magic_ball_sound();
 func set_timer():
 	match self.type:
 		TowerType.BARRACK:
@@ -154,6 +181,7 @@ func buy_wizard() -> void:
 			circle.radius = data.attack_range;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
+		self.bow.visible = false;
 		self.set_timer()
 func buy_archer() -> void:
 	if self.level > 2: return;
@@ -170,6 +198,8 @@ func buy_archer() -> void:
 			circle.radius = data.attack_range;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
+		self.bow.position.y = data.origin.y;
+		self.bow.visible = true;
 		self.set_timer();
 func buy_barrack() -> void:
 	if self.level > 2: return;
@@ -187,6 +217,7 @@ func buy_barrack() -> void:
 			self.attack_area.queue_redraw();
 		if self.level == 1:
 			self.calculate_initial_spawn_point();
+		self.bow.visible = false;
 		self.clear_units();
 		for i in range(data.inital_units):
 			self.spawn_unit(i);
@@ -201,6 +232,7 @@ func sell() -> void:
 			sell_value = self.current_tower_wizard_data.sell_value;
 		TowerType.BARRACK:
 			sell_value = self.current_tower_barrack_data.sell_value;
+	self.bow.visible = false;
 	self.level = 0;
 	self.type = TowerType.NONE;
 	self.current_tower_archer_data = null;

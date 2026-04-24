@@ -4,16 +4,24 @@
 [ext_resource type="Script" uid="uid://dqbhm24dl3m1b" path="res://scenes/arrow/arrow.gd" id="1_hp5o0"]
 [ext_resource type="Texture2D" uid="uid://dr0w6ideh7y4n" path="res://assets/sprites/towers/Archer/arrow.png" id="2_hp5o0"]
 
-[node name="Arrow" type="Area2D" unique_id=995946894]
+[node name="Arrow" type="Node2D" unique_id=347699332]
+y_sort_enabled = true
 script = ExtResource("1_hp5o0")
+metadata/_custom_type_script = "uid://dqbhm24dl3m1b"
 
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=1184995058]
+[node name="Virtual" type="Node2D" parent="." unique_id=185155284]
+y_sort_enabled = true
+
+[node name="Area2D" type="Area2D" parent="Virtual" unique_id=995946894]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Virtual/Area2D" unique_id=1184995058]
 shape = ExtResource("1_8e2im")
 
-[node name="Sprite2D" type="Sprite2D" parent="." unique_id=192008208]
+[node name="Sprite2D" type="Sprite2D" parent="Virtual" unique_id=192008208]
+z_index = 2
 y_sort_enabled = true
 position = Vector2(0, -77)
 texture = ExtResource("2_hp5o0")
 offset = Vector2(0, 77)
 
-[connection signal="body_entered" from="." to="." method="_on_body_entered"]
+[connection signal="body_entered" from="Virtual/Area2D" to="." method="_on_area_2d_body_entered"]

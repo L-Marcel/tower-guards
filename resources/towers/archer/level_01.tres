@@ -6,4 +6,5 @@
 [resource]
 script = ExtResource("1_7j2h1")
 texture = ExtResource("2_xoc75")
+origin = Vector2(-18.5, -72)
 metadata/_custom_type_script = "uid://dojkq58vqxqwu"

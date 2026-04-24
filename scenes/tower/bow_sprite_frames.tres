@@ -1,0 +1,39 @@
+[gd_resource type="SpriteFrames" format=3 uid="uid://d2a4ro4m0nrsj"]
+
+[ext_resource type="Texture2D" uid="uid://dcclmq7aw5hfp" path="res://assets/sprites/towers/Archer/bow_animation(1).png" id="1_bfxp3"]
+[ext_resource type="Texture2D" uid="uid://dfbw5knjusnxu" path="res://assets/sprites/towers/Archer/bow_animation(2).png" id="2_7fdpm"]
+[ext_resource type="Texture2D" uid="uid://d1j5lbb7be6lo" path="res://assets/sprites/towers/Archer/bow_animation(3).png" id="3_feqwn"]
+[ext_resource type="Texture2D" uid="uid://o64uxau0du24" path="res://assets/sprites/towers/Archer/bow_animation(4).png" id="4_l4jhf"]
+
+[resource]
+animations = [{
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("1_bfxp3")
+}],
+"loop": false,
+"name": &"no_arrow",
+"speed": 5.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7fdpm")
+}, {
+"duration": 1.0,
+"texture": ExtResource("3_feqwn")
+}, {
+"duration": 1.0,
+"texture": ExtResource("4_l4jhf")
+}],
+"loop": false,
+"name": &"shotting",
+"speed": 9.0
+}, {
+"frames": [{
+"duration": 1.0,
+"texture": ExtResource("2_7fdpm")
+}],
+"loop": false,
+"name": &"with_arrow",
+"speed": 5.0
+}]
