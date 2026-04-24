@@ -17,16 +17,15 @@ var damage: int = 0;
 var finished: bool = false;
 
 func setup(
-	start_position: Vector2, 
-	target: Mob,
-	damage: int,
+	_start_position: Vector2, 
+	_target: Mob,
+	_damage: int,
 	origin: Vector2
 ) -> void:
-	self.damage = damage;
-	self.start_position = start_position + Vector2(origin.x, 0);
+	self.damage = _damage;
+	self.start_position = _start_position + Vector2(origin.x, 0);
 	self.initial_virtual_height = -origin.y;
-	self.start_position = start_position;
-	self.target = target;
+	self.target = _target;
 	if is_instance_valid(self.target):
 		self.end_position = self.target.global_position;
 	var distance: float = self.start_position.distance_to(self.end_position);
@@ -56,7 +55,7 @@ func _process(delta: float) -> void:
 	
 	var tangent: Vector2 = (
 		2 * (1 - self.progress) * (visual_mid - visual_start)
-	) + (2 * progress * (self.end_position - visual_mid));
+	) + (2 * self.progress * (self.end_position - visual_mid));
 	
 	self.virtual.rotation = tangent.angle() + PI / 2;
 	

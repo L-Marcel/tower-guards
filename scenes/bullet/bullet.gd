@@ -17,17 +17,17 @@ var damage: int = 0;
 var finished: bool = false;
 
 func setup(
-	start_position: Vector2, 
-	target: Mob,
-	damage: int,
+	_start_position: Vector2, 
+	_target: Mob,
+	_damage: int,
 	origin: Vector2
 ) -> void:
-	self.damage = damage;
+	self.damage = _damage;
 	if randi() % 2 == 0:
 		self.max_virtual_height *= -1;
-	self.start_position = start_position + Vector2(origin.x, 0);
+	self.start_position = _start_position + Vector2(origin.x, 0);
 	self.initial_virtual_height = -origin.y;
-	self.target = target;
+	self.target = _target;
 	if is_instance_valid(self.target):
 		self.end_position = self.target.global_position;
 	var distance: float = self.start_position.distance_to(self.end_position);

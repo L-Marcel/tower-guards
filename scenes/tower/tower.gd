@@ -59,27 +59,33 @@ func _process(delta: float) -> void:
 	self.attack_cooldown -= delta;
 	match self.type:
 		TowerType.ARCHER:
+			var origin: Vector2 = self.bow_sprite.global_position;
 			var target: Mob = self.get_target();
 			if target != null:
-				var direction: Vector2 = target.global_position - self.global_position;
-				var target_angle: float = direction.angle();
+				var end_position: Vector2 = (origin + target.global_position) / 2.0;
+				end_position.y -= 120.0;
+
+				var tangent: Vector2 = 2.0 * (end_position - origin);
+				var target_angle: float = tangent.angle() + PI / 2;
+				 
 				self.bow.rotation = lerp_angle(self.bow.rotation, target_angle, delta * 5.0);
-			if attack_cooldown <= 0:
+			if self.attack_cooldown <= 0:
 				if target != null:
 					self.bow_sprite.play("shotting");
-					var origin: Vector2 = self.bow_sprite.global_position;
-					self.bow_sprite.animation_finished.connect(
-						self.shoot_arrow.bind(target, self.to_local(origin)),
-						CONNECT_ONE_SHOT
-					);
+					
+					self.attack_cooldown = self.current_tower_archer_data.attack_interval;
+					await self.get_tree().create_timer(1.0 / 4.5).timeout;
+					if is_instance_valid(target):
+						self.shoot_arrow(target, self.to_local(origin));
 				elif !self.bow_sprite.is_playing():
 					self.bow_sprite.play("with_arrow");
 			elif !self.bow_sprite.is_playing():
 				self.bow_sprite.play("no_arrow");
 		TowerType.WIZARD: 
-			if attack_cooldown <= 0:
+			if self.attack_cooldown <= 0:
 				var target: Mob = self.get_target();
 				if target != null:
+					self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
 					self.shoot_bullet(target);
 		TowerType.BARRACK:
 			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
@@ -96,7 +102,6 @@ func shoot_arrow(target: Mob, origin: Vector2) -> void:
 		origin
 	);
 	self.projectiles.add_child(arrow);
-	self.attack_cooldown = self.current_tower_archer_data.attack_interval;
 	Sounds.play_throw_arrow_sound();
 func shoot_bullet(target: Mob) -> void:
 	var scene: PackedScene = Preloader.get_resource("bullet");
@@ -108,7 +113,6 @@ func shoot_bullet(target: Mob) -> void:
 		self.current_tower_wizard_data.origin
 	);
 	self.projectiles.add_child(bullet);
-	self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
 	Sounds.play_throw_magic_ball_sound();
 func set_timer():
 	match self.type:

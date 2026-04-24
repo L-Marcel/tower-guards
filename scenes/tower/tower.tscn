@@ -54,12 +54,14 @@ polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
 
 [node name="Bow" type="Node2D" parent="." unique_id=220178746]
 position = Vector2(-4, -72)
+rotation = -1.0471976
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Bow" unique_id=1633518963]
 z_index = 1
-position = Vector2(-24, 0)
+position = Vector2(0, -24)
+rotation = 1.5707964
 sprite_frames = ExtResource("17_4kau2")
-animation = &"with_arrow"
+animation = &"shotting"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=241528984]
 y_sort_enabled = true
