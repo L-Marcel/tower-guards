@@ -1,0 +1,11 @@
+[gd_scene format=3 uid="uid://b5da6tdykyr3n"]
+
+[ext_resource type="Texture2D" uid="uid://dyck61svbv7sf" path="res://assets/sprites/gui/Icons/64px/adventure_icon_64px.png" id="1_5qmgn"]
+
+[node name="TextureProgressBar" type="TextureProgressBar" unique_id=960895939]
+offset_right = 40.0
+offset_bottom = 40.0
+value = 100.0
+fill_mode = 4
+texture_under = ExtResource("1_5qmgn")
+texture_progress = ExtResource("1_5qmgn")

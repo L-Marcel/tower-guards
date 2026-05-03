@@ -2,16 +2,16 @@
 
 importer="texture"
 type="CompressedTexture2D"
-uid="uid://bdq0vnw80vbmr"
-path="res://.godot/imported/coracao.png-831ae12a4ebbb288948aa256a576da2a.ctex"
+uid="uid://br0gio8k67i7"
+path="res://.godot/imported/notebook_cyan.png-e89a935531a19e359cba51feccf0c6cf.ctex"
 metadata={
 "vram_texture": false
 }
 
 [deps]
 
-source_file="res://assets/sprites/hud/coracao.png"
-dest_files=["res://.godot/imported/coracao.png-831ae12a4ebbb288948aa256a576da2a.ctex"]
+source_file="res://assets/sprites/gui/Headers/notebook_cyan.png"
+dest_files=["res://.godot/imported/notebook_cyan.png-e89a935531a19e359cba51feccf0c6cf.ctex"]
 
 [params]
 

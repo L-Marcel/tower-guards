@@ -1,8 +1,10 @@
 class_name Base
 extends Node2D
 
-@onready var label_money: Label = $CanvasLayer/Control/MarginContainer/HBoxContainer/Money;
-@onready var label_life: Label = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer/Lifes;
+@onready var label_money: Label = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer2/Money;
+@onready var first_life: TextureRect = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer/TextureRect;
+@onready var second_life: TextureRect = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer/TextureRect2;
+@onready var third_life: TextureRect = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer/TextureRect3;
 @onready var menu: Menu = $CanvasLayer/Menu;
 
 # TODO: Só para não esquecer... Quando não restar mais tarefas, 
@@ -40,8 +42,10 @@ func update_waves() -> void:
 	# TODO: Atualizar visualização das ondas
 	pass
 func update_lifes() -> void:
-	if self.label_life:
-		self.label_life.text = "%d" % self.lifes;
+	if self.first_life && self.second_life && self.third_life:
+		self.first_life.visible = self.lifes >= 3;
+		self.second_life.visible = self.lifes >= 2;
+		self.third_life.visible = self.lifes >= 1;
 func update_money() -> void:
 	if self.label_money:
 		self.label_money.text = "$%d" % self.money;
