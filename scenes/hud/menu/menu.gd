@@ -15,6 +15,11 @@ func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause") && !self.ended:
 		if self.get_tree().paused: self.resume();
 		else: self.pause();
+func grab_button_focus() -> void:
+	for child in self.button_container.get_children():
+		if child is Button && (child as Button).visible:
+			(child as Button).grab_focus();
+			break;
 func handle_menu(option: String) -> void:
 	match option:
 		"resume": self.resume();
@@ -32,13 +37,17 @@ func end(win: bool):
 		self.visible = true;
 func pause() -> void:
 	self.get_tree().paused = true;
+	self.next_level_button.visible = !!Level.get_instance().next_level;
 	self.visible = true;
+	self.grab_button_focus();
 func resume() -> void:
 	self.visible = false;
 	self.get_tree().paused = false;
 func next() -> void:
 	self.resume();
-	pass;
+	var level: PackedScene = Level.get_instance().next_level;
+	if level:
+		self.get_tree().change_scene_to_packed(level);
 func restart() -> void:
 	self.resume();
 	SpawnManager.get_instance().reset_waves();

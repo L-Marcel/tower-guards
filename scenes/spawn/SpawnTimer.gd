@@ -17,12 +17,15 @@ func skip() -> void:
 	self.timer.stop();
 	if !stopped: self.timeout.emit();
 
-func _process(delta: float) -> void:
+func _process(_delta: float) -> void:
 	if self.timer && self.timer.wait_time > 0:
 		self.value = (
 			(self.timer.wait_time - self.timer.time_left) / self.timer.wait_time
 		) * 100.0;
-		print(self.timer.wait_time, " ", self.timer.time_left);
 	else:
 		self.value = 0;
 	self.visible = !self.timer.is_stopped();
+
+func _on_gui_input(event: InputEvent) -> void:
+	if self.visible && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		self.skip();

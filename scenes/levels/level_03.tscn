@@ -1,5 +1,6 @@
 [gd_scene format=4 uid="uid://4myghwihe18r"]
 
+[ext_resource type="Script" uid="uid://bk40s7w1inj2y" path="res://scenes/levels/level.gd" id="1_foqc1"]
 [ext_resource type="TileSet" uid="uid://bxq32ef0wobay" path="res://resources/tiles/tiles.tres" id="1_jgt0v"]
 [ext_resource type="Script" uid="uid://ds7jch6pp6pvs" path="res://resources/scripts/paths.gd" id="2_hvqp8"]
 [ext_resource type="PackedScene" uid="uid://drn0h34i53d0l" path="res://scenes/base/base.tscn" id="3_8w8tq"]
@@ -29,8 +30,10 @@ _data = {
 }
 point_count = 7
 
-[node name="Level02" type="Node2D" unique_id=1719438142]
+[node name="Level02" type="Node2D" unique_id=1998594312]
 y_sort_enabled = true
+script = ExtResource("1_foqc1")
+metadata/_custom_type_script = "uid://bk40s7w1inj2y"
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1116027231]
 z_index = -50
@@ -53,16 +56,16 @@ y_sort_enabled = true
 script = ExtResource("2_hvqp8")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(1, 0.19999999, 0.21935308, 1)
+modulate = Color(1, 0.7455063, 0.19999999, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_hvqp8")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=1490093494]
-modulate = Color(0.86733073, 1, 0.19999999, 1)
+modulate = Color(1, 0.19999999, 0.30284917, 1)
 curve = SubResource("Curve2D_8w8tq")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=877044374]
-modulate = Color(1, 0.9954876, 0.19999999, 1)
+modulate = Color(0.19999999, 0.6771759, 1, 1)
 curve = SubResource("Curve2D_foqc1")
 
 [node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("3_8w8tq")]

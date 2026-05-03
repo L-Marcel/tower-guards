@@ -1,8 +1,10 @@
 [gd_scene format=4 uid="uid://d15x7q0rgror1"]
 
+[ext_resource type="Script" uid="uid://bk40s7w1inj2y" path="res://scenes/levels/level.gd" id="1_jmes4"]
 [ext_resource type="TileSet" uid="uid://bxq32ef0wobay" path="res://resources/tiles/tiles.tres" id="1_m802k"]
 [ext_resource type="Script" uid="uid://ds7jch6pp6pvs" path="res://resources/scripts/paths.gd" id="2_50wog"]
 [ext_resource type="Script" uid="uid://c5x0pba8wqd0h" path="res://resources/scripts/camera_controller.gd" id="2_qdh5e"]
+[ext_resource type="PackedScene" uid="uid://ccncyoabaa5ab" path="res://scenes/levels/level_02.tscn" id="2_tyxjt"]
 [ext_resource type="PackedScene" uid="uid://bjugbhrcmkthd" path="res://scenes/spawn/spawn.tscn" id="3_1ey3t"]
 [ext_resource type="Script" uid="uid://dp5cty7rxhyd7" path="res://resources/scripts/spawns.gd" id="4_jmes4"]
 [ext_resource type="PackedScene" uid="uid://drn0h34i53d0l" path="res://scenes/base/base.tscn" id="4_r72dd"]
@@ -42,6 +44,8 @@ point_count = 3
 
 [node name="Level01" type="Node2D" unique_id=1719438142]
 y_sort_enabled = true
+script = ExtResource("1_jmes4")
+next_level = ExtResource("2_tyxjt")
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1116027231]
 z_index = -50
@@ -64,22 +68,22 @@ y_sort_enabled = true
 script = ExtResource("2_50wog")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(1, 0.19999999, 0.2612629, 1)
+modulate = Color(1, 0.50280184, 0.19999999, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=934393318]
-modulate = Color(0.7928543, 0.19999999, 1, 1)
+modulate = Color(0.19999999, 1, 0.6417434, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_2djvx")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=184449601]
-modulate = Color(0.3592773, 0.19999999, 1, 1)
+modulate = Color(0.30314332, 0.19999999, 1, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_uvc87")
 
 [node name="Path2D4" type="Path2D" parent="Entities/Paths" unique_id=940989623]
-modulate = Color(0.19999999, 1, 0.79075205, 1)
+modulate = Color(0.19999999, 0.8441092, 1, 1)
 curve = SubResource("Curve2D_50wog")
 
 [node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("4_r72dd")]

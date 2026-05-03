@@ -1,4 +1,14 @@
 [gd_resource type="Theme" format=3 uid="uid://cxnsggv0670gq"]
 
+[ext_resource type="StyleBox" uid="uid://b03ij8d5e5oa" path="res://resources/theme/button_nomal.tres" id="1_aidiu"]
+[ext_resource type="StyleBox" uid="uid://dhacnnij8otq3" path="res://resources/theme/button_focus.tres" id="1_ses6b"]
+[ext_resource type="StyleBox" uid="uid://ct8nc30crn73m" path="res://resources/theme/button_hover.tres" id="2_u5fl6"]
+
 [resource]
 default_font_size = 24
+Button/colors/font_focus_color = Color(0.18039216, 0.18039216, 0.18039216, 1)
+Button/colors/font_hover_color = Color(0.18039216, 0.18039216, 0.18039216, 1)
+Button/styles/focus = ExtResource("1_ses6b")
+Button/styles/hover = ExtResource("2_u5fl6")
+Button/styles/normal = ExtResource("1_aidiu")
+Button/styles/pressed = ExtResource("1_aidiu")

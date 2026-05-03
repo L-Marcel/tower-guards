@@ -1,7 +1,9 @@
 [gd_scene format=4 uid="uid://ccncyoabaa5ab"]
 
 [ext_resource type="TileSet" uid="uid://bxq32ef0wobay" path="res://resources/tiles/tiles.tres" id="1_km0xc"]
+[ext_resource type="Script" uid="uid://bk40s7w1inj2y" path="res://scenes/levels/level.gd" id="1_yklhy"]
 [ext_resource type="Script" uid="uid://ds7jch6pp6pvs" path="res://resources/scripts/paths.gd" id="2_n536o"]
+[ext_resource type="PackedScene" uid="uid://4myghwihe18r" path="res://scenes/levels/level_03.tscn" id="2_o4ql5"]
 [ext_resource type="PackedScene" uid="uid://drn0h34i53d0l" path="res://scenes/base/base.tscn" id="3_m2jhg"]
 [ext_resource type="Script" uid="uid://dp5cty7rxhyd7" path="res://resources/scripts/spawns.gd" id="4_q6ljp"]
 [ext_resource type="PackedScene" uid="uid://bjugbhrcmkthd" path="res://scenes/spawn/spawn.tscn" id="5_4dr30"]
@@ -29,8 +31,11 @@ _data = {
 }
 point_count = 5
 
-[node name="Level02" type="Node2D" unique_id=1719438142]
+[node name="Level02" type="Node2D" unique_id=293293127]
 y_sort_enabled = true
+script = ExtResource("1_yklhy")
+next_level = ExtResource("2_o4ql5")
+metadata/_custom_type_script = "uid://bk40s7w1inj2y"
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1116027231]
 z_index = -50
@@ -53,17 +58,17 @@ y_sort_enabled = true
 script = ExtResource("2_n536o")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(0.7076578, 1, 0.19999999, 1)
+modulate = Color(0.48954922, 0.19999999, 1, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=2048301416]
-modulate = Color(0.19999999, 1, 0.2978382, 1)
+modulate = Color(0.19999999, 1, 0.5202738, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_o4ql5")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=1258221372]
-modulate = Color(1, 0.19999999, 0.49243277, 1)
+modulate = Color(0.19999999, 0.2232601, 1, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_4hx2o")
 
