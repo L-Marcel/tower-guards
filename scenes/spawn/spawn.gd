@@ -1,56 +1,27 @@
 class_name Spawn
 extends Node2D
 
+@onready var timer: SpawnTimer = $SpawnTimer;
 @export var _paths: Array[Path2D];
 @export var _waves: Array[Wave];
 var _waves_in_queue: int = 0;
 
-#region Controle geral
-static var _spawns: Array[Spawn] = [];
-static var _wave: int = 0;
-static func _go_next_wave() -> void:
-	Spawn._wave += 1;
-	var finished: bool = Spawn._spawns.all(func(spawn: Spawn): 
-		return spawn.is_finished();
-	);
-	if !finished:
-		for spawn in Spawn._spawns:
-			spawn._start_next_wave.call_deferred(Spawn._wave);
-	else:
-		while Enemies.get_instance().get_child_count() > 0:
-			await Base.get_instance().get_tree().create_timer(1.0, false).timeout;
-		Base.get_instance().win();
-static func _check_current_waves() -> void:
-	for spawn in Spawn._spawns:
-		if spawn._waves_in_queue > 0:
-			return;
-	Spawn._go_next_wave();
-static func start_waves() -> void:
-	if Spawn._wave < 1:
-		Spawn._go_next_wave();
-static func get_current_wave() -> int:
-	return Spawn._wave;
-static func reset_waves() -> void:
-	Spawn._wave = 0;
-	Spawn._spawns.clear();
-#endregion
-
 #region Controle individual
 func is_finished() -> bool:
-	return Spawn._wave > self._waves.size() && self._waves_in_queue < 1;
+	return SpawnManager.get_instance()._wave > self._waves.size() && self._waves_in_queue < 1;
 func _ready() -> void:
-	Spawn._spawns.append(self);
+	SpawnManager.get_instance()._spawns.append(self);
 func _start_next_wave(wave_index: int) -> void:
 	self._waves_in_queue += 1;
 	# não é necessário subtrair 1 para verificar o tamanho, 
 	# considere que comeca na onda 1, então não mexa
 	if wave_index > self._waves.size(): 
 		self._waves_in_queue -= 1;
-		Spawn._check_current_waves();
+		SpawnManager.get_instance()._check_current_waves();
 		return;
 	assert(self._paths.size() > 0);
 	var wave: Wave = self._waves[wave_index - 1];
-	await self.get_tree().create_timer(wave.start_delay, false).timeout;
+	await self.timer.start(wave.start_delay).timeout;
 	for enemy in wave.enemies:
 		var amount: int = enemy.amount;
 		while amount > 0:
@@ -58,7 +29,7 @@ func _start_next_wave(wave_index: int) -> void:
 			amount -= 1;
 			await self.get_tree().create_timer(enemy.interval, false).timeout;
 	self._waves_in_queue -= 1;
-	Spawn._check_current_waves();
+	SpawnManager.get_instance()._check_current_waves();
 func _spawn(enemy: MobData) -> void:
 	var packed_scene: PackedScene = Preloader.get_resource("mob");
 	var instance: Mob = packed_scene.instantiate();

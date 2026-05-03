@@ -1,11 +1,18 @@
 [gd_scene format=3 uid="uid://b5da6tdykyr3n"]
 
-[ext_resource type="Texture2D" uid="uid://dyck61svbv7sf" path="res://assets/sprites/gui/Icons/64px/adventure_icon_64px.png" id="1_5qmgn"]
+[ext_resource type="Texture2D" uid="uid://opvrhohd6d5i" path="res://assets/sprites/towers/Barrack/sword_and_shield_form.png" id="1_tn51m"]
+[ext_resource type="Texture2D" uid="uid://fie2fkcymypr" path="res://assets/sprites/towers/Barrack/sword_and_shield.png" id="2_o1dnh"]
+[ext_resource type="Script" uid="uid://rgnxkmcx55jk" path="res://scenes/spawn/SpawnTimer.gd" id="3_o1dnh"]
 
-[node name="TextureProgressBar" type="TextureProgressBar" unique_id=960895939]
-offset_right = 40.0
-offset_bottom = 40.0
-value = 100.0
+[node name="TextureProgressBar" type="TextureProgressBar" unique_id=479012011]
+offset_right = 49.0
+offset_bottom = 47.0
+scale = Vector2(2, 2)
 fill_mode = 4
-texture_under = ExtResource("1_5qmgn")
-texture_progress = ExtResource("1_5qmgn")
+texture_under = ExtResource("1_tn51m")
+texture_progress = ExtResource("2_o1dnh")
+script = ExtResource("3_o1dnh")
+metadata/_custom_type_script = "uid://rgnxkmcx55jk"
+
+[node name="Timer" type="Timer" parent="." unique_id=1401255860]
+one_shot = true

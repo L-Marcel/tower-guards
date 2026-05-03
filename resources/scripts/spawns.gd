@@ -6,4 +6,4 @@ func _ready() -> void:
 
 func _start_spawns() -> void:
 	await self.get_tree().create_timer(1).timeout;
-	Spawn.start_waves();
+	SpawnManager.get_instance().start_waves();

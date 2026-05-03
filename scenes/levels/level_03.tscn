@@ -6,6 +6,7 @@
 [ext_resource type="Script" uid="uid://dp5cty7rxhyd7" path="res://resources/scripts/spawns.gd" id="4_foqc1"]
 [ext_resource type="PackedScene" uid="uid://b1xckfxd12uqd" path="res://scenes/base/base_alias.tscn" id="4_hvqp8"]
 [ext_resource type="PackedScene" uid="uid://bjugbhrcmkthd" path="res://scenes/spawn/spawn.tscn" id="5_dkd5g"]
+[ext_resource type="Script" uid="uid://bq5o7sf2tt7u8" path="res://scenes/spawn/spawn_manager.gd" id="6_8w8tq"]
 [ext_resource type="Script" uid="uid://c84aquhba3yo1" path="res://resources/scripts/enemies.gd" id="6_iaq7h"]
 [ext_resource type="PackedScene" uid="uid://bxh4hhelbhkrb" path="res://scenes/tower/tower.tscn" id="7_iaubp"]
 [ext_resource type="Script" uid="uid://c5x0pba8wqd0h" path="res://resources/scripts/camera_controller.gd" id="8_xunku"]
@@ -76,6 +77,10 @@ position = Vector2(2160, 2660)
 
 [node name="Spawns" type="Node2D" parent="Entities" unique_id=2077210629]
 script = ExtResource("4_foqc1")
+
+[node name="SpawnManager" type="Node2D" parent="Entities/Spawns" unique_id=84120266]
+script = ExtResource("6_8w8tq")
+metadata/_custom_type_script = "uid://bq5o7sf2tt7u8"
 
 [node name="Spawn" parent="Entities/Spawns" unique_id=231200630 node_paths=PackedStringArray("_paths") instance=ExtResource("5_dkd5g")]
 position = Vector2(4680, 630)

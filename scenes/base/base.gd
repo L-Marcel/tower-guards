@@ -1,10 +1,10 @@
 class_name Base
 extends Node2D
 
-@onready var label_money: Label = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer2/Money;
-@onready var first_life: TextureRect = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer/TextureRect;
-@onready var second_life: TextureRect = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer/TextureRect2;
-@onready var third_life: TextureRect = $CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer/TextureRect3;
+@onready var label_money: Label = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/MoneyContainer/Money;
+@onready var first_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer/TextureRect;
+@onready var second_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer/TextureRect2;
+@onready var third_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer/TextureRect3;
 @onready var menu: Menu = $CanvasLayer/Menu;
 
 # TODO: Só para não esquecer... Quando não restar mais tarefas, 

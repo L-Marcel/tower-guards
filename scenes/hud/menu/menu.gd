@@ -41,7 +41,7 @@ func next() -> void:
 	pass;
 func restart() -> void:
 	self.resume();
+	SpawnManager.get_instance().reset_waves();
 	self.get_tree().reload_current_scene();
-	Spawn.reset_waves();
 func quit() -> void:
 	self.get_tree().quit();

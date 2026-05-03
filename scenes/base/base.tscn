@@ -2,11 +2,12 @@
 
 [ext_resource type="Script" uid="uid://bewyxkbeno73t" path="res://scenes/base/base.gd" id="1_yoymw"]
 [ext_resource type="LabelSettings" uid="uid://dh41f3llgj6v" path="res://resources/theme/money.tres" id="2_2ket1"]
-[ext_resource type="Texture2D" uid="uid://bmisq2tve1dvd" path="res://assets/sprites/gui/Icons/128px/coins_icon_128px.png" id="2_e5se4"]
 [ext_resource type="LabelSettings" uid="uid://cvdoqpoo1u0g3" path="res://resources/theme/waves.tres" id="3_2ket1"]
-[ext_resource type="Texture2D" uid="uid://dyck61svbv7sf" path="res://assets/sprites/gui/Icons/64px/adventure_icon_64px.png" id="4_5yfd3"]
 [ext_resource type="Texture2D" uid="uid://bdq0vnw80vbmr" path="res://assets/sprites/hud/heart.png" id="5_e5se4"]
 [ext_resource type="PackedScene" uid="uid://cq0rfc3xshq06" path="res://scenes/hud/menu/menu.tscn" id="7_5yfd3"]
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5yfd3"]
+bg_color = Color(0, 0, 0, 0.2)
 
 [node name="Base" type="Node2D" unique_id=506069803]
 script = ExtResource("1_yoymw")
@@ -23,68 +24,65 @@ grow_horizontal = 2
 grow_vertical = 2
 mouse_filter = 2
 
-[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control" unique_id=385420781]
+[node name="PanelContainer" type="PanelContainer" parent="CanvasLayer/Control" unique_id=1845242311]
 layout_mode = 1
-anchors_preset = -1
+anchors_preset = 10
 anchor_right = 1.0
-theme_override_constants/margin_left = 36
-theme_override_constants/margin_top = 18
-theme_override_constants/margin_right = 36
-theme_override_constants/margin_bottom = 18
+offset_bottom = 55.0
+grow_horizontal = 2
+theme_override_styles/panel = SubResource("StyleBoxFlat_5yfd3")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer" unique_id=503782326]
+[node name="MarginContainer" type="MarginContainer" parent="CanvasLayer/Control/PanelContainer" unique_id=385420781]
+layout_mode = 2
+size_flags_vertical = 0
+theme_override_constants/margin_left = 36
+theme_override_constants/margin_top = 8
+theme_override_constants/margin_right = 36
+theme_override_constants/margin_bottom = 8
+
+[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer" unique_id=503782326]
 layout_mode = 2
 
-[node name="HBoxContainer2" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=691292825]
+[node name="MoneyContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=691292825]
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 8
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer2" unique_id=1625004984]
-layout_mode = 2
-texture = ExtResource("2_e5se4")
-expand_mode = 3
-
-[node name="Money" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer2" unique_id=1974593216]
+[node name="Money" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/MoneyContainer" unique_id=1974593216]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "$moneyzx"
 label_settings = ExtResource("2_2ket1")
 
-[node name="HBoxContainer3" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1482378777]
+[node name="WaveContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1482378777]
 layout_mode = 2
 theme_override_constants/separation = 8
 alignment = 1
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer3" unique_id=1860858640]
-layout_mode = 2
-texture = ExtResource("4_5yfd3")
-expand_mode = 3
-
-[node name="Waves" type="Label" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer3" unique_id=1469341795]
+[node name="Waves" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/WaveContainer" unique_id=1469341795]
 layout_mode = 2
 size_flags_horizontal = 3
 text = "TODO/0"
 label_settings = ExtResource("3_2ket1")
 
-[node name="HBoxContainer" type="HBoxContainer" parent="CanvasLayer/Control/MarginContainer/HBoxContainer" unique_id=1498467008]
+[node name="LifesContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1498467008]
 custom_minimum_size = Vector2(125, 39)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=190991099]
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer" unique_id=190991099]
 layout_mode = 2
 texture = ExtResource("5_e5se4")
 expand_mode = 3
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=1026780572]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer" unique_id=1026780572]
 layout_mode = 2
 texture = ExtResource("5_e5se4")
 expand_mode = 3
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Control/MarginContainer/HBoxContainer/HBoxContainer" unique_id=362094668]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer" unique_id=362094668]
 layout_mode = 2
 texture = ExtResource("5_e5se4")
 expand_mode = 3

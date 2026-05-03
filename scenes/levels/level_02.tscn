@@ -5,6 +5,7 @@
 [ext_resource type="PackedScene" uid="uid://drn0h34i53d0l" path="res://scenes/base/base.tscn" id="3_m2jhg"]
 [ext_resource type="Script" uid="uid://dp5cty7rxhyd7" path="res://resources/scripts/spawns.gd" id="4_q6ljp"]
 [ext_resource type="PackedScene" uid="uid://bjugbhrcmkthd" path="res://scenes/spawn/spawn.tscn" id="5_4dr30"]
+[ext_resource type="Script" uid="uid://bq5o7sf2tt7u8" path="res://scenes/spawn/spawn_manager.gd" id="5_c6rld"]
 [ext_resource type="Script" uid="uid://c84aquhba3yo1" path="res://resources/scripts/enemies.gd" id="8_v5pqk"]
 [ext_resource type="PackedScene" uid="uid://bxh4hhelbhkrb" path="res://scenes/tower/tower.tscn" id="9_m2te4"]
 [ext_resource type="Script" uid="uid://c5x0pba8wqd0h" path="res://resources/scripts/camera_controller.gd" id="10_kxbgd"]
@@ -73,6 +74,10 @@ money = 3000
 [node name="Spawns" type="Node2D" parent="Entities" unique_id=2077210629]
 y_sort_enabled = true
 script = ExtResource("4_q6ljp")
+
+[node name="SpawnManager" type="Node2D" parent="Entities/Spawns" unique_id=662868925]
+script = ExtResource("5_c6rld")
+metadata/_custom_type_script = "uid://bq5o7sf2tt7u8"
 
 [node name="Spawn" parent="Entities/Spawns" unique_id=231200630 node_paths=PackedStringArray("_paths") instance=ExtResource("5_4dr30")]
 position = Vector2(4800, 840)

@@ -1,6 +1,7 @@
 [gd_scene format=3 uid="uid://bjugbhrcmkthd"]
 
 [ext_resource type="Script" uid="uid://nkawfb64s586" path="res://scenes/spawn/spawn.gd" id="1_pvgwh"]
+[ext_resource type="PackedScene" uid="uid://b5da6tdykyr3n" path="res://scenes/spawn/spawn_progress.tscn" id="2_wq4sp"]
 
 [node name="Spawn" type="Node2D" unique_id=1376810633]
 script = ExtResource("1_pvgwh")
@@ -11,3 +12,9 @@ monitorable = false
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1587418319]
 polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
+
+[node name="SpawnTimer" parent="." unique_id=960895939 instance=ExtResource("2_wq4sp")]
+offset_left = -47.0
+offset_top = -64.0
+offset_right = 0.0
+offset_bottom = -17.0

@@ -7,6 +7,7 @@
 [ext_resource type="Script" uid="uid://dp5cty7rxhyd7" path="res://resources/scripts/spawns.gd" id="4_jmes4"]
 [ext_resource type="PackedScene" uid="uid://drn0h34i53d0l" path="res://scenes/base/base.tscn" id="4_r72dd"]
 [ext_resource type="Script" uid="uid://csym7g1y3a4h5" path="res://resources/waves/wave.gd" id="5_ijn0p"]
+[ext_resource type="Script" uid="uid://bq5o7sf2tt7u8" path="res://scenes/spawn/spawn_manager.gd" id="5_jmes4"]
 [ext_resource type="Script" uid="uid://c84aquhba3yo1" path="res://resources/scripts/enemies.gd" id="5_kfebt"]
 [ext_resource type="Resource" uid="uid://dayggh0trv5df" path="res://resources/waves/level_01/wave_01_spawn_01.tres" id="6_jmes4"]
 [ext_resource type="PackedScene" uid="uid://bxh4hhelbhkrb" path="res://scenes/tower/tower.tscn" id="9_tyxjt"]
@@ -63,22 +64,22 @@ y_sort_enabled = true
 script = ExtResource("2_50wog")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(1, 0.19999999, 0.98106, 1)
+modulate = Color(1, 0.19999999, 0.2612629, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=934393318]
-modulate = Color(1, 0.73072594, 0.19999999, 1)
+modulate = Color(0.7928543, 0.19999999, 1, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_2djvx")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=184449601]
-modulate = Color(1, 0.9953336, 0.19999999, 1)
+modulate = Color(0.3592773, 0.19999999, 1, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_uvc87")
 
 [node name="Path2D4" type="Path2D" parent="Entities/Paths" unique_id=940989623]
-modulate = Color(0.42093313, 1, 0.19999999, 1)
+modulate = Color(0.19999999, 1, 0.79075205, 1)
 curve = SubResource("Curve2D_50wog")
 
 [node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("4_r72dd")]
@@ -87,6 +88,10 @@ money = 3000
 
 [node name="Spawns" type="Node2D" parent="Entities" unique_id=2077210629]
 script = ExtResource("4_jmes4")
+
+[node name="SpawnManager" type="Node2D" parent="Entities/Spawns" unique_id=1519693460]
+script = ExtResource("5_jmes4")
+metadata/_custom_type_script = "uid://bq5o7sf2tt7u8"
 
 [node name="Spawn" parent="Entities/Spawns" unique_id=231200630 node_paths=PackedStringArray("_paths") instance=ExtResource("3_1ey3t")]
 position = Vector2(120, 70)
