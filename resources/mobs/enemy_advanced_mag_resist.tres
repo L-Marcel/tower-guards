@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="MobData" format=3 uid="uid://cd5vkt87ptjk7"]
+
+[ext_resource type="Script" uid="uid://co1cirn4uiw63" path="res://resources/mobs/data.gd" id="1_fdgc7"]
+[ext_resource type="Texture2D" uid="uid://riw87blvcg12" path="res://assets/sprites/towers/Barrack/knight_level_3.png" id="2_h14tg"]
+
+[resource]
+script = ExtResource("1_fdgc7")
+texture = ExtResource("2_h14tg")
+modulate = Color(1, 0.37254903, 1, 1)
+damage = 15
+health = 120
+magical_resistance = 0.75
+metadata/_custom_type_script = "uid://co1cirn4uiw63"

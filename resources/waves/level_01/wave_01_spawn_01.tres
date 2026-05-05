@@ -2,9 +2,11 @@
 
 [ext_resource type="Script" uid="uid://c7mij00d1xrwa" path="res://resources/waves/wave_enemy_data.gd" id="1_lefx7"]
 [ext_resource type="Script" uid="uid://csym7g1y3a4h5" path="res://resources/waves/wave.gd" id="1_okkau"]
-[ext_resource type="Resource" uid="uid://ur0ccj5a2qbf" path="res://resources/waves/data/basic_soldier.tres" id="2_mtpac"]
+[ext_resource type="Resource" uid="uid://dmhapeoo45b1x" path="res://resources/waves/data/medium_soldier.tres" id="2_apcp3"]
+[ext_resource type="Resource" uid="uid://cbh2qxlupidcy" path="res://resources/waves/data/basic_mag_resist.tres" id="2_in1h7"]
+[ext_resource type="Resource" uid="uid://b7yq36d51tiaq" path="res://resources/waves/data/advanced_mag_resist.tres" id="4_tixob"]
 
 [resource]
 script = ExtResource("1_okkau")
-enemies = Array[ExtResource("1_lefx7")]([ExtResource("2_mtpac")])
+enemies = Array[ExtResource("1_lefx7")]([ExtResource("2_in1h7"), ExtResource("2_apcp3"), ExtResource("4_tixob")])
 metadata/_custom_type_script = "uid://csym7g1y3a4h5"
