@@ -6,6 +6,8 @@ extends Node2D
 @onready var second_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer/TextureRect2;
 @onready var third_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer/TextureRect3;
 @onready var menu: Menu = $CanvasLayer/Menu;
+@onready var label_wave: Label = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/WaveContainer/Waves
+const SpawnManager: GDScript = preload("res://scenes/spawn/spawn_manager.gd")
 
 # TODO: Só para não esquecer... Quando não restar mais tarefas, 
 # o último a cantar, é quem fecha a porta.
@@ -32,6 +34,10 @@ func _ready() -> void:
 	Sounds.play_music();
 	self.update_money();
 	self.update_lifes();
+	
+	await get_tree().process_frame
+	self.update_waves();
+	
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Mob and (body as Mob).is_enemy:
 		var mob: Mob = body as Mob;
@@ -39,8 +45,8 @@ func _on_area_2d_body_entered(body: Node2D) -> void:
 		self.lifes -= mob.life_damage;
 
 func update_waves() -> void:
-	# TODO: Atualizar visualização das ondas
-	pass
+	self.label_wave.text = "Wave: %d" % SpawnManager.get_instance().get_current_wave()
+		
 func update_lifes() -> void:
 	if self.first_life && self.second_life && self.third_life:
 		self.first_life.visible = self.lifes >= 3;
