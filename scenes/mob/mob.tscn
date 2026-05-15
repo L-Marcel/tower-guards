@@ -141,9 +141,16 @@ _data = {
 
 [node name="Mob" type="CharacterBody2D" unique_id=884475862]
 y_sort_enabled = true
+collision_layer = 3
 collision_mask = 0
 motion_mode = 1
 script = ExtResource("1_0a8ii")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355995212]
+z_index = 1
+position = Vector2(2, 0)
+rotation = 1.5707964
+shape = ExtResource("8_7wvav")
 
 [node name="SwordsCollisionSound" type="AudioStreamPlayer2D" parent="." unique_id=662976590]
 
@@ -178,15 +185,23 @@ delay_in_seconds = "0.0"
 
 [node name="AgroArea2D" type="Area2D" parent="." unique_id=1825852853]
 position = Vector2(0, -17)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AgroArea2D" unique_id=2020523214]
+visible = false
 shape = ExtResource("6_q52e7")
 debug_color = Color(0, 0.6, 0.69803923, 0)
 
 [node name="AttackArea2D" type="Area2D" parent="." unique_id=2089118584]
 position = Vector2(0, -17)
+collision_layer = 0
+collision_mask = 2
+monitorable = false
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="AttackArea2D" unique_id=753241499]
+visible = false
 shape = ExtResource("6_uqhch")
 debug_color = Color(1, 0, 0, 0.41960785)
 
@@ -197,10 +212,6 @@ y_sort_enabled = true
 y_sort_enabled = true
 texture = ExtResource("7_vpto6")
 offset = Vector2(0, -18)
-
-[node name="CollisionShape2D" type="CollisionShape2D" parent="." unique_id=355995212]
-position = Vector2(0, -17)
-shape = ExtResource("8_7wvav")
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=743093902]
 libraries/ = SubResource("AnimationLibrary_gl05p")

@@ -23,18 +23,19 @@ extends Area2D
 		border_is_visible = value;
 		self.queue_redraw();
 
-@onready var collision_shape: CollisionShape2D = $CollisionShape2D;
+@onready var collision_shape: EllipseShape2D = $CollisionPolygon2D;
 
 func _ready() -> void:
 	self.queue_redraw();
 
 func _draw() -> void:
-	if self.collision_shape.shape is CircleShape2D && self.border_is_visible:
-		var circle: CircleShape2D = self.collision_shape.shape as CircleShape2D;
-		if circle.radius > 1.0:
-			var color: Color = self.fill_color;
-			if self.is_alternative:
-				color = self.alternative_color;
+	if self.collision_shape && self.border_is_visible:
+		if self.collision_shape.radius_x > 1.0 && self.collision_shape.radius_y > 1.0:
+			var color: Color = self.alternative_color if self.is_alternative else self.fill_color;
 			color.a = 0.5;
-			self.draw_circle(Vector2.ZERO, circle.radius, color);
-			self.draw_arc(Vector2.ZERO, circle.radius, 0, TAU, 64, self.border_color, 8.0, true);;
+			var points: PackedVector2Array = self.collision_shape.polygon;
+			if points.is_empty(): return;
+			self.draw_colored_polygon(points, color);
+			var border_points: PackedVector2Array = points.duplicate();
+			border_points.append(points[0]);
+			self.draw_polyline(border_points, self.border_color, 8.0, true);;

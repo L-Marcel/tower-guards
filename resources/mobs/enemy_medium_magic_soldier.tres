@@ -1,0 +1,17 @@
+[gd_resource type="Resource" script_class="MobData" format=3 uid="uid://bjualu8hwduq6"]
+
+[ext_resource type="Script" uid="uid://co1cirn4uiw63" path="res://resources/mobs/data.gd" id="1_ek7sq"]
+[ext_resource type="Texture2D" uid="uid://cqdx8om0lgxdo" path="res://assets/sprites/towers/Barrack/mage_level_2.png" id="2_ek7sq"]
+
+[resource]
+script = ExtResource("1_ek7sq")
+texture = ExtResource("2_ek7sq")
+life_damage = 1
+damage = 10
+attack_interval = 3
+damage_type = 0
+value_in_money = 4
+speed = 40
+health = 60
+magical_resistance = 0.5
+metadata/_custom_type_script = "uid://co1cirn4uiw63"

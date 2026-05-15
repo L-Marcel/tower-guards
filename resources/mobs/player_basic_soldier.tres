@@ -8,5 +8,7 @@ script = ExtResource("1_gs0io")
 is_enemy = false
 texture = ExtResource("2_yn308")
 texture_offset = Vector2(0, -18)
+life_damage = 1
+damage = 10
 health = 35
 metadata/_custom_type_script = "uid://co1cirn4uiw63"

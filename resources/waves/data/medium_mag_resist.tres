@@ -1,7 +1,7 @@
 [gd_resource type="Resource" script_class="WaveEnemyData" format=3 uid="uid://do6xk2qojlkr4"]
 
 [ext_resource type="Script" uid="uid://c7mij00d1xrwa" path="res://resources/waves/wave_enemy_data.gd" id="1_rmgwq"]
-[ext_resource type="Resource" uid="uid://bjualu8hwduq6" path="res://resources/mobs/enemy_medium_mag_resist.tres" id="1_w6y7d"]
+[ext_resource type="Resource" uid="uid://bjualu8hwduq6" path="res://resources/mobs/enemy_medium_magic_soldier.tres" id="1_w6y7d"]
 
 [resource]
 script = ExtResource("1_rmgwq")

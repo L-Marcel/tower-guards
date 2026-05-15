@@ -7,7 +7,7 @@
 script = ExtResource("1_15id7")
 cost = 100
 sell_value = 50
-damage = 30
+damage = 25
 attack_interval = 0.5
 attack_range = 350.0
 texture = ExtResource("2_b2yvd")

@@ -21,6 +21,6 @@ extends Resource
 @export_range(2, 10, 1) var value_in_money: int = 2;
 @export_range(0, 300, 1) var speed: int = 50;
 @export_range(1, 300, 1) var health: int = 30;
-@export_range(0.0, 1.0, 0.25) var physical_resistance: float = 0.0;
-@export_range(0.0, 1.0, 0.25) var magical_resistance: float = 0.0;
+@export_range(0.0, 1.0, 0.2) var physical_resistance: float = 0.0;
+@export_range(0.0, 1.0, 0.2) var magical_resistance: float = 0.0;
 #importante lembrar que nas funções de dano isso tá sendo tratado como dano*(1-resistance)

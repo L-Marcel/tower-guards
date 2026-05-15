@@ -1,14 +1,15 @@
 [gd_resource type="Resource" script_class="MobData" format=3 uid="uid://4r68xf22krpy"]
 
 [ext_resource type="Script" uid="uid://co1cirn4uiw63" path="res://resources/mobs/data.gd" id="1_mcmdm"]
-[ext_resource type="Texture2D" uid="uid://riw87blvcg12" path="res://assets/sprites/towers/Barrack/knight_level_3.png" id="2_4ae66"]
+[ext_resource type="Texture2D" uid="uid://db2nnx0b5une" path="res://assets/sprites/towers/Barrack/enemy_level_3.png" id="2_4ae66"]
 
 [resource]
 script = ExtResource("1_mcmdm")
 texture = ExtResource("2_4ae66")
-modulate = Color(0.7137255, 0.31764707, 0.25882354, 1)
+life_damage = 1
 damage = 15
-speed = 60
+attack_interval = 3
+value_in_money = 6
 health = 100
-physical_resistance = 0.5
+physical_resistance = 0.8
 metadata/_custom_type_script = "uid://co1cirn4uiw63"

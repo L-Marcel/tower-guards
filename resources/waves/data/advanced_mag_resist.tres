@@ -1,6 +1,6 @@
 [gd_resource type="Resource" script_class="WaveEnemyData" format=3 uid="uid://b7yq36d51tiaq"]
 
-[ext_resource type="Resource" uid="uid://cd5vkt87ptjk7" path="res://resources/mobs/enemy_advanced_mag_resist.tres" id="1_rh6lq"]
+[ext_resource type="Resource" uid="uid://cd5vkt87ptjk7" path="res://resources/mobs/enemy_advanced_magic_soldier.tres" id="1_rh6lq"]
 [ext_resource type="Script" uid="uid://c7mij00d1xrwa" path="res://resources/waves/wave_enemy_data.gd" id="2_2hnw5"]
 
 [resource]

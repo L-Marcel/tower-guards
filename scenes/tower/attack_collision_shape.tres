@@ -1,5 +1,6 @@
-[gd_resource type="CircleShape2D" format=3 uid="uid://dsvt84yvtwj12"]
+[gd_resource type="CapsuleShape2D" format=3 uid="uid://dsvt84yvtwj12"]
 
 [resource]
 resource_local_to_scene = true
-radius = 0.01
+radius = 0.005
+height = 0.01

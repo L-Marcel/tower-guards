@@ -22,7 +22,7 @@ Sounds="*uid://cy1bitluuyl4f"
 
 [editor_plugins]
 
-enabled=PackedStringArray("res://addons/Todo_Manager/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg")
+enabled=PackedStringArray("res://addons/2d_shapes/plugin.cfg", "res://addons/Todo_Manager/plugin.cfg", "res://addons/godot_state_charts/plugin.cfg", "res://addons/primitive_shapes/plugin.cfg")
 
 [file_customization]
 

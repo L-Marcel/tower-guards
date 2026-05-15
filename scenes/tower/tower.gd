@@ -181,9 +181,9 @@ func buy_wizard() -> void:
 		self.type = TowerType.WIZARD;
 		self.level += 1;
 		self.sprite.texture = data.texture;
-		if self.attack_area.collision_shape.shape is CircleShape2D:
-			var circle: CircleShape2D = self.attack_area.collision_shape.shape;
-			circle.radius = data.attack_range;
+		if self.attack_area.collision_shape:
+			self.attack_area.collision_shape.radius_x = data.attack_range;
+			self.attack_area.collision_shape.radius_y = self.attack_area.collision_shape.radius_x / 2.0;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
 		self.bow.visible = false;
@@ -198,9 +198,9 @@ func buy_archer() -> void:
 		self.type = TowerType.ARCHER;
 		self.level += 1;
 		self.sprite.texture = data.texture;
-		if self.attack_area.collision_shape.shape is CircleShape2D:
-			var circle: CircleShape2D = self.attack_area.collision_shape.shape;
-			circle.radius = data.attack_range;
+		if self.attack_area.collision_shape:
+			self.attack_area.collision_shape.radius_x = data.attack_range;
+			self.attack_area.collision_shape.radius_y = self.attack_area.collision_shape.radius_x / 2.0;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
 		self.bow.position.y = data.origin.y;
@@ -216,9 +216,9 @@ func buy_barrack() -> void:
 		self.type = TowerType.BARRACK;
 		self.level += 1;
 		self.sprite.texture = data.texture;
-		if self.attack_area.collision_shape.shape is CircleShape2D:
-			var circle: CircleShape2D = self.attack_area.collision_shape.shape;
-			circle.radius = data.unit_place_range;
+		if self.attack_area.collision_shape:
+			self.attack_area.collision_shape.radius_x = data.unit_place_range;
+			self.attack_area.collision_shape.radius_y = self.attack_area.collision_shape.radius_x / 2.0;
 			self.attack_area.queue_redraw();
 		if self.level == 1:
 			self.calculate_initial_spawn_point();
@@ -245,9 +245,9 @@ func sell() -> void:
 	self.current_tower_barrack_data = null;
 	self.sprite.texture = null;
 	Base.get_instance().money += sell_value;
-	if self.attack_area.collision_shape.shape is CircleShape2D:
-		var circle: CircleShape2D = self.attack_area.collision_shape.shape;
-		circle.radius = 0;
+	if self.attack_area.collision_shape:
+		self.attack_area.collision_shape.radius_x = 1.0;
+		self.attack_area.collision_shape.radius_y = 1.0;
 		self.attack_area.queue_redraw();
 	self.tower_barrack_spawn_point = self.global_position;
 	self.clear_units();
@@ -322,6 +322,6 @@ func _on_tower_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body is Mob && (body as Mob).is_enemy:
 		self.enemies_in_range.append(body as Mob);
 func _on_tower_attack_area_2d_body_exited(body: Node2D) -> void:
-	if body is Mob && (body as Mob).is_enemy && self.enemies_in_range.has(body as Mob):
+	if body is Mob && (body as Mob).is_enemy:
 		self.enemies_in_range.erase(body as Mob);
 #endregion

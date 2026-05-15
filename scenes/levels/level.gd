@@ -1,6 +1,9 @@
 class_name Level
 extends Node2D
 
+# TODO: Melhorar essas waves
+# TODO: Slide de audio
+
 static var _instance: Level;
 static func get_instance() -> Level:
 	return Level._instance;
