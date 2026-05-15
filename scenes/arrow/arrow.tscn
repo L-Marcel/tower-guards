@@ -3,6 +3,7 @@
 [ext_resource type="Shape2D" uid="uid://bfp2v7p16y8ix" path="res://scenes/arrow/arrow_shape_2d.tres" id="1_8e2im"]
 [ext_resource type="Script" uid="uid://dqbhm24dl3m1b" path="res://scenes/arrow/arrow.gd" id="1_hp5o0"]
 [ext_resource type="Texture2D" uid="uid://dr0w6ideh7y4n" path="res://assets/sprites/towers/Archer/arrow.png" id="2_hp5o0"]
+[ext_resource type="AudioStream" uid="uid://b2430y0fxax1u" path="res://assets/sounds/sfx/arrow_random_collision.tres" id="4_yigju"]
 
 [node name="Arrow" type="Node2D" unique_id=347699332]
 y_sort_enabled = true
@@ -23,5 +24,10 @@ y_sort_enabled = true
 position = Vector2(0, -77)
 texture = ExtResource("2_hp5o0")
 offset = Vector2(0, 77)
+
+[node name="ArrowCollisionSound" type="AudioStreamPlayer2D" parent="Virtual" unique_id=1996915429]
+stream = ExtResource("4_yigju")
+volume_db = -8.0
+pitch_scale = 1.1
 
 [connection signal="body_entered" from="Virtual/Area2D" to="." method="_on_area_2d_body_entered"]

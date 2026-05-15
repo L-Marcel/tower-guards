@@ -23,3 +23,5 @@ offset_left = -47.0
 offset_top = -64.0
 offset_right = 0.0
 offset_bottom = -17.0
+
+[connection signal="gui_input" from="SpawnTimer" to="." method="_on_spawn_timer_gui_input"]

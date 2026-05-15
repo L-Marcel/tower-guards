@@ -16,5 +16,3 @@ metadata/_custom_type_script = "uid://rgnxkmcx55jk"
 
 [node name="Timer" type="Timer" parent="." unique_id=1401255860]
 one_shot = true
-
-[connection signal="gui_input" from="." to="." method="_on_gui_input"]

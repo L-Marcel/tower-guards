@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://746lhpnc4nrv"]
+
+[ext_resource type="AudioStream" uid="uid://337ogupqmuyf" path="res://assets/sounds/sfx/arrow_throw.mp3" id="1_i6car"]
+
+[resource]
+random_pitch = 1.0842268
+streams_count = 1
+stream_0/stream = ExtResource("1_i6car")

@@ -5,16 +5,20 @@ extends Node2D
 @export var _paths: Array[Path2D];
 @export var _waves: Array[Wave];
 var _waves_in_queue: int = 0;
+var current_wave: int = 0;
 
 #region Controle individual
 func is_finished() -> bool:
 	return SpawnManager.get_instance()._wave > self._waves.size() && self._waves_in_queue < 1;
+func skip_wave() -> void:
+	self.timer.skip();
+func get_max_wave() -> int:
+	return self._waves.size();
 func _ready() -> void:
+	self.current_wave = 0;
 	SpawnManager.get_instance()._spawns.append(self);
 func _start_next_wave(wave_index: int) -> void:
 	self._waves_in_queue += 1;
-	# não é necessário subtrair 1 para verificar o tamanho, 
-	# considere que comeca na onda 1, então não mexa
 	if wave_index > self._waves.size(): 
 		self._waves_in_queue -= 1;
 		SpawnManager.get_instance()._check_current_waves();
@@ -22,6 +26,7 @@ func _start_next_wave(wave_index: int) -> void:
 	assert(self._paths.size() > 0);
 	var wave: Wave = self._waves[wave_index - 1];
 	await self.timer.start(wave.start_delay).timeout;
+	self.current_wave += 1;
 	for enemy in wave.enemies:
 		var amount: int = enemy.amount;
 		while amount > 0:
@@ -38,3 +43,7 @@ func _spawn(enemy: MobData) -> void:
 	instance.ready.connect(func(): instance.set_data(enemy), CONNECT_ONE_SHOT);
 	Enemies.get_instance().add_child(instance);
 #endregion
+
+func _on_spawn_timer_gui_input(event: InputEvent) -> void:
+	if self.timer.visible && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		SpawnManager.get_instance().skip_wave();

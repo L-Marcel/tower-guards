@@ -25,7 +25,3 @@ func _process(_delta: float) -> void:
 	else:
 		self.value = 0;
 	self.visible = !self.timer.is_stopped();
-
-func _on_gui_input(event: InputEvent) -> void:
-	if self.visible && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
-		self.skip();

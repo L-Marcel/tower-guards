@@ -16,7 +16,9 @@
 [ext_resource type="Resource" uid="uid://ddsxfvau01s8k" path="res://resources/towers/barrack/level_01.tres" id="11_jy64w"]
 [ext_resource type="Resource" uid="uid://b2siu52fksrfn" path="res://resources/towers/barrack/level_02.tres" id="12_lxniu"]
 [ext_resource type="Resource" uid="uid://rmn75qjoua7t" path="res://resources/towers/barrack/level_03.tres" id="13_ljaws"]
+[ext_resource type="AudioStream" uid="uid://746lhpnc4nrv" path="res://assets/sounds/sfx/arrow_random_throw.tres" id="14_4kau2"]
 [ext_resource type="Script" uid="uid://bp0u0ac1njlh0" path="res://scenes/tower/attack_area_2d.gd" id="14_wt1vc"]
+[ext_resource type="AudioStream" uid="uid://dxheqfgarc1xk" path="res://assets/sounds/sfx/bullet_random_throw.tres" id="15_owowu"]
 [ext_resource type="SpriteFrames" uid="uid://d2a4ro4m0nrsj" path="res://scenes/tower/bow_sprite_frames.tres" id="17_4kau2"]
 
 [node name="Tower" type="Node2D" unique_id=266509791]
@@ -25,6 +27,14 @@ script = ExtResource("1_r21n7")
 tower_archer_datas = Array[ExtResource("2_k856q")]([ExtResource("3_wt1vc"), ExtResource("4_4kau2"), ExtResource("5_owowu")])
 tower_wizard_datas = Array[ExtResource("6_vjuoe")]([ExtResource("7_twqlo"), ExtResource("8_b6wyt"), ExtResource("9_lu5jx")])
 tower_barrack_datas = Array[ExtResource("10_v8eq3")]([ExtResource("11_jy64w"), ExtResource("12_lxniu"), ExtResource("13_ljaws")])
+
+[node name="ThrowArrowSound" type="AudioStreamPlayer2D" parent="." unique_id=1659331992]
+stream = ExtResource("14_4kau2")
+pitch_scale = 1.4
+
+[node name="ThrowBulletSound" type="AudioStreamPlayer2D" parent="." unique_id=1834199371]
+stream = ExtResource("15_owowu")
+pitch_scale = 1.4
 
 [node name="TowerAttackArea2D" type="Area2D" parent="." unique_id=900195612]
 z_index = -45

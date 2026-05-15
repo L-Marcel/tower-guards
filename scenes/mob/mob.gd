@@ -6,6 +6,7 @@ var damage: int = 5;
 var damage_type: DamageType = DamageType.PHYSICAL;
 var attack_type: AttackType = AttackType.MELEE;
 var attack_interval: int = 4;
+var attack_interval_randomness: float = 0.1;
 var _attack_timer: float = 0.0;
 var speed: int = 50;
 var health: int = 30;
@@ -55,7 +56,13 @@ func set_data(mob: MobData) -> void:
 	self.damage = mob.damage;
 	self.damage_type = mob.damage_type;
 	self.attack_type = mob.attack_type;
+	self.attack_interval_randomness = mob.attack_interval_randomness;
+	var interval_reduction: int = randi_range(
+		0, 
+		int(self.attack_interval * self.attack_interval_randomness)
+	);
 	self.attack_interval = mob.attack_interval;
+	self._attack_timer = self.attack_interval - interval_reduction;
 	if self.attack_area_collision_shape.shape is CircleShape2D:
 		var circle: CircleShape2D = self.attack_area_collision_shape.shape as CircleShape2D;
 		circle.radius = mob.attack_range;
@@ -170,14 +177,12 @@ func _on_attacking_state_physics_processing(delta: float) -> void:
 
 #region Ataque
 func attack() -> void:
-	match self.attack_type:
-		AttackType.MELEE:
-			self.target.hurt(damage, damage_type);
-			if self.animation_player.current_animation != "attacking":
-				self.animation_player.play("attacking");
-			Sounds.play_swords_collision_sound();
-		AttackType.RANGED:
-			pass;
+	if is_instance_valid(self.target):
+		match self.attack_type:
+			AttackType.MELEE:
+				self.target.hurt(damage, damage_type);
+			AttackType.RANGED:
+				pass;
 func check_agro() -> bool:
 	var has_target_in_agro_range: bool = false;
 	for _target in self.targets:
@@ -211,9 +216,14 @@ func _on_attacking_state_processing(_delta: float) -> void:
 		target_is_valid = self.is_valid_target(self.target);
 	if !target_is_valid || self.movement_is_priority:
 		self.state_machine.send_event("to_walk");
-	elif target_is_in_attack_range && self._attack_timer <= 0.0:
-		self.attack();
-		self._attack_timer = self.attack_interval;
+	elif target_is_in_attack_range:
+		if self._attack_timer <= 0.8 && self.animation_player.current_animation != "attacking":
+			self.animation_player.play("attacking");
+			var interval_reduction: int = randi_range(
+				0, 
+				int(self.attack_interval * self.attack_interval_randomness)
+			);
+			self._attack_timer = self.attack_interval - interval_reduction;
 	elif !target_is_in_attack_range:
 		self.movement_is_priority = false;
 func _on_agro_area_2d_body_entered(body: Node2D) -> void:

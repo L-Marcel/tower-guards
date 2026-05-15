@@ -10,6 +10,8 @@ extends Node2D
 @onready var projectiles: Node2D = $Projectiles;
 @onready var bow: Node2D = $Bow;
 @onready var bow_sprite: AnimatedSprite2D = $Bow/Sprite2D;
+@onready var throw_arrow_sound: AudioStreamPlayer2D = $ThrowArrowSound;
+@onready var throw_bullet_sound: AudioStreamPlayer2D = $ThrowBulletSound;
 
 var enemies_in_range: Array[Mob] = [];
 var attack_cooldown: float = 0.0;
@@ -64,19 +66,16 @@ func _process(delta: float) -> void:
 			if target != null:
 				var end_position: Vector2 = (origin + target.global_position) / 2.0;
 				end_position.y -= 120.0;
-
 				var tangent: Vector2 = 2.0 * (end_position - origin);
 				var target_angle: float = tangent.angle() + PI / 2;
-				 
 				self.bow.rotation = lerp_angle(self.bow.rotation, target_angle, delta * 5.0);
 			if self.attack_cooldown <= 0:
 				if target != null:
 					self.bow_sprite.play("shotting");
-					
 					self.attack_cooldown = self.current_tower_archer_data.attack_interval;
 					await self.get_tree().create_timer(1.0 / 4.5).timeout;
 					if is_instance_valid(target):
-						self.shoot_arrow(target, self.to_local(origin));
+						self.shoot_arrow(target, self.to_local(self.bow_sprite.global_position));
 				elif !self.bow_sprite.is_playing():
 					self.bow_sprite.play("with_arrow");
 			elif !self.bow_sprite.is_playing():
@@ -95,25 +94,27 @@ func _process(delta: float) -> void:
 func shoot_arrow(target: Mob, origin: Vector2) -> void:
 	var scene: PackedScene = Preloader.get_resource("arrow");
 	var arrow: Arrow = scene.instantiate();
+	arrow.visible = false;
+	self.projectiles.add_child(arrow);
 	arrow.setup(
 		self.global_position, 
 		target,
 		self.current_tower_archer_data.damage,
 		origin
 	);
-	self.projectiles.add_child(arrow);
-	Sounds.play_throw_arrow_sound();
+	self.throw_arrow_sound.play();
 func shoot_bullet(target: Mob) -> void:
 	var scene: PackedScene = Preloader.get_resource("bullet");
 	var bullet: Bullet = scene.instantiate();
+	bullet.visible = false;
+	self.projectiles.add_child(bullet);
 	bullet.setup(
 		self.global_position, 
 		target,
 		self.current_tower_wizard_data.damage,
 		self.current_tower_wizard_data.origin
 	);
-	self.projectiles.add_child(bullet);
-	Sounds.play_throw_magic_ball_sound();
+	self.throw_bullet_sound.play();
 func set_timer():
 	match self.type:
 		TowerType.BARRACK:

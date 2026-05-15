@@ -13,25 +13,21 @@ func _ready() -> void:
 
 #region Controle geral
 func _go_next_wave() -> void:
-	self._wave += 1
-	
-	Base.get_instance().update_waves()
-
+	self._wave += 1;
+	Base.get_instance().update_waves();
 	var finished: bool = self._spawns.all(func(spawn: Spawn): 
 		return spawn.is_finished();
-	)
-
+	);
 	if !finished:
 		for spawn in self._spawns:
-			spawn._start_next_wave.call_deferred(self._wave)
+			spawn._start_next_wave.call_deferred(self._wave);
 	else:
 		while Enemies.get_instance().get_child_count() > 0:
-			await Base.get_instance().get_tree().create_timer(1.0, false).timeout
+			await Base.get_instance().get_tree().create_timer(1.0, false).timeout;
 			if !self.is_inside_tree():
-				return
-
+				return;
 		if self.is_inside_tree(): 
-			Base.get_instance().win()
+			Base.get_instance().win();
 func _check_current_waves() -> void:
 	for spawn in self._spawns:
 		if spawn._waves_in_queue > 0:
@@ -41,8 +37,19 @@ func start_waves() -> void:
 	if self._wave < 1:
 		self._go_next_wave();
 func get_current_wave() -> int:
-	return self._wave;
+	var max_wave: int = 0;
+	for spawn in self._spawns:
+		max_wave = max(spawn.current_wave, max_wave);
+	return max_wave;
+func get_max_wave() -> int:
+	var max_wave: int = 0;
+	for spawn in self._spawns:
+		max_wave = max(spawn.get_max_wave(), max_wave);
+	return max_wave;
 func reset_waves() -> void:
 	self._wave = 0;
 	self._spawns.clear();
+func skip_wave() -> void:
+	for spawn in self._spawns:
+		spawn.skip_wave();
 #endregion
