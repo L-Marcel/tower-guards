@@ -1,9 +1,37 @@
 [gd_scene format=3 uid="uid://cy1bitluuyl4f"]
 
 [ext_resource type="Script" uid="uid://byiqvtd81kt0m" path="res://scenes/globals/sounds.gd" id="1_6hq2n"]
+[ext_resource type="AudioStream" uid="uid://b87c5s6uw26o0" path="res://assets/sounds/sfx/base_damage.wav" id="2_drmd2"]
+[ext_resource type="AudioStream" uid="uid://c8dgmamhai0vl" path="res://assets/sounds/sfx/spawn.wav" id="2_gq81a"]
+[ext_resource type="AudioStream" uid="uid://dsjglcib526c1" path="res://assets/sounds/sfx/swords_collision.wav" id="3_b5jex"]
+[ext_resource type="AudioStream" uid="uid://d26yewots56v4" path="res://assets/sounds/sfx/throw_arrow.wav" id="4_i0kih"]
+[ext_resource type="AudioStream" uid="uid://ic1ls2b3n73u" path="res://assets/sounds/sfx/arrow_collision.wav" id="4_i5y33"]
+[ext_resource type="AudioStream" uid="uid://buvdypyxmivc5" path="res://assets/sounds/sfx/throw_magic.wav" id="6_rdbjc"]
+[ext_resource type="AudioStream" uid="uid://dt8ki30r51vtu" path="res://assets/sounds/sfx/magic_collision.wav" id="7_cmmpd"]
 
 [node name="Sounds" type="Node" unique_id=1121763893]
 script = ExtResource("1_6hq2n")
 metadata/_custom_type_script = "uid://byiqvtd81kt0m"
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=608134857]
+
+[node name="Base Damage" type="AudioStreamPlayer" parent="." unique_id=225212274]
+stream = ExtResource("2_drmd2")
+
+[node name="Swords collision" type="AudioStreamPlayer" parent="." unique_id=731685303]
+stream = ExtResource("3_b5jex")
+
+[node name="Throw arrow" type="AudioStreamPlayer" parent="." unique_id=2119121612]
+stream = ExtResource("4_i0kih")
+
+[node name="Arrow collision" type="AudioStreamPlayer" parent="." unique_id=1180111535]
+stream = ExtResource("4_i5y33")
+
+[node name="Throw magic ball" type="AudioStreamPlayer" parent="." unique_id=423532157]
+stream = ExtResource("6_rdbjc")
+
+[node name="Magic ball collision" type="AudioStreamPlayer" parent="." unique_id=395811973]
+stream = ExtResource("7_cmmpd")
+
+[node name="Spawn" type="AudioStreamPlayer" parent="." unique_id=1357536999]
+stream = ExtResource("2_gq81a")
