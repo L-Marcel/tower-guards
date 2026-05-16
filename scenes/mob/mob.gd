@@ -110,14 +110,11 @@ func _ready() -> void:
 func _process(delta: float) -> void:
 	if self._attack_timer > 0.0: 
 		self._attack_timer = max(self._attack_timer - delta, 0);
-	if (
-		self.velocity.is_zero_approx() && 
-		self.walking_state.active &&
-		self.animation_player.current_animation != "RESET"
-	):
-		self.animation_player.play("RESET");
-	elif self.walking_state.active: 
-		self.animation_player.play("walking");
+	if self.animation_player.current_animation != "attacking":
+		if self.velocity.is_zero_approx() && self.animation_player.current_animation != "RESET":
+			self.animation_player.play("RESET");
+		elif !self.velocity.is_zero_approx():
+			self.animation_player.play("walking");
 	if !is_zero_approx(self.velocity.x):
 		self.directionals.scale.x = -1.0 if self.velocity.x > 0 else 1.0;
 	elif self.target && is_instance_valid(self.target):
@@ -268,12 +265,14 @@ func clear_target() -> void:
 			self.target.target = null;
 	self.target = null;
 	self.focused_by = null;
-func hurt(hit_damage: int, type: DamageType,):
+func hurt(hit_damage: int, type: DamageType):
 	match type:
 		DamageType.PHYSICAL:
-			self.health -= round(hit_damage * (1.0 - self.physical_resistance));
+			var damage_taken: int = round(hit_damage * (1.0 - self.physical_resistance));
+			self.health -= damage_taken;
 		DamageType.MAGICAL:
-			self.health -= round(hit_damage * (1.0 - self.magical_resistance));
+			var damage_taken: int = round(hit_damage * (1.0 - self.magical_resistance));
+			self.health -= damage_taken;
 	if self.health <= 0:
 		self.die();
 func die():

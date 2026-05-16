@@ -18,7 +18,7 @@ extends Resource
 @export var attack_range: float = 40.0;
 @export var agro_range: float = 125.0;
 
-@export_range(2, 10, 1) var value_in_money: int = 2;
+@export_range(0, 10, 1) var value_in_money: int = 1;
 @export_range(0, 300, 1) var speed: int = 50;
 @export_range(1, 300, 1) var health: int = 30;
 @export_range(0.0, 1.0, 0.2) var physical_resistance: float = 0.0;

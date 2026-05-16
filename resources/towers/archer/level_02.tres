@@ -7,9 +7,9 @@
 script = ExtResource("1_h6a2b")
 cost = 60
 sell_value = 20
-damage = 20
+damage = 25
 attack_interval = 0.75
-attack_range = 325.0
+attack_range = 375.0
 texture = ExtResource("2_quoda")
 origin = Vector2(-18.5, -77)
 metadata/_custom_type_script = "uid://dojkq58vqxqwu"

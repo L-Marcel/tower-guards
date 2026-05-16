@@ -1,0 +1,10 @@
+[gd_resource type="Resource" script_class="Wave" format=3 uid="uid://dayggh0trv5df"]
+
+[ext_resource type="Script" uid="uid://c7mij00d1xrwa" path="res://resources/waves/wave_enemy_data.gd" id="1_sbljr"]
+[ext_resource type="Resource" uid="uid://ur0ccj5a2qbf" path="res://resources/waves/data/basic_soldier_01.tres" id="2_sbljr"]
+[ext_resource type="Script" uid="uid://csym7g1y3a4h5" path="res://resources/waves/wave.gd" id="3_gwc32"]
+
+[resource]
+script = ExtResource("3_gwc32")
+enemies = Array[ExtResource("1_sbljr")]([ExtResource("2_sbljr")])
+metadata/_custom_type_script = "uid://csym7g1y3a4h5"

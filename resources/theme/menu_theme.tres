@@ -3,6 +3,9 @@
 [ext_resource type="StyleBox" uid="uid://b03ij8d5e5oa" path="res://resources/theme/button_nomal.tres" id="1_aidiu"]
 [ext_resource type="StyleBox" uid="uid://dhacnnij8otq3" path="res://resources/theme/button_focus.tres" id="1_ses6b"]
 [ext_resource type="StyleBox" uid="uid://ct8nc30crn73m" path="res://resources/theme/button_hover.tres" id="2_u5fl6"]
+[ext_resource type="StyleBox" uid="uid://j8jga64hykju" path="res://resources/theme/option_button_focus.tres" id="4_io0bj"]
+[ext_resource type="StyleBox" uid="uid://djtw5rxnlfb3d" path="res://resources/theme/option_button_hover.tres" id="5_lnhtt"]
+[ext_resource type="StyleBox" uid="uid://dythhbccooatr" path="res://resources/theme/option_button_nomal.tres" id="6_6ea13"]
 
 [resource]
 default_font_size = 24
@@ -12,3 +15,14 @@ Button/styles/focus = ExtResource("1_ses6b")
 Button/styles/hover = ExtResource("2_u5fl6")
 Button/styles/normal = ExtResource("1_aidiu")
 Button/styles/pressed = ExtResource("1_aidiu")
+OptionButton/colors/font_focus_color = Color(0.95, 0.95, 0.95, 1)
+OptionButton/colors/font_hover_color = Color(0.95, 0.95, 0.95, 1)
+OptionButton/colors/font_outline_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+OptionButton/constants/arrow_margin = 8
+OptionButton/constants/h_separation = 8
+OptionButton/constants/outline_size = 16
+OptionButton/font_sizes/font_size = 24
+OptionButton/styles/focus = ExtResource("4_io0bj")
+OptionButton/styles/hover = ExtResource("5_lnhtt")
+OptionButton/styles/normal = ExtResource("6_6ea13")
+OptionButton/styles/pressed = ExtResource("6_6ea13")

@@ -12,6 +12,7 @@ extends Node2D
 @onready var bow_sprite: AnimatedSprite2D = $Bow/Sprite2D;
 @onready var throw_arrow_sound: AudioStreamPlayer2D = $ThrowArrowSound;
 @onready var throw_bullet_sound: AudioStreamPlayer2D = $ThrowBulletSound;
+@onready var spawn_sound: AudioStreamPlayer2D = $SpawnSound;
 
 var enemies_in_range: Array[Mob] = [];
 var attack_cooldown: float = 0.0;
@@ -70,28 +71,52 @@ func _process(delta: float) -> void:
 				var target_angle: float = tangent.angle() + PI / 2;
 				self.bow.rotation = lerp_angle(self.bow.rotation, target_angle, delta * 5.0);
 			if self.attack_cooldown <= 0:
-				if target != null:
+				if is_instance_valid(target):
 					self.bow_sprite.play("shotting");
 					self.attack_cooldown = self.current_tower_archer_data.attack_interval;
 					await self.get_tree().create_timer(1.0 / 4.5).timeout;
-					if is_instance_valid(target):
-						self.shoot_arrow(target, self.to_local(self.bow_sprite.global_position));
+					for i in range(0, self.get_shot_count()):
+						target = self.get_target(i);
+						if is_instance_valid(target):
+							self.shot_arrow(target, self.to_local(self.bow_sprite.global_position));
 				elif !self.bow_sprite.is_playing():
 					self.bow_sprite.play("with_arrow");
 			elif !self.bow_sprite.is_playing():
 				self.bow_sprite.play("no_arrow");
-		TowerType.WIZARD: 
-			if self.attack_cooldown <= 0:
-				var target: Mob = self.get_target();
-				if target != null:
-					self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
-					self.shoot_bullet(target);
+		TowerType.WIZARD:
+			if self.attack_cooldown <= 0 && is_instance_valid(self.get_target()):
+				self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
+				for i in range(0, self.get_shot_count(1)):
+					var target: Mob = self.get_target(i);
+					if is_instance_valid(target):
+						self.shot_bullet(target);
 		TowerType.BARRACK:
 			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
-				self.spawn_unit();
-				if self.units.get_child_count() < self.current_tower_barrack_data.max_units:
-					self.timer.start();
-func shoot_arrow(target: Mob, origin: Vector2) -> void:
+				self.timer.start();
+func _on_timer_timeout() -> void:
+	if self.type == TowerType.BARRACK && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
+		self.spawn_unit();
+func get_shot_count(bonus: int = 0) -> int:
+	var shot_count: int = 1;
+	var roll: float = randf();
+	match self.level + bonus:
+		2:
+			if roll <= 0.8:
+				shot_count = 2;
+		3:
+			if roll <= 0.8:
+				shot_count = 3;
+			elif roll <= 0.9:
+				shot_count = 2;
+		4:
+			if roll <= 0.8:
+				shot_count = 4;
+			elif roll <= 0.9:
+				shot_count = 3;
+			else:
+				shot_count = 2;
+	return shot_count;
+func shot_arrow(target: Mob, origin: Vector2) -> void:
 	var scene: PackedScene = Preloader.get_resource("arrow");
 	var arrow: Arrow = scene.instantiate();
 	arrow.visible = false;
@@ -103,7 +128,7 @@ func shoot_arrow(target: Mob, origin: Vector2) -> void:
 		origin
 	);
 	self.throw_arrow_sound.play();
-func shoot_bullet(target: Mob) -> void:
+func shot_bullet(target: Mob) -> void:
 	var scene: PackedScene = Preloader.get_resource("bullet");
 	var bullet: Bullet = scene.instantiate();
 	bullet.visible = false;
@@ -135,7 +160,7 @@ func spawn_unit(index: int = self.units.get_child_count()) -> void:
 	mob.initial_data = self.current_tower_barrack_data.unit_data;
 	mob.move_to_point(self.tower_barrack_spawn_point, index);
 	self.units.add_child(mob);
-	Sounds.play_spawn_sound();
+	self.spawn_sound.play();
 func sort_closest_point(array: Array[Vector2], point: Vector2):
 	array.sort_custom(func(a: Vector2, b: Vector2) -> bool: 
 		return a.distance_squared_to(point) < b.distance_squared_to(point);
@@ -288,7 +313,10 @@ func _unhandled_input(event: InputEvent) -> void:
 				self.get_tree().call_group("towers", "close_other_menus", self);
 				match self.level:
 					0: self.menu.open_base_menu();
-					1, 2: self.menu.open_upgrade_menu();
+					1, 2: 
+						if Level.get_instance().max_tower_level > self.level:
+							self.menu.open_upgrade_menu();
+						else: self.menu.open_end_menu();
 					_: self.menu.open_end_menu();
 				self.attack_area.border_is_visible = true;
 				self.attack_area.is_alternative = false;
@@ -311,13 +339,13 @@ func _unhandled_input(event: InputEvent) -> void:
 #endregion
 
 #region Target
-func get_target() -> Mob:
+func get_target(index: int = 0) -> Mob:
 	self.enemies_in_range = self.enemies_in_range.filter(func(enemy: Mob) -> bool:
 		return is_instance_valid(enemy);
 	);
 	
-	if self.enemies_in_range.is_empty(): return null;
-	return self.enemies_in_range[0];
+	if self.enemies_in_range.size() < index + 1: return null;
+	return self.enemies_in_range[index];
 func _on_tower_attack_area_2d_body_entered(body: Node2D) -> void:
 	if body is Mob && (body as Mob).is_enemy:
 		self.enemies_in_range.append(body as Mob);

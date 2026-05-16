@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://bewyxkbeno73t" path="res://scenes/base/base.gd" id="1_yoymw"]
 [ext_resource type="LabelSettings" uid="uid://dh41f3llgj6v" path="res://resources/theme/money.tres" id="2_2ket1"]
 [ext_resource type="LabelSettings" uid="uid://cvdoqpoo1u0g3" path="res://resources/theme/waves.tres" id="3_2ket1"]
+[ext_resource type="Theme" uid="uid://cxnsggv0670gq" path="res://resources/theme/menu_theme.tres" id="4_e5se4"]
 [ext_resource type="Texture2D" uid="uid://bdq0vnw80vbmr" path="res://assets/sprites/hud/heart.png" id="5_e5se4"]
 [ext_resource type="PackedScene" uid="uid://cq0rfc3xshq06" path="res://scenes/hud/menu/menu.tscn" id="7_5yfd3"]
 
@@ -56,33 +57,65 @@ label_settings = ExtResource("2_2ket1")
 
 [node name="WaveContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1482378777]
 layout_mode = 2
-theme_override_constants/separation = 8
+theme_override_constants/separation = 32
 alignment = 1
 
 [node name="Waves" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/WaveContainer" unique_id=1469341795]
 layout_mode = 2
 size_flags_horizontal = 3
-text = "TODO/0"
+text = "Waves: 0/0"
 label_settings = ExtResource("3_2ket1")
 
-[node name="LifesContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1498467008]
+[node name="RightContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer" unique_id=1498467008]
 custom_minimum_size = Vector2(125, 39)
 layout_mode = 2
 size_flags_horizontal = 3
 theme_override_constants/separation = 4
 alignment = 2
 
-[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer" unique_id=190991099]
+[node name="SpeedContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer" unique_id=622808979]
+layout_mode = 2
+size_flags_horizontal = 3
+theme_override_constants/separation = 4
+alignment = 1
+
+[node name="Speed" type="Label" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/SpeedContainer" unique_id=2001983923]
+layout_mode = 2
+text = "Speed:"
+label_settings = ExtResource("3_2ket1")
+
+[node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/SpeedContainer" unique_id=1166384222]
+layout_mode = 2
+theme = ExtResource("4_e5se4")
+alignment = 1
+selected = 0
+allow_reselect = true
+item_count = 4
+popup/item_0/text = "1X"
+popup/item_0/id = 0
+popup/item_1/text = "2X"
+popup/item_1/id = 1
+popup/item_2/text = "3X"
+popup/item_2/id = 2
+popup/item_3/text = "4X"
+popup/item_3/id = 4
+
+[node name="LifesContainer" type="HBoxContainer" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer" unique_id=637374361]
+custom_minimum_size = Vector2(125, 39)
+layout_mode = 2
+alignment = 2
+
+[node name="TextureRect" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/LifesContainer" unique_id=190991099]
 layout_mode = 2
 texture = ExtResource("5_e5se4")
 expand_mode = 3
 
-[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer" unique_id=1026780572]
+[node name="TextureRect2" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/LifesContainer" unique_id=1026780572]
 layout_mode = 2
 texture = ExtResource("5_e5se4")
 expand_mode = 3
 
-[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer" unique_id=362094668]
+[node name="TextureRect3" type="TextureRect" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/LifesContainer" unique_id=362094668]
 layout_mode = 2
 texture = ExtResource("5_e5se4")
 expand_mode = 3
@@ -96,4 +129,5 @@ modulate = Color(0, 1, 0, 1)
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1587418319]
 polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
 
+[connection signal="item_selected" from="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/SpeedContainer/OptionButton" to="." method="_on_option_button_item_selected"]
 [connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]

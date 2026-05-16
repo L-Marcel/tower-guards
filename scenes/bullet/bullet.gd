@@ -41,10 +41,10 @@ func setup(
 		self.duration = 0.1;
 	self.global_position = self.start_position;
 
-func finish(mob : Mob = null) -> void:
+func finish() -> void:
 	self.finished = true;
-	if mob != null && is_instance_valid(mob):
-		mob.hurt(self.damage, Mob.DamageType.MAGICAL);
+	if is_instance_valid(self.target):
+		self.target.hurt(self.damage, Mob.DamageType.MAGICAL);
 	self.bullet_collision_sound.play();
 	var tween: Tween = self.get_tree().create_tween();
 	tween.tween_property(self.trail, "modulate:a", 0.0, 0.3);
@@ -60,44 +60,37 @@ func _ready() -> void:
 
 func _process(delta: float) -> void:
 	self.progress = clamp(self.progress + (delta / self.duration), 0.0, 1.0);
+	var eased_progress: float = self.progress * self.progress;
 	if is_instance_valid(self.target):
 		self.end_position = self.target.global_position - Vector2(0, 25);
-	self.global_position = self.start_position.lerp(self.end_position, self.progress);
+	self.global_position = self.start_position.lerp(self.end_position, eased_progress);
 	
 	var visual_start: Vector2 = self.start_position + Vector2(0, -self.initial_virtual_height);
 	var visual_mid: Vector2 = (visual_start + self.end_position) / 2.0;
 	visual_mid.y -= self.max_virtual_height;
 	
 	var virtual_position: Vector2 = (
-		(1 - self.progress) * (1 - self.progress) * visual_start
-	) + (2 * (1 - self.progress) * self.progress * visual_mid) + (
-		self.progress * self.progress * self.end_position
+		(1 - eased_progress) * (1 - eased_progress) * visual_start
+	) + (2 * (1 - eased_progress) * eased_progress * visual_mid) + (
+		eased_progress * eased_progress * self.end_position
 	);
 	
 	self.virtual.global_position = virtual_position;
 	
 	var tangent: Vector2 = (
-		2 * (1 - self.progress) * (visual_mid - visual_start)
-	) + (2 * progress * (self.end_position - visual_mid));
+		2 * (1 - eased_progress) * (visual_mid - visual_start)
+	) + (2 * eased_progress * (self.end_position - visual_mid));
 	
 	self.virtual.rotation = tangent.angle() + PI / 2;
 	
-	if self.progress >= 0.5 && self.progress < 0.75:
+	if eased_progress >= 0.5 && eased_progress < 0.75:
 		self.sprite.z_index = 1;
-	elif self.progress >= 0.75:
-		self.sprite.z_index = 0;
 	
-	if !self.finished:
+	if self.visible:
 		self.trail.add_point(self.virtual.global_position);
 		if self.trail.get_point_count() > self.trail_length:
 			self.trail.remove_point(0);
 	
-	if self.progress >= 1.0 && !self.finished:
+	if eased_progress >= 1.0 && !self.finished:
 		self.finish();
-	self.visible = self.progress < 1.0;
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if self.finished && body is Mob && (body as Mob).is_enemy:
-		var mob: Mob = body as Mob;
-		if self.target == mob:
-			self.finish(self.target);
+	self.visible = eased_progress < 1.0;

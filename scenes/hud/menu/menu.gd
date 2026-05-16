@@ -7,14 +7,23 @@ extends Control
 @onready var next_level_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/NextLevel;
 @onready var restart_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/Restart;
 @onready var quit_button: Button = $PanelContainer/VBoxContainer/ButtonContainer/Quit;
+@onready var sound_slider: HSlider = $PanelContainer/VBoxContainer/ButtonContainer/SoundContainer/SoundSlider;
+@onready var sound_lavel: Label = $PanelContainer/VBoxContainer/ButtonContainer/SoundContainer/SoundLabel;
+
 var ended: bool = false;
+var master_bus_index: int;
 
 func _ready() -> void:
 	self.visible = false;
+	self.master_bus_index = AudioServer.get_bus_index("Master");
+	self.sound_slider.value_changed.connect(self._on_volume_changed);
+	self._load_volume();
 func _process(_delta: float) -> void:
 	if Input.is_action_just_pressed("pause") && !self.ended:
 		if self.get_tree().paused: self.resume();
 		else: self.pause();
+
+#region HUD
 func grab_button_focus() -> void:
 	for child in self.button_container.get_children():
 		if child is Button && (child as Button).visible:
@@ -54,3 +63,24 @@ func restart() -> void:
 	self.get_tree().reload_current_scene();
 func quit() -> void:
 	self.get_tree().quit();
+#endregion
+
+#region Sound
+func _on_volume_changed(value: float) -> void:
+	self.sound_lavel.text = String.num_int64(int(value)) + "%";
+	value /= 100.0;
+	AudioServer.set_bus_volume_db(self.master_bus_index, linear_to_db(value));
+	self._save_volume(value);
+func _save_volume(value: float) -> void:
+	var config: ConfigFile = ConfigFile.new();
+	config.set_value("audio", "master_volume", value);
+	config.save("user://settings.cfg");
+func _load_volume() -> void:
+	var config: ConfigFile = ConfigFile.new();
+	var default_volume: float = 1.0;
+	if config.load("user://settings.cfg") == OK:
+		default_volume = config.get_value("audio", "master_volume", 1.0);
+	self.sound_slider.set_value_no_signal(default_volume * 100.0);
+	self.sound_lavel.text = String.num_int64(int(default_volume * 100.0)) + "%";
+	AudioServer.set_bus_volume_db(self.master_bus_index, linear_to_db(default_volume));
+#endregion

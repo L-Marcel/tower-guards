@@ -20,11 +20,17 @@ func _ready() -> void:
 func _start_next_wave(wave_index: int) -> void:
 	self._waves_in_queue += 1;
 	if wave_index > self._waves.size(): 
+		self.current_wave += 1;
 		self._waves_in_queue -= 1;
 		SpawnManager.get_instance()._check_current_waves();
 		return;
 	assert(self._paths.size() > 0);
 	var wave: Wave = self._waves[wave_index - 1];
+	if wave.enemies.is_empty():
+		self.current_wave += 1;
+		self._waves_in_queue -= 1;
+		SpawnManager.get_instance()._check_current_waves();
+		return;
 	await self.timer.start(wave.start_delay).timeout;
 	self.current_wave += 1;
 	for enemy in wave.enemies:
@@ -32,7 +38,9 @@ func _start_next_wave(wave_index: int) -> void:
 		while amount > 0:
 			self._spawn(enemy.enemy);
 			amount -= 1;
-			await self.get_tree().create_timer(enemy.interval, false).timeout;
+			var interval: int = enemy.interval;
+			var random_diff: float = randf_range(-0.3, 0.3);
+			await self.get_tree().create_timer(float(interval) + random_diff, false).timeout;
 	self._waves_in_queue -= 1;
 	SpawnManager.get_instance()._check_current_waves();
 func _spawn(enemy: MobData) -> void:

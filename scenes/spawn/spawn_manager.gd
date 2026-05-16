@@ -37,9 +37,10 @@ func start_waves() -> void:
 	if self._wave < 1:
 		self._go_next_wave();
 func get_current_wave() -> int:
-	var max_wave: int = 0;
+	if self._spawns.is_empty(): return 0;
+	var max_wave: int = self._spawns[0].current_wave;
 	for spawn in self._spawns:
-		max_wave = max(spawn.current_wave, max_wave);
+		max_wave = min(spawn.current_wave, max_wave);
 	return max_wave;
 func get_max_wave() -> int:
 	var max_wave: int = 0;

@@ -9,8 +9,16 @@
 [ext_resource type="PackedScene" uid="uid://bjugbhrcmkthd" path="res://scenes/spawn/spawn.tscn" id="5_4dr30"]
 [ext_resource type="Script" uid="uid://bq5o7sf2tt7u8" path="res://scenes/spawn/spawn_manager.gd" id="5_c6rld"]
 [ext_resource type="Script" uid="uid://c84aquhba3yo1" path="res://resources/scripts/enemies.gd" id="8_v5pqk"]
+[ext_resource type="Script" uid="uid://csym7g1y3a4h5" path="res://resources/waves/wave.gd" id="9_m2jhg"]
 [ext_resource type="PackedScene" uid="uid://bxh4hhelbhkrb" path="res://scenes/tower/tower.tscn" id="9_m2te4"]
+[ext_resource type="Resource" uid="uid://dyqisyymevuv8" path="res://resources/waves/level_01/wave_basic_02.tres" id="10_01hg1"]
 [ext_resource type="Script" uid="uid://c5x0pba8wqd0h" path="res://resources/scripts/camera_controller.gd" id="10_kxbgd"]
+[ext_resource type="Resource" uid="uid://bwm83e64t5af5" path="res://resources/waves/level_01/wave_medium_01.tres" id="11_v5pqk"]
+[ext_resource type="Resource" uid="uid://cn3jbpkvo8eis" path="res://resources/waves/level_01/wave_medium_02.tres" id="12_m2te4"]
+[ext_resource type="Resource" uid="uid://d1tll7xdiyim6" path="res://resources/waves/level_01/wave_medium_03.tres" id="13_kxbgd"]
+[ext_resource type="Resource" uid="uid://1v4jvkpisg6h" path="res://resources/waves/level_01/wave_empty.tres" id="14_lky54"]
+[ext_resource type="Resource" uid="uid://by2s3gfx16ung" path="res://resources/waves/level_01/wave_basic_03.tres" id="15_ies7a"]
+[ext_resource type="Resource" uid="uid://dmqyey8h0ir08" path="res://resources/waves/level_01/wave_medium_04.tres" id="16_kx1rr"]
 
 [sub_resource type="Curve2D" id="Curve2D_i2aat"]
 bake_interval = 20.0
@@ -34,6 +42,7 @@ point_count = 5
 [node name="Level02" type="Node2D" unique_id=293293127]
 y_sort_enabled = true
 script = ExtResource("1_yklhy")
+max_tower_level = 2
 next_level = ExtResource("2_o4ql5")
 metadata/_custom_type_script = "uid://bk40s7w1inj2y"
 
@@ -58,23 +67,23 @@ y_sort_enabled = true
 script = ExtResource("2_n536o")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(0.48954922, 0.19999999, 1, 1)
+modulate = Color(1, 0.9198448, 0.19999999, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=2048301416]
-modulate = Color(0.19999999, 1, 0.5202738, 1)
+modulate = Color(0.19999999, 1, 0.75337446, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_o4ql5")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=1258221372]
-modulate = Color(0.19999999, 0.2232601, 1, 1)
+modulate = Color(0.19999999, 0.8484505, 1, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_4hx2o")
 
 [node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("3_m2jhg")]
 position = Vector2(3600, 2660)
-money = 3000
+money = 140
 
 [node name="Spawns" type="Node2D" parent="Entities" unique_id=2077210629]
 y_sort_enabled = true
@@ -87,14 +96,32 @@ metadata/_custom_type_script = "uid://bq5o7sf2tt7u8"
 [node name="Spawn" parent="Entities/Spawns" unique_id=231200630 node_paths=PackedStringArray("_paths") instance=ExtResource("5_4dr30")]
 position = Vector2(4800, 840)
 _paths = [NodePath("../../Paths/Path2D3")]
+_waves = Array[ExtResource("9_m2jhg")]([ExtResource("10_01hg1"), ExtResource("11_v5pqk"), ExtResource("11_v5pqk"), ExtResource("12_m2te4"), ExtResource("13_kxbgd"), ExtResource("13_kxbgd"), ExtResource("13_kxbgd"), ExtResource("13_kxbgd")])
 
 [node name="Spawn2" parent="Entities/Spawns" unique_id=1161365668 node_paths=PackedStringArray("_paths") instance=ExtResource("5_4dr30")]
 position = Vector2(720, 980)
 _paths = [NodePath("../../Paths/Path2D")]
+_waves = Array[ExtResource("9_m2jhg")]([ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("11_v5pqk"), ExtResource("11_v5pqk"), ExtResource("11_v5pqk"), ExtResource("12_m2te4"), ExtResource("12_m2te4"), ExtResource("13_kxbgd")])
 
 [node name="Spawn3" parent="Entities/Spawns" unique_id=1104027399 node_paths=PackedStringArray("_paths") instance=ExtResource("5_4dr30")]
 position = Vector2(3000, 630)
 _paths = [NodePath("../../Paths/Path2D2")]
+_waves = Array[ExtResource("9_m2jhg")]([ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("15_ies7a"), ExtResource("11_v5pqk"), ExtResource("13_kxbgd"), ExtResource("16_kx1rr")])
+
+[node name="Spawn4" parent="Entities/Spawns" unique_id=244318228 node_paths=PackedStringArray("_paths") instance=ExtResource("5_4dr30")]
+position = Vector2(4800, 840)
+_paths = [NodePath("../../Paths/Path2D3")]
+_waves = Array[ExtResource("9_m2jhg")]([ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("11_v5pqk"), ExtResource("12_m2te4"), ExtResource("13_kxbgd"), ExtResource("11_v5pqk"), ExtResource("12_m2te4"), ExtResource("13_kxbgd")])
+
+[node name="Spawn5" parent="Entities/Spawns" unique_id=433377125 node_paths=PackedStringArray("_paths") instance=ExtResource("5_4dr30")]
+position = Vector2(720, 980)
+_paths = [NodePath("../../Paths/Path2D")]
+_waves = Array[ExtResource("9_m2jhg")]([ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("16_kx1rr")])
+
+[node name="Spawn6" parent="Entities/Spawns" unique_id=1325409531 node_paths=PackedStringArray("_paths") instance=ExtResource("5_4dr30")]
+position = Vector2(4800, 840)
+_paths = [NodePath("../../Paths/Path2D3")]
+_waves = Array[ExtResource("9_m2jhg")]([ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("14_lky54"), ExtResource("11_v5pqk"), ExtResource("12_m2te4"), ExtResource("13_kxbgd")])
 
 [node name="Enemies" type="Node2D" parent="Entities" unique_id=1413974022]
 y_sort_enabled = true

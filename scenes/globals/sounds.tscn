@@ -2,8 +2,7 @@
 
 [ext_resource type="Script" uid="uid://byiqvtd81kt0m" path="res://scenes/globals/sounds.gd" id="1_6hq2n"]
 [ext_resource type="AudioStream" uid="uid://b87c5s6uw26o0" path="res://assets/sounds/sfx/base_damage.wav" id="2_drmd2"]
-[ext_resource type="AudioStream" uid="uid://c8dgmamhai0vl" path="res://assets/sounds/sfx/spawn.wav" id="2_gq81a"]
-[ext_resource type="AudioStream" uid="uid://8pkj80bw7vqc" path="res://assets/sounds/music/towerguards.mp3" id="2_n463b"]
+[ext_resource type="AudioStream" uid="uid://8pkj80bw7vqc" path="res://assets/sounds/music.mp3" id="2_n463b"]
 
 [node name="Sounds" type="Node" unique_id=1121763893]
 script = ExtResource("1_6hq2n")
@@ -11,11 +10,8 @@ metadata/_custom_type_script = "uid://byiqvtd81kt0m"
 
 [node name="Music" type="AudioStreamPlayer" parent="." unique_id=608134857]
 stream = ExtResource("2_n463b")
+volume_db = -8.0
 
 [node name="BaseDamage" type="AudioStreamPlayer" parent="." unique_id=225212274]
 stream = ExtResource("2_drmd2")
-max_polyphony = 10
-
-[node name="Spawn" type="AudioStreamPlayer" parent="." unique_id=1357536999]
-stream = ExtResource("2_gq81a")
 max_polyphony = 10

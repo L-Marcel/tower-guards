@@ -7,9 +7,10 @@
 script = ExtResource("1_mcmdm")
 texture = ExtResource("2_4ae66")
 life_damage = 1
-damage = 15
+damage = 40
 attack_interval = 3
-value_in_money = 6
-health = 100
+value_in_money = 2
+health = 140
 physical_resistance = 0.8
+magical_resistance = 0.4
 metadata/_custom_type_script = "uid://co1cirn4uiw63"

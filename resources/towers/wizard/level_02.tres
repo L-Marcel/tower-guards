@@ -7,8 +7,8 @@
 script = ExtResource("1_23xa7")
 cost = 60
 sell_value = 20
-damage = 30
-attack_range = 275.0
+damage = 25
+attack_range = 325.0
 texture = ExtResource("2_e6e4o")
 origin = Vector2(-18.5, -79)
 metadata/_custom_type_script = "uid://c8pyi3yfovqme"

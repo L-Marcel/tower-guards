@@ -3,9 +3,9 @@
 [ext_resource type="Script" uid="uid://nkawfb64s586" path="res://scenes/spawn/spawn.gd" id="1_pvgwh"]
 [ext_resource type="PackedScene" uid="uid://b5da6tdykyr3n" path="res://scenes/spawn/spawn_progress.tscn" id="2_wq4sp"]
 [ext_resource type="Script" uid="uid://csym7g1y3a4h5" path="res://resources/waves/wave.gd" id="2_yv6mb"]
-[ext_resource type="Resource" uid="uid://dayggh0trv5df" path="res://resources/waves/level_01/wave_01_spawn_01.tres" id="3_3hyw8"]
-[ext_resource type="Resource" uid="uid://dyqisyymevuv8" path="res://resources/waves/level_01/wave_02_spawn_01.tres" id="4_m7p8x"]
-[ext_resource type="Resource" uid="uid://by2s3gfx16ung" path="res://resources/waves/level_01/wave_03_spawn_01.tres" id="5_3hyw8"]
+[ext_resource type="Resource" uid="uid://dayggh0trv5df" path="res://resources/waves/level_01/wave_basic_01.tres" id="3_3hyw8"]
+[ext_resource type="Resource" uid="uid://dyqisyymevuv8" path="res://resources/waves/level_01/wave_basic_02.tres" id="4_m7p8x"]
+[ext_resource type="Resource" uid="uid://by2s3gfx16ung" path="res://resources/waves/level_01/wave_basic_03.tres" id="5_3hyw8"]
 
 [node name="Spawn" type="Node2D" unique_id=1376810633]
 script = ExtResource("1_pvgwh")

@@ -6,5 +6,6 @@
 [resource]
 script = ExtResource("2_3k6f2")
 enemy = ExtResource("1_8gfls")
-amount = 5
+amount = 15
+interval = 5
 metadata/_custom_type_script = "uid://c7mij00d1xrwa"

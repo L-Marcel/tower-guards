@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://boy256ijladk8" path="res://scenes/hud/menu/menu.gd" id="1_8ps6x"]
 [ext_resource type="Theme" uid="uid://cxnsggv0670gq" path="res://resources/theme/menu_theme.tres" id="1_27s2c"]
 [ext_resource type="LabelSettings" uid="uid://njvrpqxl6p7i" path="res://resources/theme/game_over.tres" id="2_adfhw"]
+[ext_resource type="Texture2D" uid="uid://bvvv4dc7xjjbt" path="res://assets/sound.png" id="4_e71o3"]
 
 [node name="Menu" type="Control" unique_id=1555300479]
 process_mode = 3
@@ -40,7 +41,7 @@ label_settings = ExtResource("2_adfhw")
 horizontal_alignment = 1
 
 [node name="ButtonContainer" type="VBoxContainer" parent="PanelContainer/VBoxContainer" unique_id=723750216]
-custom_minimum_size = Vector2(300, 0)
+custom_minimum_size = Vector2(400, 0)
 layout_mode = 2
 size_flags_horizontal = 4
 size_flags_vertical = 4
@@ -50,6 +51,30 @@ theme_override_constants/separation = 16
 layout_mode = 2
 theme = ExtResource("1_27s2c")
 text = "CONTINUAR"
+
+[node name="SoundContainer" type="HBoxContainer" parent="PanelContainer/VBoxContainer/ButtonContainer" unique_id=1652773401]
+layout_mode = 2
+theme_override_constants/separation = 16
+alignment = 1
+
+[node name="SoundIcon" type="TextureRect" parent="PanelContainer/VBoxContainer/ButtonContainer/SoundContainer" unique_id=1643519493]
+custom_minimum_size = Vector2(28, 28)
+layout_mode = 2
+texture = ExtResource("4_e71o3")
+expand_mode = 2
+
+[node name="SoundSlider" type="HSlider" parent="PanelContainer/VBoxContainer/ButtonContainer/SoundContainer" unique_id=2066708164]
+layout_mode = 2
+size_flags_horizontal = 3
+size_flags_vertical = 4
+max_value = 200.0
+step = 2.0
+
+[node name="SoundLabel" type="Label" parent="PanelContainer/VBoxContainer/ButtonContainer/SoundContainer" unique_id=1616600285]
+custom_minimum_size = Vector2(42, 0)
+layout_mode = 2
+text = "200%"
+horizontal_alignment = 1
 
 [node name="NextLevel" type="Button" parent="PanelContainer/VBoxContainer/ButtonContainer" unique_id=1731551368]
 layout_mode = 2

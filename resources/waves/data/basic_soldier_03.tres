@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WaveEnemyData" format=3 uid="uid://db4q1w3ogj8pk"]
+
+[ext_resource type="Resource" uid="uid://c3gtdg7s6xnjg" path="res://resources/mobs/enemy_basic_soldier.tres" id="1_2b0nd"]
+[ext_resource type="Script" uid="uid://c7mij00d1xrwa" path="res://resources/waves/wave_enemy_data.gd" id="2_ipm4t"]
+
+[resource]
+script = ExtResource("2_ipm4t")
+enemy = ExtResource("1_2b0nd")
+amount = 20
+interval = 2
+metadata/_custom_type_script = "uid://c7mij00d1xrwa"

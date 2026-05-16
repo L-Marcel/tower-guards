@@ -9,7 +9,7 @@
 [ext_resource type="Shape2D" uid="uid://8ixpdxi3fdiu" path="res://scenes/mob/attack_collision_shape.tres" id="6_uqhch"]
 [ext_resource type="Texture2D" uid="uid://cg78ldx8xb38a" path="res://assets/sprites/towers/Barrack/knight_level_1.png" id="7_vpto6"]
 [ext_resource type="Shape2D" uid="uid://bhiuxqx13edkm" path="res://scenes/mob/collision_shape.tres" id="8_7wvav"]
-[ext_resource type="AudioStream" uid="uid://dsjglcib526c1" path="res://assets/sounds/sfx/swords_collision.wav" id="10_tyl3q"]
+[ext_resource type="AudioStream" uid="uid://kray2ckiefdx" path="res://assets/sounds/sfx/sowrds_random_collision.tres" id="10_tyl3q"]
 
 [sub_resource type="Animation" id="Animation_40wdo"]
 length = 0.1
@@ -38,12 +38,6 @@ tracks/1/keys = {
 "update": 2,
 "values": [Vector2(0, 0)]
 }
-
-[sub_resource type="AudioStreamRandomizer" id="AudioStreamRandomizer_tyl3q"]
-random_pitch = 1.587401
-random_volume_offset_db = 4.0
-streams_count = 1
-stream_0/stream = ExtResource("10_tyl3q")
 
 [sub_resource type="Animation" id="Animation_q52e7"]
 resource_name = "attack"
@@ -83,7 +77,7 @@ tracks/2/keys = {
 "clips": [{
 "end_offset": 0.0,
 "start_offset": 0.0,
-"stream": SubResource("AudioStreamRandomizer_tyl3q")
+"stream": ExtResource("10_tyl3q")
 }],
 "times": PackedFloat32Array(0.6666667)
 }
@@ -140,7 +134,6 @@ _data = {
 }
 
 [node name="Mob" type="CharacterBody2D" unique_id=884475862]
-y_sort_enabled = true
 collision_layer = 3
 collision_mask = 0
 motion_mode = 1
@@ -153,6 +146,7 @@ rotation = 1.5707964
 shape = ExtResource("8_7wvav")
 
 [node name="SwordsCollisionSound" type="AudioStreamPlayer2D" parent="." unique_id=662976590]
+volume_db = 4.0
 
 [node name="StateMachine" type="Node" parent="." unique_id=1331879435]
 script = ExtResource("2_q52e7")
@@ -206,10 +200,8 @@ shape = ExtResource("6_uqhch")
 debug_color = Color(1, 0, 0, 0.41960785)
 
 [node name="Directionals" type="Node2D" parent="." unique_id=1825693635]
-y_sort_enabled = true
 
 [node name="Sprite2D" type="Sprite2D" parent="Directionals" unique_id=303179972]
-y_sort_enabled = true
 texture = ExtResource("7_vpto6")
 offset = Vector2(0, -18)
 

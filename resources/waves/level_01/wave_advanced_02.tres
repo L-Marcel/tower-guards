@@ -1,0 +1,13 @@
+[gd_resource type="Resource" script_class="Wave" format=3 uid="uid://bodi0a1mjqdmx"]
+
+[ext_resource type="Script" uid="uid://c7mij00d1xrwa" path="res://resources/waves/wave_enemy_data.gd" id="1_mewgj"]
+[ext_resource type="Resource" uid="uid://cbh2qxlupidcy" path="res://resources/waves/data/basic_magic_soldier_01.tres" id="2_2qcf0"]
+[ext_resource type="Resource" uid="uid://bjqxeekr3vl62" path="res://resources/waves/data/basic_soldier_04.tres" id="2_mewgj"]
+[ext_resource type="Resource" uid="uid://bidsp5roqr6og" path="res://resources/waves/data/advanced_soldier_01.tres" id="3_r7bbi"]
+[ext_resource type="Script" uid="uid://csym7g1y3a4h5" path="res://resources/waves/wave.gd" id="4_gr7wr"]
+
+[resource]
+script = ExtResource("4_gr7wr")
+start_delay = 15
+enemies = Array[ExtResource("1_mewgj")]([ExtResource("2_2qcf0"), ExtResource("2_mewgj"), ExtResource("3_r7bbi")])
+metadata/_custom_type_script = "uid://csym7g1y3a4h5"

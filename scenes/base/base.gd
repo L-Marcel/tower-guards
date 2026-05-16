@@ -2,16 +2,12 @@ class_name Base
 extends Node2D
 
 @onready var label_money: Label = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/MoneyContainer/Money;
-@onready var first_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer/TextureRect;
-@onready var second_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer/TextureRect2;
-@onready var third_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/LifesContainer/TextureRect3;
+@onready var first_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/LifesContainer/TextureRect;
+@onready var second_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/LifesContainer/TextureRect2;
+@onready var third_life: TextureRect = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/LifesContainer/TextureRect3;
 @onready var menu: Menu = $CanvasLayer/Menu;
 @onready var label_wave: Label = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/WaveContainer/Waves;
-
-# TODO: Só para não esquecer... Quando não restar mais tarefas, 
-# o último a cantar, é quem fecha a porta.
-# POR FAVOR, LEMBRAR DE DEFINIR O MONEY NAS CENAS DOS NÍVEIS
-# AO FECHAR A PORTA POIS EU DEIXEI COM 3000 PARA FINS DE TESTE
+@onready var option_button: OptionButton = $CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/SpeedContainer/OptionButton;
 
 @export var money: int = 30:
 	set(value):
@@ -38,6 +34,21 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	self.update_waves();
+	if Input.is_action_pressed("speed_one"):
+		self.option_button.select(0);
+		Engine.time_scale = 1;
+	elif Input.is_action_pressed("speed_two"):
+		self.option_button.select(1);
+		Engine.time_scale = 2;
+	elif Input.is_action_pressed("speed_three"):
+		self.option_button.select(2);
+		Engine.time_scale = 3;
+	elif Input.is_action_pressed("speed_four"):
+		self.option_button.select(3);
+		Engine.time_scale = 4;
+func _on_option_button_item_selected(index: int) -> void:
+	var speed: int = index + 1;
+	Engine.time_scale = float(speed);
 func _on_area_2d_body_entered(body: Node2D) -> void:
 	if body is Mob and (body as Mob).is_enemy:
 		var mob: Mob = body as Mob;

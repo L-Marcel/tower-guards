@@ -1,0 +1,11 @@
+[gd_resource type="Resource" script_class="WaveEnemyData" format=3 uid="uid://06hbbtxf1a15"]
+
+[ext_resource type="Resource" uid="uid://cbjt1ll2dmlrr" path="res://resources/mobs/enemy_basic_magic_soldier.tres" id="1_47ams"]
+[ext_resource type="Script" uid="uid://c7mij00d1xrwa" path="res://resources/waves/wave_enemy_data.gd" id="2_6ru13"]
+
+[resource]
+script = ExtResource("2_6ru13")
+enemy = ExtResource("1_47ams")
+amount = 20
+interval = 4
+metadata/_custom_type_script = "uid://c7mij00d1xrwa"

@@ -1,0 +1,9 @@
+[gd_resource type="Resource" script_class="Wave" format=3 uid="uid://1v4jvkpisg6h"]
+
+[ext_resource type="Script" uid="uid://c7mij00d1xrwa" path="res://resources/waves/wave_enemy_data.gd" id="1_oj1wp"]
+[ext_resource type="Script" uid="uid://csym7g1y3a4h5" path="res://resources/waves/wave.gd" id="2_0jetj"]
+
+[resource]
+script = ExtResource("2_0jetj")
+start_delay = 0
+metadata/_custom_type_script = "uid://csym7g1y3a4h5"

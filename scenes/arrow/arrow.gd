@@ -36,10 +36,10 @@ func setup(
 		self.duration = 0.1;
 	self.global_position = self.start_position;
 
-func finish(mob : Mob = null) -> void:
+func finish() -> void:
 	self.finished = true;
-	if mob != null && is_instance_valid(mob):
-		mob.hurt(self.damage, Mob.DamageType.PHYSICAL);
+	if is_instance_valid(self.target):
+		self.target.hurt(self.damage, Mob.DamageType.PHYSICAL);
 	else:
 		await self.get_tree().create_timer(1).timeout;
 	self.arrow_collision_sound.play();
@@ -79,9 +79,3 @@ func _process(delta: float) -> void:
 	if self.progress >= 1.0 && !self.finished:
 		self.finish();
 	self.visible = self.progress < 1.0;
-
-func _on_area_2d_body_entered(body: Node2D) -> void:
-	if !self.finished && body is Mob && (body as Mob).is_enemy:
-		var mob: Mob = body as Mob;
-		if self.target == mob:
-			self.finish(self.target);
