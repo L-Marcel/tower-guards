@@ -6,6 +6,11 @@ Jogo de defesa de torres construído durante a disciplina de motores de jogos.
 
 As versões compiladas do jogo estão disponíveis [aqui](https://github.com/L-Marcel/tower-guards/releases). Há uma versão para Windows e uma para Linux.
 
+## Controles
+- `WASD` / setas — movimentar a câmera
+- `1` / `2` / `3` / `4` — atalhos para alterar velocidade
+- mouse — restante
+
 ## Conteúdo
 
 - 3 níveis
