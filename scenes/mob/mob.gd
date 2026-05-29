@@ -10,6 +10,7 @@ var attack_interval_randomness: float = 0.1;
 var _attack_timer: float = 0.0;
 var speed: int = 50;
 var health: int = 30;
+var max_health: int = 30;
 var physical_resistance: float = 0.0;
 var magical_resistance: float = 0.0;
 var is_enemy: bool = true;
@@ -22,6 +23,7 @@ var value_in_money: int = 0;
 @onready var state_machine: StateChart = $StateMachine;
 @onready var walking_state: AtomicState = $StateMachine/CompoundState/Walking;
 @onready var animation_player: AnimationPlayer = $AnimationPlayer;
+@onready var health_bar: ProgressBar = $Control/ProgressBar;
 
 var targets: Array[Mob] = [];
 var targets_in_attack_range: Array[Mob] = [];
@@ -71,6 +73,7 @@ func set_data(mob: MobData) -> void:
 		circle.radius = mob.agro_range;
 	self.speed = mob.speed;
 	self.health = mob.health;
+	self.max_health = mob.health;
 	self.physical_resistance = mob.physical_resistance;
 	self.magical_resistance = mob.magical_resistance;
 	self.is_enemy = mob.is_enemy;
@@ -108,6 +111,12 @@ func _ready() -> void:
 	if self.initial_data:
 		self.set_data(self.initial_data);
 func _process(delta: float) -> void:
+	if self.health == self.max_health:
+		self.health_bar.visible = false;
+	else:
+		self.health_bar.visible = true;
+		self.health_bar.max_value = self.max_health;
+		self.health_bar.value = self.health;
 	if self._attack_timer > 0.0: 
 		self._attack_timer = max(self._attack_timer - delta, 0);
 	if self.animation_player.current_animation != "attacking":

@@ -14,6 +14,7 @@ extends Node2D
 	$BaseMenu/Archer/Archer,
 	$BaseMenu/Wizard/Wizard,
 	$BaseMenu/Soldier/Soldier,
+	$BaseMenu/Quary/Quary,
 	$UpgradeMenu/Upgrade/Upgrade,
 	$UpgradeMenu/Sell/Sell,
 	$UpgradeMenu/SpawnPoint/SpawnPoint,
@@ -79,11 +80,17 @@ func _on_archer_input_event(_viewport: Node, event: InputEvent, _shape_idx: int)
 		self.tower.buy_archer();
 		self.close_menu();
 
+func _on_quary_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
+	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+		self.tower.buy_quary();
+		self.close_menu();
+
 func _on_upgrade_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		match self.tower.type:
 			Tower.TowerType.ARCHER: self.tower.buy_archer();
 			Tower.TowerType.WIZARD: self.tower.buy_wizard();
+			Tower.TowerType.QUARY: self.tower.buy_quary();
 			_: self.tower.buy_barrack();
 		self.close_menu();
 
@@ -97,6 +104,11 @@ func _on_wizard_mouse_entered() -> void:
 		self.tower.tower_wizard_datas[0].cost
 	);
 
+func _on_quary_mouse_entered() -> void:
+	self.label.text = "-$" + String.num_int64(
+		self.tower.tower_quary_datas[0].cost
+	);
+	
 func _on_soldier_mouse_entered() -> void:
 	self.label.text = "-$" + String.num_int64(
 		self.tower.tower_barrack_datas[0].cost
@@ -120,6 +132,10 @@ func _on_upgrade_mouse_entered() -> void:
 			self.label.text = "-$" + String.num_int64(
 				self.tower.tower_wizard_datas[self.tower.level].cost
 			);
+		Tower.TowerType.QUARY:
+			self.label.text = "-$" + String.num_int64(
+				self.tower.tower_quary_datas[self.tower.level].cost
+			);
 		_: 
 			self.label.text = "-$" + String.num_int64(
 				self.tower.tower_barrack_datas[self.tower.level].cost
@@ -134,6 +150,10 @@ func _on_sell_mouse_entered() -> void:
 		Tower.TowerType.WIZARD: 
 			self.label.text = "+$" + String.num_int64(
 				self.tower.current_tower_wizard_data.sell_value
+			);
+		Tower.TowerType.QUARY: 
+			self.label.text = "+$" + String.num_int64(
+				self.tower.current_tower_quary_data.sell_value
 			);
 		_: 
 			self.label.text = "+$" + String.num_int64(

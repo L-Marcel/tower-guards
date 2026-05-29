@@ -9,6 +9,8 @@
 [ext_resource type="LabelSettings" uid="uid://k5o4xn7o2s3q" path="res://resources/theme/cost.tres" id="4_704bk"]
 [ext_resource type="Texture2D" uid="uid://dfbw5knjusnxu" path="res://assets/sprites/towers/Archer/bow_animation(2).png" id="4_glm2p"]
 [ext_resource type="Texture2D" uid="uid://bvlihaq0tgm50" path="res://assets/sprites/towers/Wizard/stick.png" id="5_mhoxn"]
+[ext_resource type="Texture2D" uid="uid://ywv8da5vd1io" path="res://assets/sprites/towers/Quary/golem.png" id="5_qnt6h"]
+[ext_resource type="Texture2D" uid="uid://h3b5cmeme40e" path="res://assets/sprites/towers/Quary/stick.png" id="6_r2jaf"]
 
 [sub_resource type="CircleShape2D" id="CircleShape2D_wxi4n"]
 radius = 29.017237
@@ -40,6 +42,23 @@ texture = ExtResource("3_6qdej")
 position = Vector2(-13, -1)
 rotation = -0.40142572
 texture = ExtResource("5_mhoxn")
+
+[node name="Quary" type="Node2D" parent="BaseMenu" unique_id=875924701]
+position = Vector2(-1, 118)
+
+[node name="Quary" type="Area2D" parent="BaseMenu/Quary" unique_id=472932926]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="BaseMenu/Quary/Quary" unique_id=995881854]
+shape = SubResource("CircleShape2D_wxi4n")
+
+[node name="Sprite2D4" type="Sprite2D" parent="BaseMenu/Quary" unique_id=1904810375]
+position = Vector2(6, 1)
+texture = ExtResource("5_qnt6h")
+
+[node name="Sprite2D5" type="Sprite2D" parent="BaseMenu/Quary" unique_id=15040017]
+position = Vector2(-13, -1)
+rotation = -0.40142572
+texture = ExtResource("6_r2jaf")
 
 [node name="Soldier" type="Node2D" parent="BaseMenu" unique_id=681375874]
 position = Vector2(-1, -118)
@@ -142,6 +161,9 @@ vertical_alignment = 1
 [connection signal="input_event" from="BaseMenu/Wizard/Wizard" to="." method="_on_wizard_input_event"]
 [connection signal="mouse_entered" from="BaseMenu/Wizard/Wizard" to="." method="_on_wizard_mouse_entered"]
 [connection signal="mouse_exited" from="BaseMenu/Wizard/Wizard" to="." method="_on_option_mouse_exited"]
+[connection signal="input_event" from="BaseMenu/Quary/Quary" to="." method="_on_quary_input_event"]
+[connection signal="mouse_entered" from="BaseMenu/Quary/Quary" to="." method="_on_quary_mouse_entered"]
+[connection signal="mouse_exited" from="BaseMenu/Quary/Quary" to="." method="_on_option_mouse_exited"]
 [connection signal="input_event" from="BaseMenu/Soldier/Soldier" to="." method="_on_soldier_input_event"]
 [connection signal="mouse_entered" from="BaseMenu/Soldier/Soldier" to="." method="_on_soldier_mouse_entered"]
 [connection signal="mouse_exited" from="BaseMenu/Soldier/Soldier" to="." method="_on_option_mouse_exited"]

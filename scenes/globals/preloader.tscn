@@ -4,7 +4,8 @@
 [ext_resource type="PackedScene" uid="uid://df5gxbmsbqjb1" path="res://scenes/mob/mob.tscn" id="1_w26in"]
 [ext_resource type="Script" uid="uid://co3jfdomxwob2" path="res://scenes/globals/preloader.gd" id="2_0n5h2"]
 [ext_resource type="PackedScene" uid="uid://bloa7ostuymkh" path="res://scenes/bullet/bullet.tscn" id="2_ulrgl"]
+[ext_resource type="PackedScene" uid="uid://dx16h4wbkp1q6" path="res://scenes/rock/rock.tscn" id="4_ulrgl"]
 
 [node name="Preloader" type="ResourcePreloader" unique_id=689826370]
-resources = [PackedStringArray("arrow", "bullet", "mob"), [ExtResource("1_q0uds"), ExtResource("2_ulrgl"), ExtResource("1_w26in")]]
+resources = [PackedStringArray("arrow", "bullet", "mob", "rock"), [ExtResource("1_q0uds"), ExtResource("2_ulrgl"), ExtResource("1_w26in"), ExtResource("4_ulrgl")]]
 script = ExtResource("2_0n5h2")

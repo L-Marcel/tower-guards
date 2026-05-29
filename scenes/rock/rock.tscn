@@ -1,0 +1,183 @@
+[gd_scene format=3 uid="uid://dx16h4wbkp1q6"]
+
+[ext_resource type="Script" uid="uid://b4v1lnnlosvu2" path="res://scenes/rock/rock.gd" id="1_oggeh"]
+[ext_resource type="Texture2D" uid="uid://cvkqa25jux1lp" path="res://assets/sprites/towers/Quary/rock.png" id="2_4grot"]
+[ext_resource type="AudioStream" uid="uid://b2430y0fxax1u" path="res://assets/sounds/sfx/arrow_random_collision.tres" id="3_c6xqk"]
+[ext_resource type="SpriteFrames" uid="uid://ovbmkoa7bubi" path="res://scenes/rock/impact_sprite_frames.tres" id="4_co78t"]
+
+[sub_resource type="Animation" id="Animation_co78t"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D1:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D2:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [0]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Virtual/Sprite2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [true]
+}
+
+[sub_resource type="Animation" id="Animation_dkytv"]
+resource_name = "explosion"
+length = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("AnimatedSprite2D2:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.01),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("AnimatedSprite2D1:visible")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [false, true]
+}
+tracks/2/type = "value"
+tracks/2/imported = false
+tracks/2/enabled = true
+tracks/2/path = NodePath("AnimatedSprite2D1:frame")
+tracks/2/interp = 1
+tracks/2/loop_wrap = true
+tracks/2/keys = {
+"times": PackedFloat32Array(0.2, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 14]
+}
+tracks/3/type = "value"
+tracks/3/imported = false
+tracks/3/enabled = true
+tracks/3/path = NodePath("AnimatedSprite2D2:frame")
+tracks/3/interp = 1
+tracks/3/loop_wrap = true
+tracks/3/keys = {
+"times": PackedFloat32Array(0.01, 0.5),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [0, 14]
+}
+tracks/4/type = "value"
+tracks/4/imported = false
+tracks/4/enabled = true
+tracks/4/path = NodePath("Virtual/Sprite2D:visible")
+tracks/4/interp = 1
+tracks/4/loop_wrap = true
+tracks/4/keys = {
+"times": PackedFloat32Array(0, 0.2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_lym37"]
+_data = {
+&"RESET": SubResource("Animation_co78t"),
+&"explosion": SubResource("Animation_dkytv")
+}
+
+[node name="Rock" type="Node2D" unique_id=347699332]
+y_sort_enabled = true
+script = ExtResource("1_oggeh")
+speed = 150.0
+max_virtual_height = 400.0
+metadata/_custom_type_script = "uid://dqbhm24dl3m1b"
+
+[node name="Virtual" type="Node2D" parent="." unique_id=185155284]
+y_sort_enabled = true
+
+[node name="Sprite2D" type="Sprite2D" parent="Virtual" unique_id=192008208]
+z_index = 2
+y_sort_enabled = true
+position = Vector2(0, -77)
+texture = ExtResource("2_4grot")
+offset = Vector2(0, 77)
+
+[node name="RockCollisionSound" type="AudioStreamPlayer2D" parent="Virtual" unique_id=1996915429]
+stream = ExtResource("3_c6xqk")
+volume_db = 4.0
+pitch_scale = 1.1
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1264589880]
+libraries/ = SubResource("AnimationLibrary_lym37")
+
+[node name="AnimatedSprite2D1" type="AnimatedSprite2D" parent="." unique_id=214306943]
+visible = false
+z_index = 2
+y_sort_enabled = true
+position = Vector2(0, -16)
+scale = Vector2(2, 2)
+sprite_frames = ExtResource("4_co78t")
+animation = &"explosion_01"
+
+[node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=311345974]
+visible = false
+z_index = 2
+y_sort_enabled = true
+position = Vector2(-1, -29)
+scale = Vector2(4, 4)
+sprite_frames = ExtResource("4_co78t")
+animation = &"explosion_02"
+offset = Vector2(0, 12)

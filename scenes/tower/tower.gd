@@ -12,6 +12,7 @@ extends Node2D
 @onready var bow_sprite: AnimatedSprite2D = $Bow/Sprite2D;
 @onready var throw_arrow_sound: AudioStreamPlayer2D = $ThrowArrowSound;
 @onready var throw_bullet_sound: AudioStreamPlayer2D = $ThrowBulletSound;
+@onready var throw_rock_sound: AudioStreamPlayer2D = $ThrowRockSound;
 @onready var spawn_sound: AudioStreamPlayer2D = $SpawnSound;
 
 var enemies_in_range: Array[Mob] = [];
@@ -24,7 +25,8 @@ enum TowerType {
 	NONE,
 	ARCHER,
 	WIZARD,
-	BARRACK
+	BARRACK,
+	QUARY
 }
 
 #region Dados de cada torre
@@ -35,6 +37,10 @@ var current_tower_archer_data: TowerArcherData;
 @export_group("Wizard")
 @export var tower_wizard_datas: Array[TowerWizardData] = [];
 var current_tower_wizard_data: TowerWizardData;
+
+@export_group("Quary")
+@export var tower_quary_datas: Array[TowerQuaryData] = [];
+var current_tower_quary_data: TowerQuaryData;
 
 @export_group("Barrack")
 @export var tower_barrack_datas: Array[TowerBarrackData] = [];
@@ -90,6 +96,13 @@ func _process(delta: float) -> void:
 					var target: Mob = self.get_target(i);
 					if is_instance_valid(target):
 						self.shot_bullet(target);
+		TowerType.QUARY:
+			if self.attack_cooldown <= 0 && is_instance_valid(self.get_target()):
+				self.attack_cooldown = self.current_tower_quary_data.attack_interval;
+				for i in range(0, self.get_shot_count(1)):
+					var target: Mob = self.get_target(i);
+					if is_instance_valid(target):
+						self.shot_rock(target);
 		TowerType.BARRACK:
 			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
 				self.timer.start();
@@ -140,6 +153,18 @@ func shot_bullet(target: Mob) -> void:
 		self.current_tower_wizard_data.origin
 	);
 	self.throw_bullet_sound.play();
+func shot_rock(target: Mob) -> void:
+	var scene: PackedScene = Preloader.get_resource("rock");
+	var rock: Rock = scene.instantiate();
+	rock.visible = false;
+	self.projectiles.add_child(rock);
+	rock.setup(
+		self.global_position, 
+		target,
+		self.current_tower_quary_data.damage,
+		self.current_tower_quary_data.origin
+	);
+	self.throw_rock_sound.play();
 func set_timer():
 	match self.type:
 		TowerType.BARRACK:
@@ -148,6 +173,8 @@ func set_timer():
 			self.timer.set_wait_time(self.current_tower_archer_data.attack_interval);
 		TowerType.WIZARD:
 			self.timer.set_wait_time(self.current_tower_wizard_data.attack_interval);
+		TowerType.QUARY:
+			self.timer.set_wait_time(self.current_tower_quary_data.attack_interval);
 func clear_units() -> void:
 	for child in self.units.get_children():
 		if child is Mob:
@@ -212,7 +239,24 @@ func buy_wizard() -> void:
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
 		self.bow.visible = false;
-		self.set_timer()
+		self.set_timer();
+func buy_quary() -> void:
+	if self.level > 2: return;
+	var data: TowerQuaryData = self.tower_quary_datas[self.level];
+	var cost: int = data.cost;
+	if cost <= Base.get_instance().money:
+		Base.get_instance().money -= cost;
+		self.current_tower_quary_data = data;
+		self.type = TowerType.QUARY;
+		self.level += 1;
+		self.sprite.texture = data.texture;
+		if self.attack_area.collision_shape:
+			self.attack_area.collision_shape.radius_x = data.attack_range;
+			self.attack_area.collision_shape.radius_y = self.attack_area.collision_shape.radius_x / 2.0;
+			self.attack_area.queue_redraw();
+		self.tower_barrack_spawn_point = self.global_position;
+		self.bow.visible = false;
+		self.set_timer();
 func buy_archer() -> void:
 	if self.level > 2: return;
 	var data: TowerArcherData = self.tower_archer_datas[self.level];
@@ -262,12 +306,15 @@ func sell() -> void:
 			sell_value = self.current_tower_wizard_data.sell_value;
 		TowerType.BARRACK:
 			sell_value = self.current_tower_barrack_data.sell_value;
+		TowerType.QUARY:
+			sell_value = self.current_tower_quary_data.sell_value;
 	self.bow.visible = false;
 	self.level = 0;
 	self.type = TowerType.NONE;
 	self.current_tower_archer_data = null;
 	self.current_tower_wizard_data = null;
 	self.current_tower_barrack_data = null;
+	self.current_tower_quary_data = null;
 	self.sprite.texture = null;
 	Base.get_instance().money += sell_value;
 	if self.attack_area.collision_shape:

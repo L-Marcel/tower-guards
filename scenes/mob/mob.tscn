@@ -133,6 +133,38 @@ _data = {
 &"walking": SubResource("Animation_tjssy")
 }
 
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tyl3q"]
+content_margin_left = 2.0
+content_margin_top = 2.0
+content_margin_right = 2.0
+content_margin_bottom = 2.0
+bg_color = Color(0.32088077, 0.24749973, 0.32696488, 1)
+border_width_left = 4
+border_width_top = 4
+border_width_right = 4
+border_width_bottom = 4
+border_color = Color(0.18039216, 0.13333334, 0.18431373, 1)
+corner_radius_top_left = 8
+corner_radius_top_right = 8
+corner_radius_bottom_right = 8
+corner_radius_bottom_left = 8
+expand_margin_left = 4.0
+expand_margin_top = 4.0
+expand_margin_right = 4.0
+expand_margin_bottom = 4.0
+
+[sub_resource type="StyleBoxFlat" id="StyleBoxFlat_c5yut"]
+content_margin_left = 1.0
+content_margin_top = 1.0
+content_margin_right = 1.0
+content_margin_bottom = 1.0
+bg_color = Color(0.7855758, 0.93361074, 0.5515851, 1)
+corner_radius_top_left = 6
+corner_radius_top_right = 6
+corner_radius_bottom_right = 6
+corner_radius_bottom_left = 6
+corner_detail = 6
+
 [node name="Mob" type="CharacterBody2D" unique_id=884475862]
 collision_layer = 3
 collision_mask = 0
@@ -210,6 +242,31 @@ libraries/ = SubResource("AnimationLibrary_gl05p")
 autoplay = &"walking"
 speed_scale = 2.0
 next/walking = &"walking"
+
+[node name="Control" type="Control" parent="." unique_id=256569112]
+layout_mode = 3
+anchors_preset = 7
+anchor_left = 0.5
+anchor_top = 1.0
+anchor_right = 0.5
+anchor_bottom = 1.0
+offset_left = -20.0
+offset_top = -54.0
+offset_right = 20.0
+grow_horizontal = 2
+grow_vertical = 0
+
+[node name="ProgressBar" type="ProgressBar" parent="Control" unique_id=642215734]
+layout_mode = 1
+anchors_preset = 10
+anchor_right = 1.0
+offset_top = 1.0
+offset_bottom = 5.0
+grow_horizontal = 2
+theme_override_styles/background = SubResource("StyleBoxFlat_tyl3q")
+theme_override_styles/fill = SubResource("StyleBoxFlat_c5yut")
+value = 100.0
+show_percentage = false
 
 [connection signal="state_physics_processing" from="StateMachine/CompoundState/Walking" to="." method="_on_walking_state_physics_processing"]
 [connection signal="state_physics_processing" from="StateMachine/CompoundState/Attacking" to="." method="_on_attacking_state_physics_processing"]

@@ -1,0 +1,15 @@
+[gd_resource type="Resource" script_class="TowerQuaryData" format=3 uid="uid://ddego24a3u8xo"]
+
+[ext_resource type="Script" uid="uid://cytbi2e0qwjeu" path="res://resources/towers/quary/data.gd" id="1_rtbsv"]
+[ext_resource type="Texture2D" uid="uid://2k7x6t37co3d" path="res://assets/sprites/towers/Quary/quary_level_3.png" id="2_rtbsv"]
+
+[resource]
+script = ExtResource("1_rtbsv")
+cost = 120
+sell_value = 50
+damage = 30
+attack_interval = 2.5
+attack_range = 375.0
+texture = ExtResource("2_rtbsv")
+origin = Vector2(-18.5, -79)
+metadata/_custom_type_script = "uid://c8pyi3yfovqme"

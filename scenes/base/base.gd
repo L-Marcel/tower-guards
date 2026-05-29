@@ -27,9 +27,11 @@ static func get_instance() -> Base:
 func _ready() -> void:
 	_instance = self;
 	Sounds.play_music();
+	self.option_button.select(0);
+	Engine.time_scale = 1;
 	self.update_money();
 	self.update_lifes();
-	await get_tree().process_frame
+	await get_tree().process_frame;
 	self.update_waves();
 
 func _process(_delta: float) -> void:

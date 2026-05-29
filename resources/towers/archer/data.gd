@@ -7,5 +7,4 @@ extends Resource
 @export var attack_interval: float = 1;
 @export var attack_range: float = 300.0;
 @export var texture: Texture;
-@export var projectile_texture: Texture;
 @export var origin: Vector2;

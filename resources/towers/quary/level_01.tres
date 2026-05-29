@@ -1,0 +1,12 @@
+[gd_resource type="Resource" script_class="TowerQuaryData" format=3 uid="uid://c3jfn00o4ro7"]
+
+[ext_resource type="Script" uid="uid://cytbi2e0qwjeu" path="res://resources/towers/quary/data.gd" id="1_67rjq"]
+[ext_resource type="Texture2D" uid="uid://dkeexs5crx4oq" path="res://assets/sprites/towers/Quary/quary_level_1.png" id="2_67rjq"]
+
+[resource]
+script = ExtResource("1_67rjq")
+attack_interval = 3.0
+attack_range = 300.0
+texture = ExtResource("2_67rjq")
+origin = Vector2(-18.5, -79)
+metadata/_custom_type_script = "uid://c8pyi3yfovqme"
