@@ -117,7 +117,6 @@ func shot_bullet(_target: Mob) -> void:
 		Vector2.ZERO,
 		self.jumps - 1
 	);
-	bullet.max_virtual_height = self.max_virtual_height;
 
 #region Target
 func get_target(index: int = 0) -> Mob:
