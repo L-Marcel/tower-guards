@@ -71,22 +71,22 @@ y_sort_enabled = true
 script = ExtResource("2_50wog")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(0.19999999, 1, 0.9388443, 1)
+modulate = Color(1, 0.9057166, 0.19999999, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=934393318]
-modulate = Color(1, 0.9140571, 0.19999999, 1)
+modulate = Color(0.6560259, 1, 0.19999999, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_2djvx")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=184449601]
-modulate = Color(0.19999999, 0.36713904, 1, 1)
+modulate = Color(0.19999999, 1, 0.877566, 1)
 position = Vector2(720, 490)
 curve = SubResource("Curve2D_uvc87")
 
 [node name="Path2D4" type="Path2D" parent="Entities/Paths" unique_id=940989623]
-modulate = Color(1, 0.9257902, 0.19999999, 1)
+modulate = Color(1, 0.19999999, 0.31178892, 1)
 curve = SubResource("Curve2D_50wog")
 
 [node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("4_r72dd")]
@@ -101,7 +101,7 @@ script = ExtResource("5_jmes4")
 metadata/_custom_type_script = "uid://bq5o7sf2tt7u8"
 
 [node name="Spawn" parent="Entities/Spawns" unique_id=231200630 node_paths=PackedStringArray("_paths") instance=ExtResource("3_1ey3t")]
-position = Vector2(121, 73)
+position = Vector2(120, 70)
 _paths = [NodePath("../../Paths/Path2D"), NodePath("../../Paths/Path2D2"), NodePath("../../Paths/Path2D3")]
 _waves = Array[ExtResource("5_ijn0p")]([ExtResource("6_jmes4"), ExtResource("6_jmes4"), ExtResource("11_cwffn"), ExtResource("11_cwffn"), ExtResource("12_e6lid")])
 

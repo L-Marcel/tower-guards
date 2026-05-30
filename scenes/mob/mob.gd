@@ -2,15 +2,16 @@ class_name Mob
 extends CharacterBody2D
 
 var life_damage: int = 0;
-var damage: int = 5;
+var damage: float = 5;
 var damage_type: DamageType = DamageType.PHYSICAL;
 var attack_type: AttackType = AttackType.MELEE;
 var attack_interval: int = 4;
 var attack_interval_randomness: float = 0.1;
 var _attack_timer: float = 0.0;
 var speed: int = 50;
-var health: int = 30;
-var max_health: int = 30;
+var health: float = 30;
+var max_health: float = 30;
+var regeneration: float = 1;
 var physical_resistance: float = 0.0;
 var magical_resistance: float = 0.0;
 var is_enemy: bool = true;
@@ -74,6 +75,7 @@ func set_data(mob: MobData) -> void:
 	self.speed = mob.speed;
 	self.health = mob.health;
 	self.max_health = mob.health;
+	self.regeneration = mob.regeneration;
 	self.physical_resistance = mob.physical_resistance;
 	self.magical_resistance = mob.magical_resistance;
 	self.is_enemy = mob.is_enemy;
@@ -111,6 +113,7 @@ func _ready() -> void:
 	if self.initial_data:
 		self.set_data(self.initial_data);
 func _process(delta: float) -> void:
+	self.health = min(self.health + (self.regeneration * delta), self.max_health);
 	if self.health == self.max_health:
 		self.health_bar.visible = false;
 	else:
@@ -165,17 +168,13 @@ func _on_attacking_state_physics_processing(delta: float) -> void:
 	var target_is_valid: bool = self.target && is_instance_valid(self.target);
 	var target_is_in_attack_range: bool = target_is_valid && self.targets_in_attack_range.has(self.target);
 	if target_is_valid && !target_is_in_attack_range: 
-		if self.is_enemy: 
-			self.velocity = Vector2.ZERO;
-			self.move_and_slide();
-		else:
-			var distance: float = self.global_position.distance_to(self.target.global_position);
-			var max_speed: float = distance / delta;
-			self.velocity = self.global_position.direction_to(self.target.global_position) * min(
-				self.speed, 
-				max_speed
-			);
-			self.move_and_slide();
+		var distance: float = self.global_position.distance_to(self.target.global_position);
+		var max_speed: float = distance / delta;
+		self.velocity = self.global_position.direction_to(self.target.global_position) * min(
+			self.speed, 
+			max_speed
+		);
+		self.move_and_slide();
 	elif target_is_in_attack_range:
 		self.velocity = Vector2.ZERO;
 		self.move_and_slide();
@@ -200,7 +199,7 @@ func check_agro() -> bool:
 		if self.is_valid_target(_target):
 			has_target_in_attack_range = true;
 			break;
-	if (!self.is_enemy && has_target_in_agro_range) || has_target_in_attack_range:
+	if (!self.is_enemy && has_target_in_agro_range) || has_target_in_attack_range || is_instance_valid(self.target):
 		self.state_machine.send_event("to_attack");
 		return true;
 	return false;
@@ -274,13 +273,13 @@ func clear_target() -> void:
 			self.target.target = null;
 	self.target = null;
 	self.focused_by = null;
-func hurt(hit_damage: int, type: DamageType):
+func hurt(hit_damage: float, type: DamageType):
 	match type:
 		DamageType.PHYSICAL:
-			var damage_taken: int = round(hit_damage * (1.0 - self.physical_resistance));
+			var damage_taken: float = hit_damage * (1.0 - self.physical_resistance);
 			self.health -= damage_taken;
 		DamageType.MAGICAL:
-			var damage_taken: int = round(hit_damage * (1.0 - self.magical_resistance));
+			var damage_taken: float = hit_damage * (1.0 - self.magical_resistance);
 			self.health -= damage_taken;
 	if self.health <= 0:
 		self.die();

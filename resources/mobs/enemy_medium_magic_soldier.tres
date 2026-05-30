@@ -7,11 +7,12 @@
 script = ExtResource("1_ek7sq")
 texture = ExtResource("2_ek7sq")
 life_damage = 1
-damage = 25
+damage = 10.0
 attack_interval = 3
 damage_type = 0
 value_in_money = 2
-health = 80
-physical_resistance = 0.2
-magical_resistance = 0.5
+health = 40.0
+regeneration = 2.0
+physical_resistance = 0.3
+magical_resistance = 0.6
 metadata/_custom_type_script = "uid://co1cirn4uiw63"

@@ -10,8 +10,8 @@ extends Resource
 
 @export_group("Attributes")
 @export_range(1, 3, 1) var life_damage: int = 3;
-@export_range(0, 75, 1) var damage: int = 5;
-@export_custom(PROPERTY_HINT_NONE, "suffix:s") var attack_interval: int = 4; #certeza que é pra isso ser int?
+@export_range(0, 75, 1) var damage: float = 5;
+@export_custom(PROPERTY_HINT_NONE, "suffix:s") var attack_interval: int = 4;
 @export_range(0.5, 1.0) var attack_interval_randomness: float = 0.75;
 @export var damage_type: Mob.DamageType = Mob.DamageType.PHYSICAL;
 @export var attack_type: Mob.AttackType = Mob.AttackType.MELEE;
@@ -20,7 +20,7 @@ extends Resource
 
 @export_range(0, 10, 1) var value_in_money: int = 1;
 @export_range(0, 300, 1) var speed: int = 50;
-@export_range(1, 300, 1) var health: int = 30;
-@export_range(0.0, 1.0, 0.2) var physical_resistance: float = 0.0;
-@export_range(0.0, 1.0, 0.2) var magical_resistance: float = 0.0;
-#importante lembrar que nas funções de dano isso tá sendo tratado como dano*(1-resistance)
+@export_range(1, 300, 1) var health: float = 30;
+@export_custom(PROPERTY_HINT_NONE, "suffix:health/s") var regeneration: float = 1;
+@export_range(0.0, 1.0, 0.1) var physical_resistance: float = 0.0;
+@export_range(0.0, 1.0, 0.1) var magical_resistance: float = 0.0;

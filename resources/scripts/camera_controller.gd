@@ -35,12 +35,7 @@ func _process(delta: float) -> void:
 		
 	var direction: Vector2 = Input.get_vector("left", "right", "up", "down");
 	var viewport_size: Vector2 = self.get_viewport_rect().size;
-	var mouse_position: Vector2 = self.get_viewport().get_mouse_position();
-	
-	#if mouse_position.x < self.edge_margin: direction.x -= 1.0;
-	#elif mouse_position.x > viewport_size.x - self.edge_margin: direction.x += 1.0;
-	#if mouse_position.y < self.edge_margin: direction.y -= 1.0;
-	#elif mouse_position.y > viewport_size.y - self.edge_margin: direction.y += 1.0;
+
 	if self.dragging:
 		var mouse_delta: Vector2 = self.drag_start_mouse - self.get_viewport().get_mouse_position();
 		self.global_position = self.drag_start_camera + mouse_delta / self.zoom;

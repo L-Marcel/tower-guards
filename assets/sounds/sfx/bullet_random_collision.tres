@@ -3,6 +3,6 @@
 [ext_resource type="AudioStream" uid="uid://b3qhb6qs2if4j" path="res://assets/sounds/sfx/bullet_collision.mp3" id="1_pw0qq"]
 
 [resource]
-random_pitch = 1.0842268
+random_pitch = 1.2599211
 streams_count = 1
 stream_0/stream = ExtResource("1_pw0qq")

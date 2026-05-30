@@ -9,3 +9,4 @@ extends Resource
 @export var unit_respawn_interval: int = 12;
 @export var unit_data: MobData;
 @export var texture: Texture;
+@export var offset: Vector2;

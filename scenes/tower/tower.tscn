@@ -25,6 +25,7 @@
 [ext_resource type="AudioStream" uid="uid://bxfgnp5vk64qa" path="res://assets/sounds/sfx/spawn_random.tres" id="16_vjuoe"]
 [ext_resource type="SpriteFrames" uid="uid://d2a4ro4m0nrsj" path="res://scenes/tower/bow_sprite_frames.tres" id="17_4kau2"]
 [ext_resource type="Script" uid="uid://btanplrhl2cky" path="res://scenes/tower/ellipse_shape_2d.gd" id="17_owowu"]
+[ext_resource type="AudioStream" uid="uid://301cgcfiqw8k" path="res://assets/sounds/sfx/rock_random_spawn.tres" id="19_jy64w"]
 
 [node name="Tower" type="Node2D" unique_id=266509791]
 y_sort_enabled = true
@@ -37,12 +38,11 @@ tower_barrack_datas = Array[ExtResource("10_v8eq3")]([ExtResource("11_jy64w"), E
 [node name="ThrowArrowSound" type="AudioStreamPlayer2D" parent="." unique_id=1659331992]
 stream = ExtResource("14_4kau2")
 volume_db = 12.0
-pitch_scale = 1.4
+pitch_scale = 2.0
 max_polyphony = 10
 
 [node name="ThrowRockSound" type="AudioStreamPlayer2D" parent="." unique_id=235808061]
-stream = ExtResource("15_owowu")
-volume_db = 4.0
+stream = ExtResource("19_jy64w")
 pitch_scale = 1.4
 max_polyphony = 10
 
@@ -75,10 +75,9 @@ radius_y = 1.0
 metadata/_custom_type_script = "uid://btanplrhl2cky"
 
 [node name="Area2D" type="Area2D" parent="." unique_id=1774665057]
-position = Vector2(0, -7)
 
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D" unique_id=943230525]
-position = Vector2(0, -36)
+position = Vector2(3, -36)
 shape = ExtResource("3_cbwxl")
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1419771394]
@@ -87,7 +86,7 @@ polygon = PackedVector2Array(0, 70, 120, 0, 0, -70, -120, 0)
 
 [node name="Bow" type="Node2D" parent="." unique_id=220178746]
 visible = false
-position = Vector2(-4, -72)
+position = Vector2(0, -72)
 rotation = -1.0471976
 
 [node name="Sprite2D" type="AnimatedSprite2D" parent="Bow" unique_id=1633518963]
@@ -99,15 +98,11 @@ animation = &"shotting"
 
 [node name="Sprite2D" type="Sprite2D" parent="." unique_id=241528984]
 y_sort_enabled = true
-position = Vector2(-2, 0)
-offset = Vector2(0, -36)
+offset = Vector2(3, -24)
 
 [node name="TowerMenu" parent="." unique_id=2134517744 node_paths=PackedStringArray("tower") instance=ExtResource("4_nfofi")]
 position = Vector2(0, -36)
 tower = NodePath("..")
-
-[node name="Marker2D" type="Marker2D" parent="." unique_id=771345435]
-position = Vector2(-18.5, -79)
 
 [node name="Units" type="Node2D" parent="." unique_id=474928591]
 y_sort_enabled = true

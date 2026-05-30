@@ -8,5 +8,6 @@ script = ExtResource("1_e8d50")
 damage = 20
 attack_range = 300.0
 texture = ExtResource("2_g0hqc")
-origin = Vector2(-18.5, -79)
+origin = Vector2(-18.5, -67)
+offset = Vector2(3, -24)
 metadata/_custom_type_script = "uid://c8pyi3yfovqme"

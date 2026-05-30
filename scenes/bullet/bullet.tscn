@@ -3,6 +3,7 @@
 [ext_resource type="Script" uid="uid://i3eemto2gppk" path="res://scenes/bullet/bullet.gd" id="1_c6pnf"]
 [ext_resource type="Texture2D" uid="uid://dw1643l83llps" path="res://assets/sprites/towers/Wizard/wizard_bullet.png" id="2_c6pnf"]
 [ext_resource type="AudioStream" uid="uid://djup8yxigrq62" path="res://assets/sounds/sfx/bullet_random_collision.tres" id="4_0vdx3"]
+[ext_resource type="Script" uid="uid://btanplrhl2cky" path="res://scenes/tower/ellipse_shape_2d.gd" id="4_8g26r"]
 
 [sub_resource type="Curve" id="Curve_0vdx3"]
 _data = [Vector2(0, 0), 0.0, 0.0, 0, 0, Vector2(1, 1), 0.0, 0.0, 0, 0]
@@ -31,3 +32,16 @@ pitch_scale = 1.1
 [node name="Line2D" type="Line2D" parent="Virtual" unique_id=1247004872]
 width_curve = SubResource("Curve_0vdx3")
 gradient = SubResource("Gradient_8g26r")
+
+[node name="Area2D" type="Area2D" parent="." unique_id=251809848]
+position = Vector2(0, 25)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=1961520318]
+polygon = PackedVector2Array(-400, 2.4492935e-14, -392.31412, -39.018063, -369.55182, -76.53669, -332.58786, -111.114044, -282.8427, -141.42136, -222.22809, -166.29393, -153.07338, -184.77591, -78.036125, -196.15706, -7.347881e-14, -200, 78.036125, -196.15706, 153.07338, -184.77591, 222.22809, -166.29393, 282.8427, -141.42136, 332.58786, -111.114044, 369.55182, -76.53669, 392.31412, -39.018063, 400, 0, 392.31412, 39.018063, 369.55182, 76.53669, 332.58786, 111.114044, 282.8427, 141.42136, 222.22809, 166.29393, 153.07338, 184.77591, 78.036125, 196.15706, 2.4492935e-14, 200, -78.036125, 196.15706, -153.07338, 184.77591, -222.22809, 166.29393, -282.8427, 141.42136, -332.58786, 111.114044, -369.55182, 76.53669, -392.31412, 39.018063, -400, 2.4492935e-14)
+script = ExtResource("4_8g26r")
+radius_x = 400.0
+radius_y = 200.0
+metadata/_custom_type_script = "uid://btanplrhl2cky"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

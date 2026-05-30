@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://ularm0cubqqn"]
+
+[ext_resource type="AudioStream" uid="uid://drmmijm7npfn2" path="res://assets/sounds/sfx/rock_collision.wav" id="1_tf0ci"]
+
+[resource]
+random_pitch = 1.2599211
+streams_count = 1
+stream_0/stream = ExtResource("1_tf0ci")

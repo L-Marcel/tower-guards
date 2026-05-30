@@ -12,4 +12,5 @@ unit_place_range = 275.0
 unit_respawn_interval = 11
 unit_data = ExtResource("3_j6n4y")
 texture = ExtResource("2_hnicf")
+offset = Vector2(3, -36)
 metadata/_custom_type_script = "uid://c8i0fscxmantb"

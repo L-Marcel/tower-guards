@@ -10,5 +10,6 @@ sell_value = 20
 damage = 25
 attack_range = 325.0
 texture = ExtResource("2_e6e4o")
-origin = Vector2(-18.5, -79)
+origin = Vector2(-18.5, -67)
+offset = Vector2(3, -24)
 metadata/_custom_type_script = "uid://c8pyi3yfovqme"

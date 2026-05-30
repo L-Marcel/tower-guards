@@ -14,13 +14,13 @@ var end_position: Vector2 = Vector2.ZERO;
 var target: Mob = null;
 var progress: float = 0.0;
 var duration: float = 0.5;
-var damage: int = 0;
+var damage: float = 0;
 var finished: bool = false;
 
 func setup(
 	_start_position: Vector2, 
 	_target: Mob,
-	_damage: int,
+	_damage: float,
 	origin: Vector2
 ) -> void:
 	self.damage = _damage;

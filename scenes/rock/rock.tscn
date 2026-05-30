@@ -2,8 +2,9 @@
 
 [ext_resource type="Script" uid="uid://b4v1lnnlosvu2" path="res://scenes/rock/rock.gd" id="1_oggeh"]
 [ext_resource type="Texture2D" uid="uid://cvkqa25jux1lp" path="res://assets/sprites/towers/Quary/rock.png" id="2_4grot"]
-[ext_resource type="AudioStream" uid="uid://b2430y0fxax1u" path="res://assets/sounds/sfx/arrow_random_collision.tres" id="3_c6xqk"]
+[ext_resource type="AudioStream" uid="uid://ularm0cubqqn" path="res://assets/sounds/sfx/rock_random_collision.tres" id="3_dkytv"]
 [ext_resource type="SpriteFrames" uid="uid://ovbmkoa7bubi" path="res://scenes/rock/impact_sprite_frames.tres" id="4_co78t"]
+[ext_resource type="Script" uid="uid://btanplrhl2cky" path="res://scenes/tower/ellipse_shape_2d.gd" id="5_dkytv"]
 
 [sub_resource type="Animation" id="Animation_co78t"]
 length = 0.001
@@ -156,16 +157,15 @@ texture = ExtResource("2_4grot")
 offset = Vector2(0, 77)
 
 [node name="RockCollisionSound" type="AudioStreamPlayer2D" parent="Virtual" unique_id=1996915429]
-stream = ExtResource("3_c6xqk")
+stream = ExtResource("3_dkytv")
 volume_db = 4.0
-pitch_scale = 1.1
+pitch_scale = 0.9
 
 [node name="AnimationPlayer" type="AnimationPlayer" parent="." unique_id=1264589880]
 libraries/ = SubResource("AnimationLibrary_lym37")
 
 [node name="AnimatedSprite2D1" type="AnimatedSprite2D" parent="." unique_id=214306943]
 visible = false
-z_index = 2
 y_sort_enabled = true
 position = Vector2(0, -16)
 scale = Vector2(2, 2)
@@ -174,10 +174,22 @@ animation = &"explosion_01"
 
 [node name="AnimatedSprite2D2" type="AnimatedSprite2D" parent="." unique_id=311345974]
 visible = false
-z_index = 2
 y_sort_enabled = true
 position = Vector2(-1, -29)
 scale = Vector2(4, 4)
 sprite_frames = ExtResource("4_co78t")
 animation = &"explosion_02"
 offset = Vector2(0, 12)
+
+[node name="Area2D" type="Area2D" parent="." unique_id=739893330]
+position = Vector2(0, 19)
+
+[node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="Area2D" unique_id=517325257]
+polygon = PackedVector2Array(-140, 8.572527e-15, -137.30994, -13.6563225, -129.34314, -26.78784, -116.40575, -38.889915, -98.99495, -49.497475, -77.77983, -58.202873, -53.57568, -64.67157, -27.312645, -68.65497, -2.5717582e-14, -70, 27.312645, -68.65497, 53.57568, -64.67157, 77.77983, -58.202873, 98.99495, -49.497475, 116.40575, -38.889915, 129.34314, -26.78784, 137.30994, -13.6563225, 140, 0, 137.30994, 13.6563225, 129.34314, 26.78784, 116.40575, 38.889915, 98.99495, 49.497475, 77.77983, 58.202873, 53.57568, 64.67157, 27.312645, 68.65497, 8.572527e-15, 70, -27.312645, 68.65497, -53.57568, 64.67157, -77.77983, 58.202873, -98.99495, 49.497475, -116.40575, 38.889915, -129.34314, 26.78784, -137.30994, 13.6563225, -140, 8.572527e-15)
+script = ExtResource("5_dkytv")
+radius_x = 140.0
+radius_y = 70.0
+metadata/_custom_type_script = "uid://btanplrhl2cky"
+
+[connection signal="body_entered" from="Area2D" to="." method="_on_area_2d_body_entered"]
+[connection signal="body_exited" from="Area2D" to="." method="_on_area_2d_body_exited"]

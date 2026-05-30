@@ -15,16 +15,17 @@ var start_position: Vector2 = Vector2.ZERO;
 var end_position: Vector2 = Vector2.ZERO;
 var animation_started: bool = false;
 
+var enemies_in_range: Array[Mob] = [];
 var target: Mob = null;
 var progress: float = 0.0;
 var duration: float = 0.5;
-var damage: int = 0;
+var damage: float = 0;
 var finished: bool = false;
 
 func setup(
 	_start_position: Vector2, 
 	_target: Mob,
-	_damage: int,
+	_damage: float,
 	origin: Vector2
 ) -> void:
 	self.damage = _damage;
@@ -44,6 +45,9 @@ func finish() -> void:
 	self.finished = true;
 	if is_instance_valid(self.target):
 		self.target.hurt(self.damage, Mob.DamageType.PHYSICAL);
+	for _target in self.get_targets():
+		if _target != self.target:
+			_target.hurt(self.damage * 0.8, Mob.DamageType.PHYSICAL);
 	self.rock_collision_sound.play();
 	if self.rock_collision_sound.playing:
 		await self.rock_collision_sound.finished;
@@ -69,9 +73,9 @@ func _process(delta: float) -> void:
 	
 	self.virtual.global_position = virtual_position;
 
-	var tangent: Vector2 = (
-		2 * (1 - self.progress) * (visual_mid - visual_start)
-	) + (2 * self.progress * (self.end_position - visual_mid));
+	#var tangent: Vector2 = (
+		#2 * (1 - self.progress) * (visual_mid - visual_start)
+	#) + (2 * self.progress * (self.end_position - visual_mid));
 	
 	if self.progress >= 0.5 && self.progress < 0.75:
 		self.sprite.z_index = 1;
@@ -91,12 +95,20 @@ func _process(delta: float) -> void:
 	if self.progress >= 1.0 && !self.finished:
 		self.finish();
 	self.visible = true;
-	
-	# TODO: DANO EM AREA
-	# TODO: SONS NOVOS PARA A PEDRA
-	# TODO: NUMERO DE PROJETEIS MENOR (TALVEZ SO 1)
-	# TODO: AJUSTAR NUMERO DE PROJETEIS DAS OUTRAS TORRES
-	# TODO: REGENERAR VIDA DOS ALIADOS
-	# TODO: ADICIONAR HABILIDADE DE BARRAR INIMIGOS (SPAWN)
-	# TODO: ADICIONAR HABILIDADE DE LENTIDAO
-	# FIXME: CORRIGIR ALIADO CORRENDO ATRAS DE INIMIGO APOS DERROTAR OUTRO INIMIGO
+
+#region Target
+func get_targets() -> Array[Mob]:
+	self.enemies_in_range = self.enemies_in_range.filter(func(enemy: Mob) -> bool:
+		return is_instance_valid(enemy);
+	);
+	return self.enemies_in_range;
+func _on_area_2d_body_entered(body: Node2D) -> void:
+	if body is Mob && (body as Mob).is_enemy:
+		self.enemies_in_range.append(body as Mob);
+func _on_area_2d_body_exited(body: Node2D) -> void:
+	if body is Mob && (body as Mob).is_enemy:
+		self.enemies_in_range.erase(body as Mob);
+#endregion
+
+# TODO: ADICIONAR HABILIDADE DE BARRAR INIMIGOS (SPAWN)
+# TODO: ADICIONAR HABILIDADE DE LENTIDAO

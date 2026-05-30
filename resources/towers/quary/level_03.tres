@@ -5,11 +5,12 @@
 
 [resource]
 script = ExtResource("1_rtbsv")
-cost = 120
+cost = 100
 sell_value = 50
-damage = 30
-attack_interval = 2.5
+damage = 30.0
+attack_interval = 3.0
 attack_range = 375.0
 texture = ExtResource("2_rtbsv")
-origin = Vector2(-18.5, -79)
+origin = Vector2(0, -116)
+offset = Vector2(3, -24)
 metadata/_custom_type_script = "uid://c8pyi3yfovqme"

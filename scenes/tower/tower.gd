@@ -14,6 +14,7 @@ extends Node2D
 @onready var throw_bullet_sound: AudioStreamPlayer2D = $ThrowBulletSound;
 @onready var throw_rock_sound: AudioStreamPlayer2D = $ThrowRockSound;
 @onready var spawn_sound: AudioStreamPlayer2D = $SpawnSound;
+@onready var click_area_shape: CollisionShape2D = $Area2D/CollisionShape2D;
 
 var enemies_in_range: Array[Mob] = [];
 var attack_cooldown: float = 0.0;
@@ -81,7 +82,7 @@ func _process(delta: float) -> void:
 					self.bow_sprite.play("shotting");
 					self.attack_cooldown = self.current_tower_archer_data.attack_interval;
 					await self.get_tree().create_timer(1.0 / 4.5).timeout;
-					for i in range(0, self.get_shot_count()):
+					for i in range(0, self.get_archer_shot_count()):
 						target = self.get_target(i);
 						if is_instance_valid(target):
 							self.shot_arrow(target, self.to_local(self.bow_sprite.global_position));
@@ -90,43 +91,32 @@ func _process(delta: float) -> void:
 			elif !self.bow_sprite.is_playing():
 				self.bow_sprite.play("no_arrow");
 		TowerType.WIZARD:
-			if self.attack_cooldown <= 0 && is_instance_valid(self.get_target()):
+			var target: Mob = self.get_target();
+			if self.attack_cooldown <= 0 && is_instance_valid(target):
 				self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
-				for i in range(0, self.get_shot_count(1)):
-					var target: Mob = self.get_target(i);
-					if is_instance_valid(target):
-						self.shot_bullet(target);
+				self.shot_bullet(target);
 		TowerType.QUARY:
-			if self.attack_cooldown <= 0 && is_instance_valid(self.get_target()):
+			var target: Mob = self.get_target();
+			if self.attack_cooldown <= 0 && is_instance_valid(target):
 				self.attack_cooldown = self.current_tower_quary_data.attack_interval;
-				for i in range(0, self.get_shot_count(1)):
-					var target: Mob = self.get_target(i);
-					if is_instance_valid(target):
-						self.shot_rock(target);
+				self.shot_rock(target);
 		TowerType.BARRACK:
 			if self.timer.is_stopped() && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
 				self.timer.start();
 func _on_timer_timeout() -> void:
 	if self.type == TowerType.BARRACK && self.units.get_child_count() < self.current_tower_barrack_data.max_units:
 		self.spawn_unit();
-func get_shot_count(bonus: int = 0) -> int:
+func get_archer_shot_count() -> int:
 	var shot_count: int = 1;
 	var roll: float = randf();
-	match self.level + bonus:
+	match self.level:
 		2:
-			if roll <= 0.8:
+			if roll <= 0.75:
 				shot_count = 2;
 		3:
-			if roll <= 0.8:
+			if roll <= 0.50:
 				shot_count = 3;
-			elif roll <= 0.9:
-				shot_count = 2;
-		4:
-			if roll <= 0.8:
-				shot_count = 4;
-			elif roll <= 0.9:
-				shot_count = 3;
-			else:
+			elif roll <= 0.75:
 				shot_count = 2;
 	return shot_count;
 func shot_arrow(target: Mob, origin: Vector2) -> void:
@@ -150,7 +140,8 @@ func shot_bullet(target: Mob) -> void:
 		self.global_position, 
 		target,
 		self.current_tower_wizard_data.damage,
-		self.current_tower_wizard_data.origin
+		self.current_tower_wizard_data.origin,
+		self.level
 	);
 	self.throw_bullet_sound.play();
 func shot_rock(target: Mob) -> void:
@@ -239,6 +230,8 @@ func buy_wizard() -> void:
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
 		self.bow.visible = false;
+		self.sprite.offset = data.offset;
+		self.click_area_shape.position = data.offset;
 		self.set_timer();
 func buy_quary() -> void:
 	if self.level > 2: return;
@@ -255,6 +248,8 @@ func buy_quary() -> void:
 			self.attack_area.collision_shape.radius_y = self.attack_area.collision_shape.radius_x / 2.0;
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
+		self.sprite.offset = data.offset;
+		self.click_area_shape.position = data.offset;
 		self.bow.visible = false;
 		self.set_timer();
 func buy_archer() -> void:
@@ -273,6 +268,8 @@ func buy_archer() -> void:
 			self.attack_area.queue_redraw();
 		self.tower_barrack_spawn_point = self.global_position;
 		self.bow.position.y = data.origin.y;
+		self.sprite.offset = data.offset;
+		self.click_area_shape.position = data.offset;
 		self.bow.visible = true;
 		self.set_timer();
 func buy_barrack() -> void:
@@ -292,6 +289,8 @@ func buy_barrack() -> void:
 		if self.level == 1:
 			self.calculate_initial_spawn_point();
 		self.bow.visible = false;
+		self.sprite.offset = data.offset;
+		self.click_area_shape.position = data.offset;
 		self.clear_units();
 		for i in range(data.inital_units):
 			self.spawn_unit(i);
@@ -316,6 +315,8 @@ func sell() -> void:
 	self.current_tower_barrack_data = null;
 	self.current_tower_quary_data = null;
 	self.sprite.texture = null;
+	self.sprite.offset = Vector2(0, -36);
+	self.click_area_shape.position = Vector2(0, -36);
 	Base.get_instance().money += sell_value;
 	if self.attack_area.collision_shape:
 		self.attack_area.collision_shape.radius_x = 1.0;

@@ -8,4 +8,5 @@
 script = ExtResource("1_h8lle")
 unit_data = ExtResource("3_74lra")
 texture = ExtResource("2_6kpjo")
+offset = Vector2(3, -36)
 metadata/_custom_type_script = "uid://c8i0fscxmantb"
