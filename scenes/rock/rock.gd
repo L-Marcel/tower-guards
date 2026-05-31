@@ -109,5 +109,3 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 	if body is Mob && (body as Mob).is_enemy:
 		self.enemies_in_range.erase(body as Mob);
 #endregion
-
-# TODO: 44, 48, 4
