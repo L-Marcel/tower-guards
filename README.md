@@ -35,7 +35,7 @@ Primeiramente, o primeiro nível é fácil mesmo. E todos os níveis foram testa
 
 <details>
   <summary>Dica 01</summary>
-  Preste atenção ao tipo de inimigo. A torre de mago comum é a única que dá dano mágico. Então encaixe ela bem. A torre de golem é lenta, mas dá um dano bom em área. Para ondas espaçosas ela é ruim.
+  Preste atenção ao tipo de inimigo. A torre de mago é a única que dá dano mágico. Então encaixe ela bem. A torre de golem é lenta, mas dá um dano bom em área. Para ondas espaçosas ela é ruim.
 </details>
 <details>
   <summary>Dica 02</summary>
@@ -43,7 +43,7 @@ Primeiramente, o primeiro nível é fácil mesmo. E todos os níveis foram testa
 </details>
 <details>
   <summary>Dica 03</summary>
-  Todas as torres possuem sua utilidade. O golem pode funcionar bem mesmo de longe contra inimigos iniciais, devido a lentidão de seu projétil; o arqueiro da dano rápido em pelo menos uma unidade; o projétil do mago comum é imprevisível, mas de salto em salto, permite a ele cobrir uma área maior; os soldados da barraca também regeneram vida, então são bons para segurar inimigos enquanto outras torres focam neles.
+  Todas as torres possuem sua utilidade. O golem pode funcionar bem contra grupos; o arqueiro da dano rápido em pelo menos uma unidade; o projétil do mago é imprevisível de pois do primeiro acerto, mas de salto em salto, permite a ele cobrir uma área maior; os soldados da barraca também regeneram vida, então são bons para segurar inimigos enquanto outras torres focam neles.
 </details>
 <details>
   <summary>Dica 04</summary>
