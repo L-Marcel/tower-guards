@@ -349,13 +349,13 @@ func close_other_menus(active_tower: Tower) -> void:
 func _unhandled_input(event: InputEvent) -> void:
 	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		var query: PhysicsPointQueryParameters2D = PhysicsPointQueryParameters2D.new();
-		query.position = get_global_mouse_position();
+		query.position = self.get_global_mouse_position();
 		query.collide_with_areas = true;
 		query.collide_with_bodies = false;
-		var space_state: PhysicsDirectSpaceState2D = get_world_2d().direct_space_state;
+		var space_state: PhysicsDirectSpaceState2D = self.get_world_2d().direct_space_state;
 		var result: Array[Dictionary] = space_state.intersect_point(query);
 		
-		var hit_menu: bool = result.any(func(hit: Dictionary): return self.menu.areas.has(hit["collider"]));
+		var hit_menu: bool = result.any(func(hit: Dictionary): return self.menu.areas.has(hit["collider"]) || !self.menu.enabled);
 		if hit_menu:
 			self.attack_area.border_is_visible = false;
 			self.attack_area.is_alternative = false;

@@ -22,6 +22,16 @@ extends Node2D
 	$EndMenu/SpawnPoint/SpawnPoint
 ];
 
+var enabled: bool = true;
+
+func set_clicks_enabled(_enabled: bool) -> void:
+	self.enabled = _enabled;
+	if !self.enabled:
+		self.close_menu();
+
+func _ready() -> void:
+	self.add_to_group("tower_menus");
+
 func open_base_menu() -> void:
 	self.base_menu.visible = true;
 	self.upgrade_menu.visible = false;
@@ -61,32 +71,32 @@ func close_menu() -> void:
 	self.end_menu_spawn_point_option.visible = false;
 
 func _on_spawn_point_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+	if self.enabled && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.start_change_spawn_point_mode();
 		self.close_menu();
 
 func _on_wizard_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+	if self.enabled && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.buy_wizard();
 		self.close_menu();
 
 func _on_soldier_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+	if self.enabled && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.buy_barrack();
 		self.close_menu();
 
 func _on_archer_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+	if self.enabled && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.buy_archer();
 		self.close_menu();
 
 func _on_quary_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+	if self.enabled && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.buy_quary();
 		self.close_menu();
 
 func _on_upgrade_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+	if self.enabled && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		match self.tower.type:
 			Tower.TowerType.ARCHER: self.tower.buy_archer();
 			Tower.TowerType.WIZARD: self.tower.buy_wizard();
@@ -95,7 +105,7 @@ func _on_upgrade_input_event(_viewport: Node, event: InputEvent, _shape_idx: int
 		self.close_menu();
 
 func _on_sell_input_event(_viewport: Node, event: InputEvent, _shape_idx: int) -> void:
-	if event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
+	if self.enabled && event is InputEventMouseButton && event.button_index == MOUSE_BUTTON_LEFT && event.pressed:
 		self.tower.sell();
 		self.close_menu();
 

@@ -5,11 +5,15 @@ extends AttackArea2D
 @export_custom(PROPERTY_HINT_NONE, "suffix:health/s") var damage: float = 5;
 @export_range(0.0, 0.4) var slow: float;
 @export var duration: float = 12.0;
-@onready var area_sound: AudioStreamPlayer2D = $PoisonAreaSound;
+@export var focused: bool = false:
+	set(value):
+		focused = value;
+		self.get_tree().call_group("tower_menus", "set_clicks_enabled", !value);;
+@export var active: bool = false;
+@export var finished: bool = false;
 
-var focused: bool = false;
-var active: bool = false;
-var finished: bool = false;
+@onready var area_sound: AudioStreamPlayer2D = $PoisonAreaSound;
+@onready var particles: CPUParticles2D = $CPUParticles2D;
 
 func _ready() -> void:
 	super._ready();
@@ -17,6 +21,8 @@ func _ready() -> void:
 
 func _process(_delta: float) -> void:
 	self.visible = self.focused || self.active;
+	if !Engine.is_editor_hint():
+		self.particles.visible = self.active;
 	if self.finished:
 		self.visible = false;
 		for target in self.get_targets():

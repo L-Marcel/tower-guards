@@ -20,6 +20,10 @@
 [ext_resource type="Script" uid="uid://dqk0ksrrs8qwt" path="res://scenes/base/poison_potion.gd" id="12_1ux5t"]
 [ext_resource type="Script" uid="uid://boslb1cadb0t2" path="res://scenes/base/freeze_potion.gd" id="15_7k1x7"]
 
+[sub_resource type="Gradient" id="Gradient_ldvy7"]
+offsets = PackedFloat32Array(0.0072115385, 1)
+colors = PackedColorArray(0.64705884, 0.21176471, 0.16078432, 1, 1, 0.0627451, 0.40784314, 1)
+
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_5yfd3"]
 bg_color = Color(0, 0, 0, 0.2)
 
@@ -35,7 +39,6 @@ pitch_scale = 1.1
 [node name="PoisonArea" type="Area2D" parent="." unique_id=2009921194]
 visible = false
 z_index = -45
-position = Vector2(953.29785, -709.2441)
 script = ExtResource("2_bvxot")
 damage = 8.0
 slow = 0.2
@@ -46,7 +49,24 @@ is_alternative = true
 border_is_visible = true
 metadata/_custom_type_script = "uid://lc8wrbrfihsl"
 
+[node name="CPUParticles2D" type="CPUParticles2D" parent="PoisonArea" unique_id=815160520]
+visible = false
+z_as_relative = false
+y_sort_enabled = true
+scale = Vector2(2, 1)
+amount = 120
+lifetime = 1.4
+randomness = 0.2
+emission_shape = 2
+emission_sphere_radius = 110.0
+gravity = Vector2(0, -80)
+radial_accel_min = -30.0
+scale_amount_min = 6.0
+scale_amount_max = 6.0
+color_ramp = SubResource("Gradient_ldvy7")
+
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="PoisonArea" unique_id=845911838]
+visible = false
 polygon = PackedVector2Array(-250, 1.5308084e-14, -245.19632, -24.38629, -230.96988, -47.83543, -207.8674, -69.44628, -176.7767, -88.38835, -138.89256, -103.9337, -95.67086, -115.48494, -48.77258, -122.59816, -4.5924256e-14, -125, 48.77258, -122.59816, 95.67086, -115.48494, 138.89256, -103.9337, 176.7767, -88.38835, 207.8674, -69.44628, 230.96988, -47.83543, 245.19632, -24.38629, 250, 0, 245.19632, 24.38629, 230.96988, 47.83543, 207.8674, 69.44628, 176.7767, 88.38835, 138.89256, 103.9337, 95.67086, 115.48494, 48.77258, 122.59816, 1.5308084e-14, 125, -48.77258, 122.59816, -95.67086, 115.48494, -138.89256, 103.9337, -176.7767, 88.38835, -207.8674, 69.44628, -230.96988, 47.83543, -245.19632, 24.38629, -250, 1.5308084e-14)
 script = ExtResource("3_3exvk")
 radius_x = 250.0
@@ -61,7 +81,6 @@ pitch_scale = 1.1
 [node name="FreezeArea" type="Area2D" parent="." unique_id=781446463]
 visible = false
 z_index = -45
-position = Vector2(953.29785, -709.2441)
 script = ExtResource("4_5eedh")
 resistence_reduction = 0.4
 slow = 0.6
@@ -72,6 +91,20 @@ alternative_color = Color(0.6039216, 0.67058825, 0.69803923, 1)
 is_alternative = true
 border_is_visible = true
 metadata/_custom_type_script = "uid://cxd84pq5ehpwk"
+
+[node name="CPUParticles2D" type="CPUParticles2D" parent="FreezeArea" unique_id=1943206608]
+visible = false
+z_as_relative = false
+y_sort_enabled = true
+scale = Vector2(2, 1)
+amount = 120
+emission_shape = 2
+emission_sphere_radius = 110.0
+gravity = Vector2(0, 0)
+tangential_accel_min = -100.0
+tangential_accel_max = -50.0
+scale_amount_min = 6.0
+scale_amount_max = 6.0
 
 [node name="CollisionPolygon2D" type="CollisionPolygon2D" parent="FreezeArea" unique_id=1895784324]
 polygon = PackedVector2Array(-250, 1.5308084e-14, -245.19632, -24.38629, -230.96988, -47.83543, -207.8674, -69.44628, -176.7767, -88.38835, -138.89256, -103.9337, -95.67086, -115.48494, -48.77258, -122.59816, -4.5924256e-14, -125, 48.77258, -122.59816, 95.67086, -115.48494, 138.89256, -103.9337, 176.7767, -88.38835, 207.8674, -69.44628, 230.96988, -47.83543, 245.19632, -24.38629, 250, 0, 245.19632, 24.38629, 230.96988, 47.83543, 207.8674, 69.44628, 176.7767, 88.38835, 138.89256, 103.9337, 95.67086, 115.48494, 48.77258, 122.59816, 1.5308084e-14, 125, -48.77258, 122.59816, -95.67086, 115.48494, -138.89256, 103.9337, -176.7767, 88.38835, -207.8674, 69.44628, -230.96988, 47.83543, -245.19632, 24.38629, -250, 1.5308084e-14)
@@ -157,6 +190,7 @@ label_settings = ExtResource("3_2ket1")
 
 [node name="OptionButton" type="OptionButton" parent="CanvasLayer/Control/PanelContainer/MarginContainer/HBoxContainer/RightContainer/SpeedContainer" unique_id=1166384222]
 layout_mode = 2
+focus_mode = 0
 theme = ExtResource("4_e5se4")
 alignment = 1
 selected = 0
@@ -236,6 +270,7 @@ material = ExtResource("6_oujnm")
 custom_minimum_size = Vector2(90, 120)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
 texture_normal = ExtResource("6_g60pn")
 ignore_texture_size = true
 stretch_mode = 6
@@ -259,6 +294,7 @@ material = ExtResource("6_oujnm")
 custom_minimum_size = Vector2(90, 120)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
 texture_normal = ExtResource("7_knman")
 ignore_texture_size = true
 stretch_mode = 6
@@ -282,6 +318,7 @@ material = ExtResource("6_oujnm")
 custom_minimum_size = Vector2(90, 120)
 layout_mode = 2
 size_flags_horizontal = 4
+focus_mode = 0
 texture_normal = ExtResource("8_oujnm")
 ignore_texture_size = true
 stretch_mode = 6

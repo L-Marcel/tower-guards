@@ -13,8 +13,10 @@ func update() -> void:
 	self.used = !Level.get_instance().freeze;
 
 func use() -> void:
-	if !self.area.active && !self.area.focused:
+	if !self.used && !self.area.active && !self.area.focused:
 		self.area.focused = true;
+	elif self.area.focused:
+		self.area.focused = false;
 
 func _pressed() -> void:
 	self.use();
@@ -24,7 +26,7 @@ func _process(_delta: float) -> void:
 		self.modulate.a = 0.2;
 	else:
 		self.modulate.a = 1.0;
-	if Input.is_action_pressed("freeze_potion"):
+	if Input.is_action_just_pressed("freeze_potion"):
 		self.use();
 	if self.area.focused:
 		self.modulate.a = 0.75;

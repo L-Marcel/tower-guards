@@ -70,16 +70,16 @@ y_sort_enabled = true
 script = ExtResource("2_hvqp8")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(0.65876615, 0.19999999, 1, 1)
+modulate = Color(1, 0.19999999, 0.93200874, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_hvqp8")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=1490093494]
-modulate = Color(0.617056, 1, 0.19999999, 1)
+modulate = Color(0.48907453, 1, 0.19999999, 1)
 curve = SubResource("Curve2D_8w8tq")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=877044374]
-modulate = Color(0.19999999, 0.6610775, 1, 1)
+modulate = Color(0.19999999, 0.211092, 1, 1)
 curve = SubResource("Curve2D_foqc1")
 
 [node name="Base" parent="Entities" unique_id=1376810633 instance=ExtResource("3_8w8tq")]
