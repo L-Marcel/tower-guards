@@ -48,11 +48,10 @@ Primeiramente, o primeiro nível é fácil mesmo.
   <summary>Dica 06</summary>
   Colocar os soldados um pouco recuado pode ajudar certas torres.
 </details>
-<details>
-  <summary>DICA MÁXIMA DO ÚLTIMO NÍVEL</summary>
-  Se sofrer muito, experimente alguma formação derivada dessa.
-  ![spoiler](/docs/img/spoiler.jpeg)
-</details>
+
+## Dica máxima do último nível
+
+Se sofrer muito, experimente alguma formação derivada: [spoiler](/docs/img/spoiler.jpeg).
 
 # Cŕeditos
 - [LUCAS MARCEL SILVA DE BRITO](https://github.com/l-marcel)
