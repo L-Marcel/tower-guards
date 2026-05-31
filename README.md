@@ -31,7 +31,7 @@ As versões compiladas do jogo estão disponíveis [aqui](https://github.com/L-M
 
 ## Dicas
 
-Primeiramente, o primeiro nível é fácil mesmo.
+Primeiramente, o primeiro nível é fácil mesmo. E todos os níveis foram testados e são possíveis de serem concluídos.
 
 <details>
   <summary>Dica 01</summary>
