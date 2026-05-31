@@ -51,7 +51,7 @@ Primeiramente, o primeiro nível é fácil mesmo.
 </details>
 <details>
   <summary>Dica 05</summary>
-  Em alguns momentos raros você pode precisar ficar atento para vender uma torrer e colocar outra no lugar.
+  Em alguns momentos raros você pode precisar ficar atento para vender uma torrer e colocar outra no lugar. No segundo nível isso é muito importante.
 </details>
 <details>
   <summary>Dica 06</summary>
