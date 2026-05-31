@@ -10,6 +10,9 @@ As versões compiladas do jogo estão disponíveis [aqui](https://github.com/L-M
 - `WASD` / setas / botão direito do mouse — movimentar a câmera
 - `1` / `2` / `3` / `4` — atalhos para alterar velocidade
 - `Z` / `X` / `C` — atalhos para as poções
+  - Exceto pela primeira, que é de uso instantâneo, você pode cancelar a utilização das demais apertando o botão novamente, clicando no ícone ou apertando o botão direito do mause;
+  - Para definir a área basta clicar com o botão esquerdo do mouse na posição selecionada;
+  - Você pode selecionar a segunda e terceira poção simultaneamente e jogar elas de uma só vez.
 
 ## Conteúdo
 
@@ -19,6 +22,12 @@ As versões compiladas do jogo estão disponíveis [aqui](https://github.com/L-M
 - 6 inimigos
 
 > Os inimigos azuis tem resistência mágica. Os demais tem resistência física.
+
+## Poções
+
+- `Fúria`: diminui o intervalo de ataque e spawn das torres e unidades;
+- `Veneno`: cria uma área envenenada, inimigos que entram passam a tomar dano por segundo diretamente na vida e são desacelerados sutilmente enquanto ainda estiverem dentro da área. Além disso, não vão mais regenerar vida ao sair da área;
+- `Gelo`: cria uma área congelada, inimigos que entram são muito desacelerados e possuem sua resistência a dano reduzida consideravelmente enquanto ainda estiverem dentro da área. Tem duração maior que a área de veneno.
 
 ## Dicas
 
@@ -55,7 +64,7 @@ Primeiramente, o primeiro nível é fácil mesmo.
 
 ## Dica máxima do último nível
 
-Se sofrer muito, experimente alguma formação derivada: [spoiler](/docs/img/spoiler.jpeg).
+Se sofrer muito, experimente alguma formação derivada: [spoiler](/docs/img/spoiler.jpeg). Foi com essa que consegui.
 
 # Cŕeditos
 - [LUCAS MARCEL SILVA DE BRITO](https://github.com/l-marcel)
