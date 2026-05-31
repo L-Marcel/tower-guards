@@ -25,7 +25,7 @@ As versões compiladas do jogo estão disponíveis [aqui](https://github.com/L-M
 
 ## Poções
 
-- `Fúria`: diminui o intervalo de ataque e spawn das torres e unidades;
+- `Fúria`: diminui o intervalo de ataque e spawn das torres e unidades aliadas;
 - `Veneno`: cria uma área envenenada, inimigos que entram passam a tomar dano por segundo diretamente na vida e são desacelerados sutilmente enquanto ainda estiverem dentro da área. Além disso, não vão mais regenerar vida ao sair da área;
 - `Gelo`: cria uma área congelada, inimigos que entram são muito desacelerados e possuem sua resistência a dano reduzida consideravelmente enquanto ainda estiverem dentro da área. Tem duração maior que a área de veneno.
 
