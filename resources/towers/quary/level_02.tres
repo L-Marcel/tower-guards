@@ -5,7 +5,7 @@
 
 [resource]
 script = ExtResource("1_vwuc0")
-cost = 70
+cost = 60
 damage = 25.0
 attack_interval = 3.5
 attack_range = 325.0

@@ -7,35 +7,51 @@ Jogo de defesa de torres construído durante a disciplina de motores de jogos.
 As versões compiladas do jogo estão disponíveis [aqui](https://github.com/L-Marcel/tower-guards/releases). Há uma versão para Windows e uma para Linux.
 
 ## Controles
-- `WASD` / setas — movimentar a câmera
+- `WASD` / setas / botão direito do mouse — movimentar a câmera
 - `1` / `2` / `3` / `4` — atalhos para alterar velocidade
-- mouse — restante
+- `Z` / `X` / `C` — atalhos para as poções
 
 ## Conteúdo
 
 - 3 níveis
-- 3 torres
+- 3 poções
+- 4 torres
 - 6 inimigos
 
 > Os inimigos azuis tem resistência mágica. Os demais tem resistência física.
 
 ## Dicas
 
+Primeiramente, o primeiro nível é fácil mesmo.
+
 <details>
   <summary>Dica 01</summary>
-  A torre de mago é útil contra vários inimigos desde cedo.
+  Preste atenção ao tipo de inimigo. A torre de mago comum é a única que dá dano mágico. Então encaixe ela bem. A torre de golem é lenta, mas dá um dano bom em área. Para ondas espaçosas ela é ruim.
 </details>
 <details>
   <summary>Dica 02</summary>
-  A partir do segundo nível de evolução a torre de arqueiros é boa contra vários inimigos.
+  Os inimigos regeneram vida, considere isso antes de aplicar a estratégia de dar dano no começo da onda.
 </details>
 <details>
   <summary>Dica 03</summary>
-  A barraca ficou levemente desbalanceada, mas tem utilidade no terceiro nível.
+  Todas as torres possuem sua utilidade. O golem pode funcionar bem mesmo de longe contra inimigos iniciais, devido a lentidão de seu projétil; o arqueiro dar dano rápido em pelo menos uma unidade; o projétil do mago comum é imprevisível, mas de salto em salto, permite a ele cobrir uma área maior; os soldados da barraca também regeneram vida, então são bons para segurar inimigos enquanto outras torres focam neles.
 </details>
 <details>
   <summary>Dica 04</summary>
-  O terceiro nível tem muitos inimigos com resistência mágica.
+  Em alguns momentos raros você pode precisar ficar atento para vender uma torrer e colocar outra no lugar. Use as poções com sabedoria, cada onda pode guardar um mistério.
+</details>
+<details>
+  <summary>Dica 05</summary>
+  No último nível, encontre seu trio monstro.
+</details>
+<details>
+  <summary>Dica 06</summary>
+  Colocar os soldados um pouco recuado pode ajudar certas torres.
+</details>
+<details>
+  <summary>DICA MÁXIMA DO ÚLTIMO NÍVEL</summary>
+  Se sofrer muito, experimente alguma formação derivada dessa.
+  ![spoiler](/docs/img/spoiler.jpeg)
 </details>
 
 # Cŕeditos

@@ -16,6 +16,9 @@ var physical_resistance: float = 0.0;
 var magical_resistance: float = 0.0;
 var is_enemy: bool = true;
 var value_in_money: int = 0;
+var poison_slow: float = 0;
+var freeze_slow: float = 0;
+var resistence_reduction: float = 0.0;
 
 @onready var attack_area_collision_shape: CollisionShape2D = $AttackArea2D/CollisionShape2D;
 @onready var agro_area_collision_shape: CollisionShape2D = $AgroArea2D/CollisionShape2D;
@@ -114,6 +117,8 @@ func _ready() -> void:
 		self.set_data(self.initial_data);
 func _process(delta: float) -> void:
 	self.health = min(self.health + (self.regeneration * delta), self.max_health);
+	if self.regeneration < 0 && self.health <= 0:
+		self.die();
 	if self.health == self.max_health:
 		self.health_bar.visible = false;
 	else:
@@ -151,7 +156,7 @@ func _follow_path(delta: float) -> void:
 			distance = self.global_position.distance_to(destiny);
 	var max_speed: float = distance / delta;
 	self.velocity = self.global_position.direction_to(destiny) * min(
-		self.speed, 
+		self.speed * (1.0 - self.poison_slow) * (1.0 - self.freeze_slow), 
 		max_speed
 	);
 	self.move_and_slide();
@@ -171,7 +176,7 @@ func _on_attacking_state_physics_processing(delta: float) -> void:
 		var distance: float = self.global_position.distance_to(self.target.global_position);
 		var max_speed: float = distance / delta;
 		self.velocity = self.global_position.direction_to(self.target.global_position) * min(
-			self.speed, 
+			self.speed * (1.0 - self.poison_slow) * (1.0 - self.freeze_slow), 
 			max_speed
 		);
 		self.move_and_slide();
@@ -229,6 +234,8 @@ func _on_attacking_state_processing(_delta: float) -> void:
 				int(self.attack_interval * self.attack_interval_randomness)
 			);
 			self._attack_timer = self.attack_interval - interval_reduction;
+			if !self.is_enemy:
+				self._attack_timer *= (1.0 - Tower.global_interval_reduction);
 	elif !target_is_in_attack_range:
 		self.movement_is_priority = false;
 func _on_agro_area_2d_body_entered(body: Node2D) -> void:
@@ -276,16 +283,17 @@ func clear_target() -> void:
 func hurt(hit_damage: float, type: DamageType):
 	match type:
 		DamageType.PHYSICAL:
-			var damage_taken: float = hit_damage * (1.0 - self.physical_resistance);
+			var damage_taken: float = hit_damage * (1.0 - self.physical_resistance + self.resistence_reduction);
 			self.health -= damage_taken;
 		DamageType.MAGICAL:
-			var damage_taken: float = hit_damage * (1.0 - self.magical_resistance);
+			var damage_taken: float = hit_damage * (1.0 - self.magical_resistance + self.resistence_reduction);
 			self.health -= damage_taken;
 	if self.health <= 0:
 		self.die();
-func die():
-	self.clear_target();
-	if self.is_enemy:
-		Base.get_instance().money += self.value_in_money;
-	self.queue_free();
+func die() -> void:
+	if !self.is_queued_for_deletion():
+		self.clear_target();
+		if self.is_enemy:
+			Base.get_instance().money += self.value_in_money;
+		self.queue_free();
 #endregion Damage

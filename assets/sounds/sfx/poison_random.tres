@@ -1,0 +1,8 @@
+[gd_resource type="AudioStreamRandomizer" format=3 uid="uid://k5wi7j2hxro5"]
+
+[ext_resource type="AudioStream" uid="uid://cbyat3mt6j8tt" path="res://assets/sounds/sfx/poison.mp3" id="1_c6187"]
+
+[resource]
+random_pitch = 1.2599211
+streams_count = 1
+stream_0/stream = ExtResource("1_c6187")

@@ -1,8 +1,10 @@
 class_name Tower
 extends Node2D
 
+static var global_interval_reduction: float = 0.0;
+
 @onready var area: Area2D = $Area2D;
-@onready var attack_area: TowerAttackArea2D = $TowerAttackArea2D;
+@onready var attack_area: AttackArea2D = $TowerAttackArea2D;
 @onready var menu: TowerMenu = $TowerMenu;
 @onready var sprite: Sprite2D = $Sprite2D;
 @onready var timer: Timer = $Timer;
@@ -16,7 +18,6 @@ extends Node2D
 @onready var spawn_sound: AudioStreamPlayer2D = $SpawnSound;
 @onready var click_area_shape: CollisionShape2D = $Area2D/CollisionShape2D;
 
-var enemies_in_range: Array[Mob] = [];
 var attack_cooldown: float = 0.0;
 
 var level: int = 0;
@@ -66,11 +67,15 @@ func _ready() -> void:
 
 #region Lógicas de ataque
 func _process(delta: float) -> void:
-	self.attack_cooldown -= delta;
+	if Tower.global_interval_reduction != 0:
+		self.modulate = Color.from_string("#ffbc27", Color.WHITE);
+	else:
+		self.modulate = Color.WHITE;
+	self.attack_cooldown -= delta * (1.0 + Tower.global_interval_reduction);
 	match self.type:
 		TowerType.ARCHER:
 			var origin: Vector2 = self.bow_sprite.global_position;
-			var target: Mob = self.get_target();
+			var target: Mob = self.attack_area.get_target();
 			if target != null:
 				var end_position: Vector2 = (origin + target.global_position) / 2.0;
 				end_position.y -= 120.0;
@@ -83,7 +88,7 @@ func _process(delta: float) -> void:
 					self.attack_cooldown = self.current_tower_archer_data.attack_interval;
 					await self.get_tree().create_timer(1.0 / 4.5).timeout;
 					for i in range(0, self.get_archer_shot_count()):
-						target = self.get_target(i);
+						target = self.attack_area.get_target(i);
 						if is_instance_valid(target):
 							self.shot_arrow(target, self.to_local(self.bow_sprite.global_position));
 				elif !self.bow_sprite.is_playing():
@@ -91,12 +96,12 @@ func _process(delta: float) -> void:
 			elif !self.bow_sprite.is_playing():
 				self.bow_sprite.play("no_arrow");
 		TowerType.WIZARD:
-			var target: Mob = self.get_target();
+			var target: Mob = self.attack_area.get_target();
 			if self.attack_cooldown <= 0 && is_instance_valid(target):
 				self.attack_cooldown = self.current_tower_wizard_data.attack_interval;
 				self.shot_bullet(target);
 		TowerType.QUARY:
-			var target: Mob = self.get_target();
+			var target: Mob = self.attack_area.get_target();
 			if self.attack_cooldown <= 0 && is_instance_valid(target):
 				self.attack_cooldown = self.current_tower_quary_data.attack_interval;
 				self.shot_rock(target);
@@ -157,15 +162,17 @@ func shot_rock(target: Mob) -> void:
 	);
 	self.throw_rock_sound.play();
 func set_timer():
+	var wait_time: float = 0;
 	match self.type:
 		TowerType.BARRACK:
-			self.timer.set_wait_time(self.current_tower_barrack_data.unit_respawn_interval);
+			wait_time = self.current_tower_barrack_data.unit_respawn_interval;
 		TowerType.ARCHER:
-			self.timer.set_wait_time(self.current_tower_archer_data.attack_interval);
+			wait_time = self.current_tower_archer_data.attack_interval;
 		TowerType.WIZARD:
-			self.timer.set_wait_time(self.current_tower_wizard_data.attack_interval);
+			wait_time = self.current_tower_wizard_data.attack_interval;
 		TowerType.QUARY:
-			self.timer.set_wait_time(self.current_tower_quary_data.attack_interval);
+			wait_time = self.current_tower_quary_data.attack_interval;
+	self.timer.set_wait_time(wait_time * (1.0 - Tower.global_interval_reduction));
 func clear_units() -> void:
 	for child in self.units.get_children():
 		if child is Mob:
@@ -384,20 +391,4 @@ func _unhandled_input(event: InputEvent) -> void:
 		else:
 			self.attack_area.border_is_visible = false;
 			self.attack_area.is_alternative = false;
-#endregion
-
-#region Target
-func get_target(index: int = 0) -> Mob:
-	self.enemies_in_range = self.enemies_in_range.filter(func(enemy: Mob) -> bool:
-		return is_instance_valid(enemy);
-	);
-	
-	if self.enemies_in_range.size() < index + 1: return null;
-	return self.enemies_in_range[index];
-func _on_tower_attack_area_2d_body_entered(body: Node2D) -> void:
-	if body is Mob && (body as Mob).is_enemy:
-		self.enemies_in_range.append(body as Mob);
-func _on_tower_attack_area_2d_body_exited(body: Node2D) -> void:
-	if body is Mob && (body as Mob).is_enemy:
-		self.enemies_in_range.erase(body as Mob);
 #endregion

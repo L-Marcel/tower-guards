@@ -110,5 +110,4 @@ func _on_area_2d_body_exited(body: Node2D) -> void:
 		self.enemies_in_range.erase(body as Mob);
 #endregion
 
-# TODO: ADICIONAR HABILIDADE DE BARRAR INIMIGOS (SPAWN)
-# TODO: ADICIONAR HABILIDADE DE LENTIDAO
+# TODO: 44, 48, 4

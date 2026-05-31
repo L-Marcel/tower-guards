@@ -113,6 +113,4 @@ y_sort_enabled = true
 [node name="Timer" type="Timer" parent="." unique_id=272448228]
 one_shot = true
 
-[connection signal="body_entered" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_entered"]
-[connection signal="body_exited" from="TowerAttackArea2D" to="." method="_on_tower_attack_area_2d_body_exited"]
 [connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

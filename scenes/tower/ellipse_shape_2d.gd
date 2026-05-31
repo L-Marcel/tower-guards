@@ -17,6 +17,8 @@ extends CollisionPolygon2D
 		segments = clampi(value, 8, 128);
 		self._update_polygon();
 
+signal updated;
+
 func _ready() -> void:
 	self._update_polygon();
 
@@ -29,3 +31,4 @@ func _update_polygon() -> void:
 		var y: float = self.radius_y * sin(angle);
 		new_polygon.append(Vector2(x, y));
 	self.polygon = Geometry2D.convex_hull(new_polygon);
+	self.updated.emit();

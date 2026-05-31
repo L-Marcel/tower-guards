@@ -44,6 +44,7 @@ y_sort_enabled = true
 script = ExtResource("1_yklhy")
 max_tower_level = 2
 next_level = ExtResource("2_o4ql5")
+poison = true
 metadata/_custom_type_script = "uid://bk40s7w1inj2y"
 
 [node name="GroundTileMapLayer" type="TileMapLayer" parent="." unique_id=1116027231]
@@ -67,17 +68,17 @@ y_sort_enabled = true
 script = ExtResource("2_n536o")
 
 [node name="Path2D" type="Path2D" parent="Entities/Paths" unique_id=197246674]
-modulate = Color(1, 0.9198448, 0.19999999, 1)
+modulate = Color(0.21378046, 1, 0.19999999, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_i2aat")
 
 [node name="Path2D2" type="Path2D" parent="Entities/Paths" unique_id=2048301416]
-modulate = Color(0.19999999, 1, 0.75337446, 1)
+modulate = Color(1, 0.19999999, 0.6210224, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_o4ql5")
 
 [node name="Path2D3" type="Path2D" parent="Entities/Paths" unique_id=1258221372]
-modulate = Color(0.19999999, 0.8484505, 1, 1)
+modulate = Color(0.55923533, 0.19999999, 1, 1)
 position = Vector2(1320, 1400)
 curve = SubResource("Curve2D_4hx2o")
 

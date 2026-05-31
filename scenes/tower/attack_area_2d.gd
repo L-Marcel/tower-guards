@@ -1,5 +1,5 @@
 @tool
-class_name TowerAttackArea2D
+class_name AttackArea2D
 extends Area2D
 
 @export var border_color: Color = Color.from_rgba8(46, 34, 47):
@@ -25,8 +25,12 @@ extends Area2D
 
 @onready var collision_shape: EllipseShape2D = $CollisionPolygon2D;
 
+var enemies_in_range: Array[Mob] = [];
+
 func _ready() -> void:
 	self.queue_redraw();
+	self.body_entered.connect(self._on_2d_body_entered);
+	self.body_exited.connect(self._on_2d_body_exited);
 
 func _draw() -> void:
 	if self.collision_shape && self.border_is_visible:
@@ -38,4 +42,24 @@ func _draw() -> void:
 			self.draw_colored_polygon(points, color);
 			var border_points: PackedVector2Array = points.duplicate();
 			border_points.append(points[0]);
-			self.draw_polyline(border_points, self.border_color, 8.0, true);;
+			self.draw_polyline(border_points, self.border_color, 8.0, true);
+	
+#region Target
+func get_targets() -> Array[Mob]:
+	self.enemies_in_range = self.enemies_in_range.filter(func(enemy: Mob) -> bool:
+		return is_instance_valid(enemy);
+	);
+	return self.enemies_in_range;
+func get_target(index: int = 0) -> Mob:
+	self.enemies_in_range = self.enemies_in_range.filter(func(enemy: Mob) -> bool:
+		return is_instance_valid(enemy);
+	);
+	if self.enemies_in_range.size() < index + 1: return null;
+	return self.enemies_in_range[index];
+func _on_2d_body_entered(body: Node2D) -> void:
+	if body is Mob && (body as Mob).is_enemy:
+		self.enemies_in_range.append(body as Mob);
+func _on_2d_body_exited(body: Node2D) -> void:
+	if body is Mob && (body as Mob).is_enemy:
+		self.enemies_in_range.erase(body as Mob);
+#endregion
