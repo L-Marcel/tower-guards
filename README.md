@@ -34,19 +34,23 @@ Primeiramente, o primeiro nível é fácil mesmo.
 </details>
 <details>
   <summary>Dica 03</summary>
-  Todas as torres possuem sua utilidade. O golem pode funcionar bem mesmo de longe contra inimigos iniciais, devido a lentidão de seu projétil; o arqueiro dar dano rápido em pelo menos uma unidade; o projétil do mago comum é imprevisível, mas de salto em salto, permite a ele cobrir uma área maior; os soldados da barraca também regeneram vida, então são bons para segurar inimigos enquanto outras torres focam neles.
+  Todas as torres possuem sua utilidade. O golem pode funcionar bem mesmo de longe contra inimigos iniciais, devido a lentidão de seu projétil; o arqueiro da dano rápido em pelo menos uma unidade; o projétil do mago comum é imprevisível, mas de salto em salto, permite a ele cobrir uma área maior; os soldados da barraca também regeneram vida, então são bons para segurar inimigos enquanto outras torres focam neles.
 </details>
 <details>
   <summary>Dica 04</summary>
-  Em alguns momentos raros você pode precisar ficar atento para vender uma torrer e colocar outra no lugar. Use as poções com sabedoria, cada onda pode guardar um mistério.
+  Use as poções com sabedoria, cada onda pode guardar um mistério.
 </details>
 <details>
   <summary>Dica 05</summary>
-  No último nível, encontre seu trio monstro.
+  Em alguns momentos raros você pode precisar ficar atento para vender uma torrer e colocar outra no lugar.
 </details>
 <details>
   <summary>Dica 06</summary>
   Colocar os soldados um pouco recuado pode ajudar certas torres.
+</details>
+<details>
+  <summary>Dica 07</summary>
+  No último nível, encontre seu trio monstro.
 </details>
 
 ## Dica máxima do último nível
